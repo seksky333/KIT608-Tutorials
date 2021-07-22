@@ -12,6 +12,7 @@
 #include "Renderer.h"
 #include "DrawTask.h"
 #include "Logger.h"
+#include <iostream>
 
 namespace T3D 
 {
@@ -57,13 +58,31 @@ namespace T3D
 	 * \note `pushPixel` is used to do large batches of *bounds-checked* pixel drawing, which you may prefer to your application crashing if you go outside the texture area.
 	 */
 	void DrawTask::drawDDALine(int x1, int y1, int x2, int y2,Colour c){
-		float ystep = float(y2-y1) / (x2-x1);
-		float y = float(y1);
 
-		for (int x = x1; x < x2; x++){
-			drawArea->plotPixel(x, int(y), c);
-			y += ystep;
+		float  step, x, y;
+
+		
+		int deltax = (float(x2 - x1)); 
+		int deltay = (float(y2 - y1));
+		
+		//float dy = deltay / deltax;
+		
+		if (abs(deltax) >= abs(deltay))
+			step = abs(deltax);
+		else
+			step = abs(deltay);
+
+		deltax = deltax / step;
+		deltay = deltay / step;
+		x = x1;
+		y = y1;
+
+		for (int i = 0; i < step; i++) {
+			drawArea->plotPixel(int(x), int(y), c);
+			x += deltax;
+			y += deltay;
 		}
+		
 	}
 		
 
@@ -87,7 +106,27 @@ namespace T3D
 	 */
 	void DrawTask::update(float dt){
 		drawArea->clear(Colour(255, 255, 255, 255));
-		drawDDALine(100, 1000, 200, 200, Colour(255,0,0,255));
+		//red 
+		drawDDALine(100, 100, 200, 100, Colour(255, 0, 0, 255));
+		//blue left
+		drawDDALine(100, 100, 0, 100, Colour(0, 0, 255, 255));
+		//green down
+		drawDDALine(100, 100, 100, 200, Colour(60, 179, 113, 255));
+		//yellow up
+		drawDDALine(100, 100, 100, 0, Colour(255, 165, 0, 255));
+
+		//red north east
+		drawDDALine(100, 100, 200, 0, Colour(255, 0, 0, 255));
+		//blue south east
+		drawDDALine(100, 100, 200, 200, Colour(0, 0, 255, 255));
+		//green south west
+		drawDDALine(100, 100, 0, 200, Colour(60, 179, 113, 255));
+		//yellow north west
+		drawDDALine(100, 100, 0, 0, Colour(255, 165, 0, 255));
+
+		//red 
+		drawDDALine(100, 100, 150, 0, Colour(128, 0, 0, 255));
+
 
 		// @BoundsCheck- requires using pushPixel
 		// Plots pixels made to the drawArea this frame, clearing the pixel queue.
