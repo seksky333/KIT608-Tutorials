@@ -61,12 +61,10 @@ namespace T3D
 
 		float  step, x, y;
 
-		
-		int deltax = (float(x2 - x1)); 
-		int deltay = (float(y2 - y1));
+		float deltax = (float(x2 - x1)); 
+		float deltay = (float(y2 - y1));
 		
 		//float dy = deltay / deltax;
-		
 		if (abs(deltax) >= abs(deltay))
 			step = abs(deltax);
 		else
@@ -74,17 +72,29 @@ namespace T3D
 
 		deltax = deltax / step;
 		deltay = deltay / step;
+		//set starting position for drawing
 		x = x1;
 		y = y1;
 
 		for (int i = 0; i < step; i++) {
-			drawArea->plotPixel(int(x), int(y), c);
+			drawArea->plotPixel(x, y, c);
 			x += deltax;
 			y += deltay;
 		}
-		
 	}
-		
+
+	void DrawTask::drawCircle(int cx, int cy, int r, Colour c) {
+
+		const double PI = 3.141592653589793238463;
+		const double unitCircleCircumference = 2 * PI;
+		float  step, x, y ;
+		step = 0.1;
+		for (float theta = 0; theta < unitCircleCircumference; theta += step) {
+			x = cx + r * cos(theta);
+			y = cy + r * sin(theta);
+			drawArea->plotPixel(x, y, c);
+		}
+	}
 
 	/*
 	 * \param x1 Start x pixel coordinate 
@@ -106,6 +116,10 @@ namespace T3D
 	 */
 	void DrawTask::update(float dt){
 		drawArea->clear(Colour(255, 255, 255, 255));
+
+		drawCircle( 100,100,100
+			,Colour(255, 0, 0, 255));
+		drawDDALine(100, 100, 200, 100, Colour(255, 0, 0, 255));
 		//red 
 		drawDDALine(100, 100, 200, 100, Colour(255, 0, 0, 255));
 		//blue left
@@ -116,24 +130,30 @@ namespace T3D
 		drawDDALine(100, 100, 100, 0, Colour(255, 165, 0, 255));
 
 		//red north east
-		drawDDALine(100, 100, 200, 0, Colour(255, 0, 0, 255));
+		drawDDALine(100, 100, 170, 30, Colour(255, 0, 0, 255));
 		//blue south east
-		drawDDALine(100, 100, 200, 200, Colour(0, 0, 255, 255));
-		//green south west
-		drawDDALine(100, 100, 0, 200, Colour(60, 179, 113, 255));
+		drawDDALine(100, 100, 170, 170, Colour(0, 0, 255, 255));
 		//yellow north west
-		drawDDALine(100, 100, 0, 0, Colour(255, 165, 0, 255));
+		drawDDALine(100, 100, 30, 30, Colour(255, 165, 0, 255));
+		//green south west
+		drawDDALine(100, 100, 30, 170, Colour(60, 179, 113, 255));
 
-		//red 
-		drawDDALine(100, 100, 150, 0, Colour(128, 0, 0, 255));
 
+		//red  between north and north east
+		drawDDALine(100, 100, 140, 10, Colour(128, 0, 0, 255));
+		//red  between south and south east
+		drawDDALine(100, 100, 140, 190, Colour(128, 0, 0, 255));
+		//red  between north and north east
+		drawDDALine(100, 100, 55, 10, Colour(128, 0, 0, 255));
+		//red  between south and south west
+		drawDDALine(100, 100, 55, 190, Colour(128, 0, 0, 255));
+		
 
 		// @BoundsCheck- requires using pushPixel
 		// Plots pixels made to the drawArea this frame, clearing the pixel queue.
 		// flushPixelQueue();
 		app->getRenderer()->reloadTexture(drawArea);
 	}
-
 
 	/*
 	 * Provides a bounds-checked and more efficient way to draw onto a surface then `plotPixel()`.

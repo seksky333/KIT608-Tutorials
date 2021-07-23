@@ -38,6 +38,9 @@ namespace T3D
 		//! \brief Draw a coloured line from between two points using the integer-only Bresenham algorithm
 		void drawBresLine(int x1, int y1, int x2, int y2, Colour c);
 
+		//! \brief Draw a circle with trigonometry
+		void drawCircle(int cx, int cy, int r, Colour c);
+
 		//! \brief Ticks the drawing routine for this frame.
 		virtual void update(float dt);
 
