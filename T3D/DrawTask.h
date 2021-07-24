@@ -41,6 +41,12 @@ namespace T3D
 		//! \brief Draw a circle with trigonometry
 		void drawCircle(int cx, int cy, int r, Colour c);
 
+		void drawMirrorCircle(int cx, int cy, int r, Colour c);
+		void drawMirrorOctantsCircle(int cx, int cy, int r, Colour c);
+		void drawCircleWithPythagoras(int cx, int cy, int r, Colour c);
+
+		void testCircles();
+
 		//! \brief Ticks the drawing routine for this frame.
 		virtual void update(float dt);
 
