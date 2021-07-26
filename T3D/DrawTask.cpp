@@ -115,17 +115,25 @@ namespace T3D
 			//if x is greater
 			for (int i = 0; i < step; i++) {
 				drawArea->plotPixel(x, y, c);
-				/*
-				error = error - deltay;
-				if (error < 0) {
-					y += 1;
-					error += deltax;
+
+				if (deltay > 0) {
+					error = error - deltay;
+					if (error < 0) {
+						y += 1;
+						error += deltax;
+					}
+
+				}
+				else if (deltay < 0) {
+					error = error - deltay;
+					if (error > 0) {
+						y -= 1;
+						error += deltax;
+					}
 				}
 				else {
-					y -= 1;
-					error += deltax;
+					//do nothing since deltay === 0
 				}
-				*/
 				x += deltax;
 			}
 		}
@@ -249,7 +257,7 @@ namespace T3D
 		//drawBresLine(100, 100, 100, 0, Colour(255, 0, 0, 255));
 		//drawBresLine(100, 100, 100, 200, Colour(60, 179, 113, 255));
 		
-		/*
+		
 		//red right
 		drawBresLine(100, 100, 200, 100, Colour(255, 0, 0, 255));
 		//blue left
@@ -258,10 +266,18 @@ namespace T3D
 		drawBresLine(100, 100, 100, 200, Colour(60, 179, 113, 255));
 		//yellow up
 		drawBresLine(100, 100, 100, 0, Colour(255, 165, 0, 255));
-		*/
+		
+		/*
+		**************
+		DEBUG AREA
+		**************
 		//red north east
 		drawBresLine(100, 100, 170, 30, Colour(255, 0, 0, 255));
-		/*
+		//blue south east
+		drawBresLine(100, 100, 170, 170, Colour(0, 0, 255, 255));
+		*/
+
+		
 		//red north east
 		drawBresLine(100, 100, 170, 30, Colour(255, 0, 0, 255));
 		//blue south east
@@ -270,7 +286,7 @@ namespace T3D
 		drawBresLine(100, 100, 30, 30, Colour(255, 165, 0, 255));
 		//green south west
 		drawBresLine(100, 100, 30, 170, Colour(60, 179, 113, 255));
-		*/
+		
 		/*
 		//red  between north and north east
 		drawBresLine(100, 100, 140, 10, Colour(128, 0, 0, 255));
