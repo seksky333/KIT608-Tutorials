@@ -88,72 +88,32 @@ namespace T3D
 		}
 	}
 	void DrawTask::drawBresLine(int x1, int y1, int x2, int y2, Colour c){
-		int  step, x, y; 
+		int  step, x, y, error;
 		bool isXGreater;
 		// Part of Bresenham’s algo
 		int deltay = (y2 - y1);
 		int deltax = (x2 - x1);
-		int error = deltax / 2;
 		
-
 		//float dy = deltay / deltax;
 		if (abs(deltax) >= abs(deltay)) {
-			isXGreater = true;
 			step = abs(deltax);
-		}
-		else {
-			isXGreater = false;
+			error = deltax / 2;
+		}else{
 			step = abs(deltay);
+			error = deltay / 2;
 		}
+			
 
 		deltax = deltax / step;
 		deltay = deltay / step;
 		//set starting position for drawing
 		x = x1;
 		y = y1;
-		if (isXGreater) {
-			//if x is greater
-			for (int i = 0; i < step; i++) {
-				drawArea->plotPixel(x, y, c);
-
-				if (deltay > 0) {
-					error = error - deltay;
-					if (error < 0) {
-						y += 1;
-						error += deltax;
-					}
-
-				}
-				else if (deltay < 0) {
-					error = error - deltay;
-					if (error > 0) {
-						y -= 1;
-						error += deltax;
-					}
-				}
-				else {
-					//do nothing since deltay === 0
-				}
-				x += deltax;
-			}
+		for (int i = 0; i < step; i++) {
+			drawArea->plotPixel(x, y, c);
+			x += deltax;
+			y += deltay;
 		}
-		else {
-			//if y is greater
-			for (int i = 0; i < step; i++) {
-				drawArea->plotPixel(x, y, c);
-				error = error - deltay;
-				if (error < 0) {
-					y += 1;
-					error += deltax;
-				}
-				else {
-					y -= 1;
-					error += deltax;
-				}
-				x += deltax;
-			}
-		}
-
 
 	}
 
@@ -251,7 +211,7 @@ namespace T3D
 		drawMirrorCircle( 100,100,100,Colour(255, 0, 0, 255));
 		drawMirrorOctantsCircle(300, 300, 300, Colour(255, 0, 0, 255));
 		*/
-		//drawCircleWithPythagoras(100, 100, 100, Colour(255, 0, 0, 255));
+		drawCircleWithPythagoras(100, 100, 100, Colour(255, 0, 0, 255));
 
 		//drawDDALine(100, 100, 200, 100, Colour(255, 0, 0, 255));
 		//drawBresLine(100, 100, 100, 0, Colour(255, 0, 0, 255));
