@@ -15,6 +15,14 @@
 #include "T3DApplication.h"
 #include "Renderer.h"
 #include "Texture.h"
+#include "Vector3.h"
+#include "Matrix3x3.h"
+#include <chrono>
+#include <iostream>
+#include <string>
+#include <sstream>
+
+#include <sstream>
 
 namespace T3D 
 {
@@ -45,6 +53,8 @@ namespace T3D
 		void drawMirrorOctantsCircle(int cx, int cy, int r, Colour c);
 		void drawCircleWithPythagoras(int cx, int cy, int r, Colour c);
 
+		void tutorialOneDrawing();
+
 		void testCircles();
 
 		//! \brief Ticks the drawing routine for this frame.
@@ -69,6 +79,9 @@ namespace T3D
 
 		//! \brief One frames worth of pixels to blit onto the drawArea
 		std::vector<Pixel> pixelPlotQueue;
+		Vector3 points[4];
+		Matrix3x3 M, R, T1, T2;
+		
 	};
 
 }

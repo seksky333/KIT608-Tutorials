@@ -9,6 +9,7 @@
 // Simple task for drawing to and animating textures, used in tutorial 1 for practice implementing drawing routines
 
 #include <math.h>
+#include "Math.h"
 #include "Renderer.h"
 #include "DrawTask.h"
 #include "Logger.h"
@@ -16,9 +17,16 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include<windows.h>
+
 
 namespace T3D 
 {
+	enum class ANIMATION_STATE { DEFAULT, FORWARD, BACKWARD };
+
+	const int xStartPos = 512;
+	const int yStartPos = 320;
+	ANIMATION_STATE animeState = ANIMATION_STATE::DEFAULT;
 	/*
 	 * \param app Application root
 	 * \param tex Texture to draw onto
@@ -31,7 +39,7 @@ namespace T3D
 	DrawTask::DrawTask(T3DApplication *app, Texture* tex) : Task(app)
 	{
 		drawArea = tex;
-		
+
 
 		// @BoundsCheck - requires using pushPixel
 		// Reserve some space for the buffer, as its unlikely only few pixels will be plotted
@@ -47,10 +55,134 @@ namespace T3D
 	 * \note This isn't necessary. It could be inlined into the constructor.
 	 */
 	void DrawTask::init	(){		
-
-
+		ANIMATION_STATE animeState = ANIMATION_STATE::DEFAULT;
 		drawArea->clear(Colour(255,255,255,255));
-		drawDDALine(100,100,200,200,Colour(0,0,0,255));
+		points[0] = Vector3(xStartPos - 50, yStartPos, 1);
+		points[1] = Vector3(xStartPos - 50, yStartPos + 100, 1);
+		points[2] = Vector3(xStartPos + 50, yStartPos + 100, 1);
+		points[3] = Vector3(xStartPos + 50, yStartPos, 1);
+		//points[4] = Vector3(100, 100, 1);
+
+
+		const double rDegree = 45 ;
+		//rotation
+		R = Matrix3x3(cos(rDegree * Math::DEG2RAD), -sin(rDegree * Math::DEG2RAD), 0,
+					   sin(rDegree * Math::DEG2RAD), cos(rDegree * Math::DEG2RAD), 0,
+						0, 0, 1);
+
+		/*
+		//scale
+		M = Matrix3x3(1.01, 0, 0,
+			0, 1.01, 0,
+			0, 0, 1);
+		*/
+
+		T1 = Matrix3x3(1, 0, -50,
+			0, 1, -50,
+			0, 0, 1);
+
+		T2 = Matrix3x3(1, 0, 50,
+			0, 1, 50,
+			0, 0, 1);
+
+		//draw square
+		/*
+		drawDDALine(10, 10, 110, 10, Colour(255, 0, 0, 255));
+		drawDDALine(10, 10, 10, 110, Colour(0, 0, 255, 255));
+		drawDDALine(110, 10, 110, 110, Colour(60, 179, 113, 255));
+		drawDDALine(10, 110, 110, 110, Colour(255, 165, 0, 255));
+		*/
+		//drawDDALine(10, 10, 110, 10, Colour(255, 0, 0, 255));
+		//512 by 320
+
+		/*
+		drawDDALine(xStartPos - 50, yStartPos , xStartPos + 50, yStartPos, Colour(255, 0, 0, 255));
+		drawDDALine(xStartPos - 50, yStartPos, xStartPos - 50, yStartPos + 100, Colour(0, 0, 255, 255));
+		drawDDALine(xStartPos + 50, yStartPos, xStartPos + 50, yStartPos + 100, Colour(60, 179, 113, 255));
+		drawDDALine(xStartPos - 50, yStartPos + 100, xStartPos + 50, yStartPos + 100, Colour(255, 165, 0, 255));
+		*/
+	}
+
+	/*
+ * \param dt Change in time
+ *
+ * \note Make sure to clear the `drawArea` before you write to it.
+ */
+	void DrawTask::update(float dt) {
+		drawArea->clear(Colour(255, 255, 255, 255));
+		//tutorialOneDrawing();
+
+		//points[i] = T2 * M * T1 * points[i];
+		
+		/*
+		//scale
+		for (int i = 0; i < 4; i++)
+		{
+			points[i] =  M * points[i];
+		}
+		*/
+		
+		
+		//rotation
+		
+		/*for (int i = 0; i < 4; i++)
+		{
+			points[i] = R * points[i];
+		}*/
+		
+
+		/*
+		* Transformation
+		*/
+		for (int i = 0; i < 4; i++)
+		{
+			points[i] = T2* R * T1* points[i];
+		}
+
+		
+		//translation
+		//switch (animeState) {
+		//case ANIMATION_STATE::DEFAULT:
+		//	for (int i = 0; i < 4; i++)
+		//	{
+		//		points[i] =   T2 * points[i];
+		//	}
+		//	break;
+		//case ANIMATION_STATE::FORWARD:
+		//	for (int i = 0; i < 4; i++)
+		//	{
+		//		points[i] = T2 *  points[i];
+		//	}
+		//	break;
+		//case ANIMATION_STATE::BACKWARD:
+		//	for (int i = 0; i < 4; i++)
+		//	{
+		//		points[i] =   T1 * points[i];
+		//	}
+		//	break;
+		//}
+		//
+		//if (points[0].x < xStartPos - 50 || points[0].y < yStartPos) {
+		//	animeState = ANIMATION_STATE::FORWARD;
+		////reset to original position
+		//}else if(points[0].x > 1024 || points[0].y > 512) {
+		//	animeState = ANIMATION_STATE::BACKWARD;
+		//}
+
+		
+		for (int j = 0; j < 4; j++)
+		{
+			drawDDALine(points[j].x, points[j].y, points[(j + 1) % 4].x, points[(j + 1) % 4].y, Colour(60, 179, 113, 255));
+		}
+		
+
+
+		// @BoundsCheck- requires using pushPixel
+		// Plots pixels made to the drawArea this frame, clearing the pixel queue.
+		flushPixelQueue();
+		app->getRenderer()->reloadTexture(drawArea);
+
+		Sleep(500);
 	}
 
 	/*
@@ -82,7 +214,8 @@ namespace T3D
 		x = x1;
 		y = y1;
 		for (int i = 0; i < step; i++) {
-			drawArea->plotPixel(x, y, c);
+			//drawArea->plotPixel(x, y, c);
+			pushPixel(x, y, c);
 			x += deltax;
 			y += deltay;
 		}
@@ -197,13 +330,11 @@ namespace T3D
 	}
 
 
-	/*
-	 * \param dt Change in time
-	 *
-	 * \note Make sure to clear the `drawArea` before you write to it.
-	 */
-	void DrawTask::update(float dt){
+	void DrawTask::tutorialOneDrawing() {
 		drawArea->clear(Colour(255, 255, 255, 255));
+
+		//screen size - 1024 by 640
+		//center - 512 by 320
 
 		//testCircles();
 		/*
@@ -216,53 +347,48 @@ namespace T3D
 		//drawDDALine(100, 100, 200, 100, Colour(255, 0, 0, 255));
 		//drawBresLine(100, 100, 100, 0, Colour(255, 0, 0, 255));
 		//drawBresLine(100, 100, 100, 200, Colour(60, 179, 113, 255));
-		
-		
+
+
 		//red right
-		drawBresLine(100, 100, 200, 100, Colour(255, 0, 0, 255));
+		drawDDALine(100, 100, 200, 100, Colour(255, 0, 0, 255));
 		//blue left
-		drawBresLine(100, 100, 0, 100, Colour(0, 0, 255, 255));
+		drawDDALine(100, 100, 0, 100, Colour(0, 0, 255, 255));
 		//green down
-		drawBresLine(100, 100, 100, 200, Colour(60, 179, 113, 255));
+		drawDDALine(100, 100, 100, 200, Colour(60, 179, 113, 255));
 		//yellow up
-		drawBresLine(100, 100, 100, 0, Colour(255, 165, 0, 255));
-		
+		drawDDALine(100, 100, 100, 0, Colour(255, 165, 0, 255));
+
 		/*
 		**************
 		DEBUG AREA
 		**************
 		//red north east
-		drawBresLine(100, 100, 170, 30, Colour(255, 0, 0, 255));
+		drawDDALine(100, 100, 170, 30, Colour(255, 0, 0, 255));
 		//blue south east
-		drawBresLine(100, 100, 170, 170, Colour(0, 0, 255, 255));
+		drawDDALine(100, 100, 170, 170, Colour(0, 0, 255, 255));
 		*/
 
-		
+
 		//red north east
-		drawBresLine(100, 100, 170, 30, Colour(255, 0, 0, 255));
+		drawDDALine(100, 100, 170, 30, Colour(255, 0, 0, 255));
 		//blue south east
-		drawBresLine(100, 100, 170, 170, Colour(0, 0, 255, 255));
+		drawDDALine(100, 100, 170, 170, Colour(0, 0, 255, 255));
 		//yellow north west
-		drawBresLine(100, 100, 30, 30, Colour(255, 165, 0, 255));
+		drawDDALine(100, 100, 30, 30, Colour(255, 165, 0, 255));
 		//green south west
-		drawBresLine(100, 100, 30, 170, Colour(60, 179, 113, 255));
-		
-		/*
-		//red  between north and north east
-		drawBresLine(100, 100, 140, 10, Colour(128, 0, 0, 255));
-		//red  between south and south east
-		drawBresLine(100, 100, 140, 190, Colour(128, 0, 0, 255));
-		//red  between north and north east
-		drawBresLine(100, 100, 55, 10, Colour(128, 0, 0, 255));
-		//red  between south and south west
-		drawBresLine(100, 100, 55, 190, Colour(128, 0, 0, 255));
-		*/
+		drawDDALine(100, 100, 30, 170, Colour(60, 179, 113, 255));
 
-		// @BoundsCheck- requires using pushPixel
-		// Plots pixels made to the drawArea this frame, clearing the pixel queue.
-		// flushPixelQueue();
-		app->getRenderer()->reloadTexture(drawArea);
-	}
+		
+		//red  between north and north east
+		drawDDALine(100, 100, 140, 10, Colour(128, 0, 0, 255));
+		//red  between south and south east
+		drawDDALine(100, 100, 140, 190, Colour(128, 0, 0, 255));
+		//red  between north and north east
+		drawDDALine(100, 100, 55, 10, Colour(128, 0, 0, 255));
+		//red  between south and south west
+		drawDDALine(100, 100, 55, 190, Colour(128, 0, 0, 255));
+		
+	};
 
 	/*
 	 * Provides a bounds-checked and more efficient way to draw onto a surface then `plotPixel()`.
