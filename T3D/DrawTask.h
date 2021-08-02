@@ -42,6 +42,7 @@ namespace T3D
 
 		//! \brief Draw a coloured line between two points using the Digital Differential Algorithm (DDA) algorithm.
 		void drawDDALine(int x1, int y1, int x2, int y2, Colour c);
+		void drawDDAFillLine(int x1, int y1, int x2, int y2, int xx1, int yy1, int xx2, int yy2, Colour c);
 
 		//! \brief Draw a coloured line from between two points using the integer-only Bresenham algorithm
 		void drawBresLine(int x1, int y1, int x2, int y2, Colour c);
@@ -54,15 +55,16 @@ namespace T3D
 		void drawCircleWithPythagoras(int cx, int cy, int r, Colour c);
 
 		void tutorialOneDrawing();
-
+		void tutorialTwoDrawing();
 		void testCircles();
+		void testFilledShape();
 
 		//! \brief Ticks the drawing routine for this frame.
 		virtual void update(float dt);
 
 	private:
 		Texture *drawArea;
-
+		SDL_Surface* image;			//! \brief Handle to SDL surface
 		//! \brief Add a pixel to be displayed this frame to the PixelPlotQueue.
 		void pushPixel(int x, int y, Colour colour);
 

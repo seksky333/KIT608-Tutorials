@@ -10,6 +10,7 @@
 
 #include <math.h>
 #include "Math.h"
+#include "Texture.h"
 #include "Renderer.h"
 #include "DrawTask.h"
 #include "Logger.h"
@@ -38,8 +39,25 @@ namespace T3D
 	 */
 	DrawTask::DrawTask(T3DApplication *app, Texture* tex) : Task(app)
 	{
-		drawArea = tex;
+		Uint32 rmask, gmask, bmask, amask;
 
+		/* SDL interprets each pixel as a 32-bit number, so our masks must depend
+		   on the endianness (byte order) of the machine */
+		if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
+			rmask = 0xff000000;
+			gmask = 0x00ff0000;
+			bmask = 0x0000ff00;
+			amask = 0x000000ff;
+		}
+		else {
+			rmask = 0x000000ff;
+			gmask = 0x0000ff00;
+			bmask = 0x00ff0000;
+			amask = 0xff000000;
+		}
+
+		drawArea = tex;
+		image = SDL_CreateRGBSurface(0, 1024, 640, 32, rmask, gmask, bmask, amask);
 
 		// @BoundsCheck - requires using pushPixel
 		// Reserve some space for the buffer, as its unlikely only few pixels will be plotted
@@ -95,12 +113,12 @@ namespace T3D
 		//drawDDALine(10, 10, 110, 10, Colour(255, 0, 0, 255));
 		//512 by 320
 
-		/*
-		drawDDALine(xStartPos - 50, yStartPos , xStartPos + 50, yStartPos, Colour(255, 0, 0, 255));
-		drawDDALine(xStartPos - 50, yStartPos, xStartPos - 50, yStartPos + 100, Colour(0, 0, 255, 255));
-		drawDDALine(xStartPos + 50, yStartPos, xStartPos + 50, yStartPos + 100, Colour(60, 179, 113, 255));
-		drawDDALine(xStartPos - 50, yStartPos + 100, xStartPos + 50, yStartPos + 100, Colour(255, 165, 0, 255));
-		*/
+		
+		//drawDDALine(xStartPos - 50, yStartPos , xStartPos + 50, yStartPos, Colour(255, 0, 0, 255));
+		//drawDDALine(xStartPos - 50, yStartPos, xStartPos - 50, yStartPos + 100, Colour(0, 0, 255, 255));
+		//drawDDALine(xStartPos + 50, yStartPos, xStartPos + 50, yStartPos + 100, Colour(60, 179, 113, 255));
+		//drawDDALine(xStartPos - 50, yStartPos + 100, xStartPos + 50, yStartPos + 100, Colour(255, 165, 0, 255));
+		
 	}
 
 	/*
@@ -111,69 +129,14 @@ namespace T3D
 	void DrawTask::update(float dt) {
 		drawArea->clear(Colour(255, 255, 255, 255));
 		//tutorialOneDrawing();
-
-		//points[i] = T2 * M * T1 * points[i];
+		//tutorialTwoDrawing();
+		//testCircles();
+		//red right
+		//drawDDALine(100, 100, 200, 100, Colour(255, 0, 0, 255));
+		//yellow up
+		//drawDDALine(100, 100, 100, 0, Colour(255, 165, 0, 255));
 		
-		/*
-		//scale
-		for (int i = 0; i < 4; i++)
-		{
-			points[i] =  M * points[i];
-		}
-		*/
-		
-		
-		//rotation
-		
-		/*for (int i = 0; i < 4; i++)
-		{
-			points[i] = R * points[i];
-		}*/
-		
-
-		/*
-		* Transformation
-		*/
-		for (int i = 0; i < 4; i++)
-		{
-			points[i] = T2* R * T1* points[i];
-		}
-
-		
-		//translation
-		//switch (animeState) {
-		//case ANIMATION_STATE::DEFAULT:
-		//	for (int i = 0; i < 4; i++)
-		//	{
-		//		points[i] =   T2 * points[i];
-		//	}
-		//	break;
-		//case ANIMATION_STATE::FORWARD:
-		//	for (int i = 0; i < 4; i++)
-		//	{
-		//		points[i] = T2 *  points[i];
-		//	}
-		//	break;
-		//case ANIMATION_STATE::BACKWARD:
-		//	for (int i = 0; i < 4; i++)
-		//	{
-		//		points[i] =   T1 * points[i];
-		//	}
-		//	break;
-		//}
-		//
-		//if (points[0].x < xStartPos - 50 || points[0].y < yStartPos) {
-		//	animeState = ANIMATION_STATE::FORWARD;
-		////reset to original position
-		//}else if(points[0].x > 1024 || points[0].y > 512) {
-		//	animeState = ANIMATION_STATE::BACKWARD;
-		//}
-
-		
-		for (int j = 0; j < 4; j++)
-		{
-			drawDDALine(points[j].x, points[j].y, points[(j + 1) % 4].x, points[(j + 1) % 4].y, Colour(60, 179, 113, 255));
-		}
+		drawDDAFillLine(100, 100, 200, 100, 100, 100, 100, 0, Colour(255, 165, 0, 255));
 		
 
 
@@ -182,9 +145,48 @@ namespace T3D
 		flushPixelQueue();
 		app->getRenderer()->reloadTexture(drawArea);
 
-		Sleep(500);
+		
 	}
+	void DrawTask::drawDDAFillLine(int x1, int y1, int x2, int y2, int xx1, int yy1, int xx2, int yy2, Colour c) {
+		float  step, step2, x, y,xx,yy;
 
+		float deltax = (float(x2 - x1));
+		float deltay = (float(y2 - y1));
+		
+		float deltaxx = (float(xx2 - xx1));
+		float deltayy = (float(yy2 - yy1));
+		//float dy = deltay / deltax;
+		if (abs(deltax) >= abs(deltay))
+			step = abs(deltax);
+		else
+			step = abs(deltay);
+
+		if (abs(deltaxx) >= abs(deltayy))
+			step2 = abs(deltaxx);
+		else
+			step2 = abs(deltayy);
+
+		deltax = deltax / step;
+		deltay = deltay / step;
+		deltaxx = deltaxx / step2;
+		deltayy= deltayy / step2;
+		//set starting position for drawing
+		x = x1;
+		y = y1;
+		xx = xx1;
+		yy = yy1;
+		for (int i = 0; i < step; i++) {
+			//drawArea->plotPixel(x, y, c);
+			pushPixel(x, y, c);
+			pushPixel(xx, yy, c);
+			drawDDALine(x, y, xx, yy, Colour(255, 165, 0, 255));
+			x += deltax;
+			y += deltay;
+
+			xx += deltaxx;
+			yy += deltayy;
+		}
+	}
 	/*
 	 * \param x1 Start x pixel coordinate 
 	 * \param y1 Start y pixel coordinate
@@ -259,15 +261,18 @@ namespace T3D
 		for (float theta = 0; theta < unitCircleCircumference; theta += step) {
 			x = cx + r * cos(theta);
 			y = cy + r * sin(theta);
-			drawArea->plotPixel(x, y, c);
+			
+			pushPixel(x, y, c);
+			drawDDALine(cx, cy, x, y, c);
 		}
 	}
-
 	void DrawTask::drawMirrorCircle(int cx, int cy, int r, Colour c) {
 		const double PI = 3.141592653589793238463;
 		const double unitCircleCircumference = PI / 2;
 		float  step, x, y;
 		step = 0.001;
+		//step = 0.1;
+		//step = 1;
 		for (float theta = 0; theta < unitCircleCircumference; theta += step) {
 			x = r * cos(theta);
 			y = r * sin(theta);
@@ -275,7 +280,18 @@ namespace T3D
 			drawArea->plotPixel(cx + x, cy - y, c);
 			drawArea->plotPixel(cx - x, cy + y, c);
 			drawArea->plotPixel(cx - x, cy - y, c);
+			drawDDALine(cx, cy,  cx + x, cy + y, c);
+			drawDDALine(cx, cy , cx + x, cy - y, c);
+			drawDDALine(cx, cy, cx - x, cy + y, c);
+			drawDDALine(cx, cy, cx - x, cy - y, c);
+			drawDDALine(cx, cy, cx + y, cy + x, c);
+			drawDDALine(cx, cy, cx + y, cy - x, c);
+			drawDDALine(cx, cy, cx - y, cy + x, c);
+			drawDDALine(cx, cy, cx - y, cy - x, c);
+			//drawDDALine(cx + x, cy + y, cx - x, cy - y, c);
 		}
+
+
 	}
 	void DrawTask::drawMirrorOctantsCircle(int cx, int cy, int r, Colour c) {
 		const double PI = 3.141592653589793238463;
@@ -300,10 +316,24 @@ namespace T3D
 			drawArea->plotPixel(cx + x, cy - y, c); drawArea->plotPixel(cx - y, cy + x, c);
 			drawArea->plotPixel(cx - x, cy + y, c); drawArea->plotPixel(cx + y, cy - x, c);
 			drawArea->plotPixel(cx - x, cy - y, c); drawArea->plotPixel(cx - y, cy - x, c);
+			
+			drawDDALine(cx, cy, cx + x, cy + y, c);
+			drawDDALine(cx, cy, cx + x, cy - y, c);
+			drawDDALine(cx, cy, cx - x, cy + y, c);
+			drawDDALine(cx, cy, cx - x, cy - y, c);
+
+			drawDDALine(cx, cy, cx + y, cy + x, c);
+			drawDDALine(cx, cy, cx + y, cy - x, c);
+			drawDDALine(cx, cy, cx - y, cy + x, c);
+			drawDDALine(cx, cy, cx - y, cy - x, c);
+
 		}
 
 
 	}
+
+
+
 
 	void DrawTask::testCircles() {
 		using std::chrono::high_resolution_clock;
@@ -313,11 +343,11 @@ namespace T3D
 
 		auto t1 = high_resolution_clock::now();
 
-		for (int i= 100; i < 500; i += 1) {
-			drawCircle(i, i, 100, Colour(255, 0, 0, 255));
-			//drawMirrorCircle(i, i, 100, Colour(255, 0, 0, 255));
+		for (int i= 0; i < 1; i += 1) {
+			//drawCircle(512, 360, 100, Colour(255, 0, 0, 255));
+			drawMirrorCircle(512, 360, 100, Colour(255, 0, 0, 255));
 			//drawMirrorOctantsCircle(i, i, 100, Colour(255, 0, 0, 255));
-			//drawCircleWithPythagoras(i, i, 100, Colour(255, 0, 0, 255));
+			//drawCircleWithPythagoras(512, 360, 100, Colour(255, 0, 0, 255));
 		}
 		auto t2 = high_resolution_clock::now();
 
@@ -329,6 +359,12 @@ namespace T3D
 		logger::Log(priority::Info, output_stream::All, category::Task, outputText.c_str());
 	}
 
+	void DrawTask::testFilledShape() {
+
+		drawCircle(512, 320, 100, Colour(255, 0, 0, 255));
+
+		//fillColor(xStartPos, yStartPos, Colour(60, 179, 113, 255));
+	}
 
 	void DrawTask::tutorialOneDrawing() {
 		drawArea->clear(Colour(255, 255, 255, 255));
@@ -389,6 +425,71 @@ namespace T3D
 		drawDDALine(100, 100, 55, 190, Colour(128, 0, 0, 255));
 		
 	};
+
+	void DrawTask::tutorialTwoDrawing(){
+		//points[i] = T2 * M * T1 * points[i];
+
+/*
+//scale
+for (int i = 0; i < 4; i++)
+{
+	points[i] =  M * points[i];
+}
+*/
+
+
+//rotation
+
+/*for (int i = 0; i < 4; i++)
+{
+	points[i] = R * points[i];
+}*/
+
+
+/*
+* Transformation
+*/
+		for (int i = 0; i < 4; i++)
+		{
+			points[i] = T2 * R * T1 * points[i];
+		}
+
+
+		//translation
+		//switch (animeState) {
+		//case ANIMATION_STATE::DEFAULT:
+		//	for (int i = 0; i < 4; i++)
+		//	{
+		//		points[i] =   T2 * points[i];
+		//	}
+		//	break;
+		//case ANIMATION_STATE::FORWARD:
+		//	for (int i = 0; i < 4; i++)
+		//	{
+		//		points[i] = T2 *  points[i];
+		//	}
+		//	break;
+		//case ANIMATION_STATE::BACKWARD:
+		//	for (int i = 0; i < 4; i++)
+		//	{
+		//		points[i] =   T1 * points[i];
+		//	}
+		//	break;
+		//}
+		//
+		//if (points[0].x < xStartPos - 50 || points[0].y < yStartPos) {
+		//	animeState = ANIMATION_STATE::FORWARD;
+		////reset to original position
+		//}else if(points[0].x > 1024 || points[0].y > 512) {
+		//	animeState = ANIMATION_STATE::BACKWARD;
+		//}
+
+
+		for (int j = 0; j < 4; j++)
+		{
+			drawDDALine(points[j].x, points[j].y, points[(j + 1) % 4].x, points[(j + 1) % 4].y, Colour(60, 179, 113, 255));
+		}
+	}
 
 	/*
 	 * Provides a bounds-checked and more efficient way to draw onto a surface then `plotPixel()`.
@@ -463,3 +564,4 @@ namespace T3D
 
 
 }
+
