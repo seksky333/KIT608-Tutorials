@@ -54,6 +54,8 @@ namespace T3D
 		void drawMirrorOctantsCircle(int cx, int cy, int r, Colour c);
 		void drawCircleWithPythagoras(int cx, int cy, int r, Colour c);
 
+		void drawPieWedge(int cx, int cy, int r, Colour c);
+
 		void tutorialOneDrawing();
 		void tutorialTwoDrawing();
 		void testCircles();
@@ -82,7 +84,9 @@ namespace T3D
 		//! \brief One frames worth of pixels to blit onto the drawArea
 		std::vector<Pixel> pixelPlotQueue;
 		Vector3 points[4];
-		Matrix3x3 M, R, T1, T2;
+
+		std::vector<Vector3> vectorPoints;
+		Matrix3x3 M, R, T1, T2, P;
 		
 	};
 

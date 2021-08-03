@@ -79,10 +79,19 @@ namespace T3D
 		points[1] = Vector3(xStartPos - 50, yStartPos + 100, 1);
 		points[2] = Vector3(xStartPos + 50, yStartPos + 100, 1);
 		points[3] = Vector3(xStartPos + 50, yStartPos, 1);
-		//points[4] = Vector3(100, 100, 1);
+
+		//points[0] = Vector3(xStartPos - 50, yStartPos -50, 1);
+		//points[1] = Vector3(xStartPos - 50, yStartPos + 50, 1);
+		//points[2] = Vector3(xStartPos + 50, yStartPos + 50, 1);
+		//points[3] = Vector3(xStartPos + 50, yStartPos - 50, 1);
+		vectorPoints.push_back(points[0]);
+		vectorPoints.push_back(points[1]);
+		vectorPoints.push_back(points[2]);
+		vectorPoints.push_back(points[3]);
 
 
-		const double rDegree = 45 ;
+
+		const double rDegree = 1 ;
 		//rotation
 		R = Matrix3x3(cos(rDegree * Math::DEG2RAD), -sin(rDegree * Math::DEG2RAD), 0,
 					   sin(rDegree * Math::DEG2RAD), cos(rDegree * Math::DEG2RAD), 0,
@@ -95,13 +104,15 @@ namespace T3D
 			0, 0, 1);
 		*/
 
-		T1 = Matrix3x3(1, 0, -50,
-			0, 1, -50,
+		T1 = Matrix3x3(1, 0, -xStartPos,
+			0, 1, -yStartPos,
 			0, 0, 1);
 
-		T2 = Matrix3x3(1, 0, 50,
-			0, 1, 50,
+		T2 = Matrix3x3(1, 0, xStartPos,
+			0, 1, yStartPos,
 			0, 0, 1);
+
+		P = T2 * R * T1;
 
 		//draw square
 		/*
@@ -129,14 +140,14 @@ namespace T3D
 	void DrawTask::update(float dt) {
 		drawArea->clear(Colour(255, 255, 255, 255));
 		//tutorialOneDrawing();
-		//tutorialTwoDrawing();
+		tutorialTwoDrawing();
 		//testCircles();
 		//red right
 		//drawDDALine(100, 100, 200, 100, Colour(255, 0, 0, 255));
 		//yellow up
 		//drawDDALine(100, 100, 100, 0, Colour(255, 165, 0, 255));
 		
-		drawDDAFillLine(100, 100, 200, 100, 100, 100, 100, 0, Colour(255, 165, 0, 255));
+		//drawDDAFillLine(100, 100, 200, 100, 100, 100, 100, 0, Colour(255, 165, 0, 255));
 		
 
 
@@ -326,14 +337,26 @@ namespace T3D
 			drawDDALine(cx, cy, cx + y, cy - x, c);
 			drawDDALine(cx, cy, cx - y, cy + x, c);
 			drawDDALine(cx, cy, cx - y, cy - x, c);
+		}
+	}
+
+
+	void DrawTask::drawPieWedge(int cx, int cy, int r, Colour c) {
+		float  x1, x2;
+		int y2 = r * sin(45 * Math::DEG2RAD);
+		int  rSquare = r*r;
+		int  y2Square = y2*y2;
+
+		for (int y = 0; y < y2; y++) {
+			x1 = y / tan(45 * Math::DEG2RAD);
+			x2 = sqrt(rSquare - y2Square);
+
+			//drawDDALine(cx, cy, cx - x, cy - y, c);
 
 		}
 
 
 	}
-
-
-
 
 	void DrawTask::testCircles() {
 		using std::chrono::high_resolution_clock;
@@ -440,19 +463,24 @@ for (int i = 0; i < 4; i++)
 
 //rotation
 
-/*for (int i = 0; i < 4; i++)
+//for (int i = 0; i < 4; i++)
+//{
+//	points[i] = P * points[i];
+//}
+
+for (int i = 0; i < 4; i++)
 {
-	points[i] = R * points[i];
-}*/
+	vectorPoints[i] = P * vectorPoints[i];
+}
 
 
 /*
 * Transformation
 */
-		for (int i = 0; i < 4; i++)
-		{
-			points[i] = T2 * R * T1 * points[i];
-		}
+		//for (int i = 0; i < 4; i++)
+		//{
+			//points[i] = P * points[i];
+		//}
 
 
 		//translation
@@ -485,9 +513,14 @@ for (int i = 0; i < 4; i++)
 		//}
 
 
+		//for (int j = 0; j < 4; j++)
+		//{
+		//	drawDDALine(points[j].x, points[j].y, points[(j + 1) % 4].x, points[(j + 1) % 4].y, Colour(60, 179, 113, 255));
+		//}
+
 		for (int j = 0; j < 4; j++)
 		{
-			drawDDALine(points[j].x, points[j].y, points[(j + 1) % 4].x, points[(j + 1) % 4].y, Colour(60, 179, 113, 255));
+			drawDDALine(vectorPoints[j].x, vectorPoints[j].y, vectorPoints[(j + 1) % 4].x, vectorPoints[(j + 1) % 4].y, Colour(60, 179, 113, 255));
 		}
 	}
 
