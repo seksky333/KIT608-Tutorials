@@ -75,19 +75,20 @@ namespace T3D
 	void DrawTask::init	(){		
 		ANIMATION_STATE animeState = ANIMATION_STATE::DEFAULT;
 		drawArea->clear(Colour(255,255,255,255));
-		points[0] = Vector3(xStartPos - 50, yStartPos, 1);
-		points[1] = Vector3(xStartPos - 50, yStartPos + 100, 1);
-		points[2] = Vector3(xStartPos + 50, yStartPos + 100, 1);
-		points[3] = Vector3(xStartPos + 50, yStartPos, 1);
+		//points[0] = Vector3(xStartPos - 50, yStartPos, 1);
+		//points[1] = Vector3(xStartPos - 50, yStartPos + 100, 1);
+		//points[2] = Vector3(xStartPos + 50, yStartPos + 100, 1);
+		//points[3] = Vector3(xStartPos + 50, yStartPos, 1);
 
-		//points[0] = Vector3(xStartPos - 50, yStartPos -50, 1);
-		//points[1] = Vector3(xStartPos - 50, yStartPos + 50, 1);
-		//points[2] = Vector3(xStartPos + 50, yStartPos + 50, 1);
-		//points[3] = Vector3(xStartPos + 50, yStartPos - 50, 1);
-		vectorPoints.push_back(points[0]);
-		vectorPoints.push_back(points[1]);
-		vectorPoints.push_back(points[2]);
-		vectorPoints.push_back(points[3]);
+		points[0] = Vector3(xStartPos - 50, yStartPos -50, 1);
+		points[1] = Vector3(xStartPos - 50, yStartPos + 50, 1);
+		points[2] = Vector3(xStartPos + 50, yStartPos + 50, 1);
+		points[3] = Vector3(xStartPos + 50, yStartPos - 50, 1);
+
+		//vectorPoints.push_back(points[0]);
+		//vectorPoints.push_back(points[1]);
+		//vectorPoints.push_back(points[2]);
+		//vectorPoints.push_back(points[3]);
 
 
 
@@ -104,15 +105,25 @@ namespace T3D
 			0, 0, 1);
 		*/
 
-		T1 = Matrix3x3(1, 0, -xStartPos,
+		T1 = Matrix3x3(1, 0, -100,
+			0, 1, -100,
+			0, 0, 1);
+
+		T2 = Matrix3x3(1, 0, 100,
+			0, 1, 100,
+			0, 0, 1);
+
+		T3 = Matrix3x3(1, 0, -xStartPos,
 			0, 1, -yStartPos,
 			0, 0, 1);
 
-		T2 = Matrix3x3(1, 0, xStartPos,
+		T4 = Matrix3x3(1, 0, xStartPos,
 			0, 1, yStartPos,
 			0, 0, 1);
 
 		P = T2 * R * T1;
+
+		P1 = T4 * R * T3;
 
 		//draw square
 		/*
@@ -140,15 +151,10 @@ namespace T3D
 	void DrawTask::update(float dt) {
 		drawArea->clear(Colour(255, 255, 255, 255));
 		//tutorialOneDrawing();
-		tutorialTwoDrawing();
+		//tutorialTwoDrawing();
 		//testCircles();
-		//red right
-		//drawDDALine(100, 100, 200, 100, Colour(255, 0, 0, 255));
-		//yellow up
-		//drawDDALine(100, 100, 100, 0, Colour(255, 165, 0, 255));
-		
-		//drawDDAFillLine(100, 100, 200, 100, 100, 100, 100, 0, Colour(255, 165, 0, 255));
-		
+		//drawPieWedge(xStartPos, yStartPos, 100, Colour(255, 0, 0, 255));
+		praticeLabTest();
 
 
 		// @BoundsCheck- requires using pushPixel
@@ -343,19 +349,22 @@ namespace T3D
 
 	void DrawTask::drawPieWedge(int cx, int cy, int r, Colour c) {
 		float  x1, x2;
-		int y2 = r * sin(45 * Math::DEG2RAD);
+		int ySquare;
+		//int y2 = r * sin(45 * Math::DEG2RAD);
+		int y2 = r * cos(45 * Math::DEG2RAD);
 		int  rSquare = r*r;
-		int  y2Square = y2*y2;
 
 		for (int y = 0; y < y2; y++) {
+			ySquare = y * y;
 			x1 = y / tan(45 * Math::DEG2RAD);
-			x2 = sqrt(rSquare - y2Square);
+			//diagonal distance across the shape
+			x2 = sqrt(rSquare - ySquare);
 
-			//drawDDALine(cx, cy, cx - x, cy - y, c);
+			//drawDDALine(cx, cy+ y2, cx + x2, cy + y, c);
 
+			drawDDALine(cx, cy + y2, cx + x2, cy + y, c);
+			
 		}
-
-
 	}
 
 	void DrawTask::testCircles() {
@@ -522,6 +531,30 @@ for (int i = 0; i < 4; i++)
 		{
 			drawDDALine(vectorPoints[j].x, vectorPoints[j].y, vectorPoints[(j + 1) % 4].x, vectorPoints[(j + 1) % 4].y, Colour(60, 179, 113, 255));
 		}
+	}
+	void DrawTask::praticeLabTest() {
+		Vector3 offset = Vector3(100, 100, 1);
+
+		//points[0] = Vector3(xStartPos - 50, yStartPos -50, 1);
+		//points[1] = Vector3(xStartPos - 50, yStartPos + 50, 1);
+		//points[2] = Vector3(xStartPos + 50, yStartPos + 50, 1);
+		//points[3] = Vector3(xStartPos + 50, yStartPos - 50, 1);
+		if (vectorPoints.empty()) {
+			vectorPoints.push_back(Vector3(0 + offset.x, 0 + offset.y, 1));
+			vectorPoints.push_back(Vector3(0 + offset.x, 100 + offset.y, 1));
+		}
+
+		for (int i = 0; i < vectorPoints.size(); i++)
+		{
+			vectorPoints[i] = P * vectorPoints[i];
+		}
+
+		for (int j = 0; j < vectorPoints.size(); j++)
+		{
+			drawDDALine(vectorPoints[j].x, vectorPoints[j].y, vectorPoints[(j + 1) % 2].x, vectorPoints[(j + 1) % 2].y, Colour(60, 179, 113, 255));
+		}
+		
+		//drawDDALine(0 + offset.x, 0+ offset.y, 100 + offset.x, 0 + offset.y,  Colour(60, 179, 113, 255));
 	}
 
 	/*

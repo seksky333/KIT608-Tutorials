@@ -58,6 +58,7 @@ namespace T3D
 
 		void tutorialOneDrawing();
 		void tutorialTwoDrawing();
+		void praticeLabTest();
 		void testCircles();
 		void testFilledShape();
 
@@ -86,7 +87,7 @@ namespace T3D
 		Vector3 points[4];
 
 		std::vector<Vector3> vectorPoints;
-		Matrix3x3 M, R, T1, T2, P;
+		Matrix3x3 M, R, T1, T2, P, P1, T3, T4;
 		
 	};
 
