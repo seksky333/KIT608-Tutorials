@@ -27,6 +27,9 @@ namespace T3D
 
 	const int xStartPos = 512;
 	const int yStartPos = 320;
+
+
+
 	ANIMATION_STATE animeState = ANIMATION_STATE::DEFAULT;
 	/*
 	 * \param app Application root
@@ -80,10 +83,10 @@ namespace T3D
 		//points[2] = Vector3(xStartPos + 50, yStartPos + 100, 1);
 		//points[3] = Vector3(xStartPos + 50, yStartPos, 1);
 
-		points[0] = Vector3(xStartPos - 50, yStartPos -50, 1);
-		points[1] = Vector3(xStartPos - 50, yStartPos + 50, 1);
-		points[2] = Vector3(xStartPos + 50, yStartPos + 50, 1);
-		points[3] = Vector3(xStartPos + 50, yStartPos - 50, 1);
+		//points[0] = Vector3(xStartPos - 50, yStartPos -50, 1);
+		//points[1] = Vector3(xStartPos - 50, yStartPos + 50, 1);
+		//points[2] = Vector3(xStartPos + 50, yStartPos + 50, 1);
+		//points[3] = Vector3(xStartPos + 50, yStartPos - 50, 1);
 
 		//vectorPoints.push_back(points[0]);
 		//vectorPoints.push_back(points[1]);
@@ -98,12 +101,12 @@ namespace T3D
 					   sin(rDegree * Math::DEG2RAD), cos(rDegree * Math::DEG2RAD), 0,
 						0, 0, 1);
 
-		/*
+		
 		//scale
-		M = Matrix3x3(1.01, 0, 0,
-			0, 1.01, 0,
-			0, 0, 1);
-		*/
+		//M = Matrix3x3(1.01, 0, 0,
+		//	0, 1.01, 0,
+		//	0, 0, 1);
+		
 
 		T1 = Matrix3x3(1, 0, -100,
 			0, 1, -100,
@@ -149,20 +152,63 @@ namespace T3D
  * \note Make sure to clear the `drawArea` before you write to it.
  */
 	void DrawTask::update(float dt) {
+		//const int xStartPosition = 250;
+		//const int yStartPosition = 250;
+
 		drawArea->clear(Colour(255, 255, 255, 255));
 		//tutorialOneDrawing();
 		//tutorialTwoDrawing();
 		//testCircles();
-		//drawPieWedge(xStartPos, yStartPos, 100, Colour(255, 0, 0, 255));
-		praticeLabTest();
+		//drawPieWedge(xStartPos + 0, yStartPos, 100, Colour(255, 0, 0, 255));
+		//praticeLabTest();
+		drawArrow1(xStartPos, yStartPos, xStartPos +50, yStartPos - 50, 100, 35);
+		//std::vector<Vector3> points;
+		//points.push_back(Vector3(xStartPos + 0, yStartPos + 0, 1));
+		//points.push_back(Vector3(xStartPos + 50, yStartPos + 0, 1));
+		//points.push_back(Vector3(xStartPos + 100, yStartPos - 100, 1));
+
+		//if (points.empty()) {
+		//	points.push_back(Vector3(xStartPosition - 50, yStartPosition - 50, 1));
+		//	points.push_back(Vector3(xStartPosition - 50, yStartPosition + 50, 1));
+		//	points.push_back(Vector3(xStartPosition + 50, yStartPosition + 50, 1));
+		//	points.push_back(Vector3(xStartPosition + 50, yStartPosition - 50, 1));
+		//}
+
+
+		//T5 = Matrix3x3(1, 0, -250,
+		//	0, 1, -250,
+		//	0, 0, 1);
+
+		//T6 = Matrix3x3(1, 0, 250,
+		//	0, 1, 250,
+		//	0, 0, 1);
+
+		//M = Matrix3x3(1.01, 0, 0,
+		//	0, 0.99, 0,
+		//	0, 0, 1);
+
+		//S = T6 * M * T5;
+
+		//for (int i = 0; i < points.size(); i++)
+		//{
+		//	points[i] = S * points[i];
+		//}
+
+		//for (int j = 0; j < points.size(); j++)
+		//{
+		//	drawDDALine(points[j].x, points[j].y, points[(j + 1) % points.size()].x, points[(j + 1) % points.size()].y, Colour(60, 179, 113, 255));
+		//}
+
+
+
+
+		//drawTriangles(points);
 
 
 		// @BoundsCheck- requires using pushPixel
 		// Plots pixels made to the drawArea this frame, clearing the pixel queue.
 		flushPixelQueue();
 		app->getRenderer()->reloadTexture(drawArea);
-
-		
 	}
 	void DrawTask::drawDDAFillLine(int x1, int y1, int x2, int y2, int xx1, int yy1, int xx2, int yy2, Colour c) {
 		float  step, step2, x, y,xx,yy;
@@ -347,22 +393,30 @@ namespace T3D
 	}
 
 
+	void DrawTask::drawTriangles(std::vector<Vector3> points) {
+
+		for (int j = 0; j < points.size(); j++)
+		{
+			drawDDALine(points[j].x, points[j].y, points[(j + 1) % points.size()].x, points[(j + 1) % points.size()].y, Colour(60, 179, 113, 255));
+		}
+	}
+
+
 	void DrawTask::drawPieWedge(int cx, int cy, int r, Colour c) {
 		float  x1, x2;
 		int ySquare;
-		//int y2 = r * sin(45 * Math::DEG2RAD);
-		int y2 = r * cos(45 * Math::DEG2RAD);
+		int y2 = r * sin(45 * Math::DEG2RAD);
 		int  rSquare = r*r;
 
 		for (int y = 0; y < y2; y++) {
 			ySquare = y * y;
-			x1 = y / tan(45 * Math::DEG2RAD);
+			x1 = y / tan(150 * Math::DEG2RAD);
 			//diagonal distance across the shape
 			x2 = sqrt(rSquare - ySquare);
 
 			//drawDDALine(cx, cy+ y2, cx + x2, cy + y, c);
 
-			drawDDALine(cx, cy + y2, cx + x2, cy + y, c);
+			drawDDALine(cx + x2, cy , cx + x2 , cy  + y, c);
 			
 		}
 	}
@@ -555,6 +609,42 @@ for (int i = 0; i < 4; i++)
 		}
 		
 		//drawDDALine(0 + offset.x, 0+ offset.y, 100 + offset.x, 0 + offset.y,  Colour(60, 179, 113, 255));
+	}
+
+	void DrawTask::drawArrow1(int x1, int y1, int x2, int y2, int r, int d) {
+		float  x;
+		int ySquare;
+		int y3 = r * cos(45 * Math::DEG2RAD);
+		int  rSquare = r * r;
+
+		if (points.empty()) {
+
+			points.push_back(Vector3(x1, y1, 1));
+			points.push_back(Vector3(x2, y2, 1));
+			points.push_back(Vector3(x2-100, y2, 1));
+		}
+
+		for (int j = 0; j < points.size(); j++)
+		{
+			drawDDALine(points[j].x, points[j].y, points[(j + 1) % points.size()].x, points[(j + 1) % points.size()].y, Colour(0, 0, 0, 255));
+		}
+
+		float step = 0.01;
+		//step = 0.1;
+		//step = 1;
+		for (float pointer = 0; pointer < abs(x2 - x2-100); pointer += step) {
+			drawDDALine(x2, y2, x2 - pointer, y2 - d, Colour(0, 0, 0, 255));
+		};
+
+
+		for (int y = 0; y < y3; y++) {
+			ySquare = y * y;
+			x1 = y / tan(45 * Math::DEG2RAD);
+			//diagonal distance across the shape
+			x = sqrt(rSquare - ySquare);
+			drawDDALine(x2, y2, x, y2 - y, Colour(0, 0, 0, 255));
+		}
+
 	}
 
 	/*
