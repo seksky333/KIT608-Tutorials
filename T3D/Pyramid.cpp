@@ -40,10 +40,6 @@ namespace T3D
 		setVertex(14, size, 0, size);
 		setVertex(15, size, 0, -size);
 
-		//top
-		setVertex(16, 0, size, 0);
-		setVertex(17, 0, size, 0);
-		setVertex(18, 0, size, 0);
 
 
 		// Build faces
