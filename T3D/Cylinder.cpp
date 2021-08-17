@@ -83,9 +83,9 @@ namespace T3D
 
 			//bottom cap
 			setTriFace(d + i,   // face id
-				bottomCapTriBottomVertex1,
+				bottomCapTriBottomVertex2,
 				bottomCapTriTopVertex1, // next bottom vertex (wrapping) 
-				bottomCapTriBottomVertex2
+				bottomCapTriBottomVertex1
 			);
 
 		}
