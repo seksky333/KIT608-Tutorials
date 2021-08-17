@@ -37,10 +37,12 @@ namespace T3D
 		// KeyboardController constants
 
 		//! \brief Movement speed when acceleration key (`Shift` by default) isn't held
-		static constexpr float keySensitivityMin   = 50.0f;
+		//static constexpr float keySensitivityMin   = 50.0f;
+		static constexpr float keySensitivityMin = 5.0f * 5;
 
 		//! \brief Movement speed when acceleration key (`Shift` by default) is held
-		static constexpr float keySensitivityMax   = 100.0f;
+		//static constexpr float keySensitivityMax   = 100.0f;
+		static constexpr float keySensitivityMax = 10.0f * 5;
 
 		//! \brief Rotational speed when acceleration key (`Shift` by default) isn't held
 		static constexpr float mouseSensitivityMin = 0.0005f;

@@ -6,7 +6,7 @@ namespace T3D
 	{
 		// Init vertex and index arrays
 		
-		//vertices = 1 quad base + 3 verticies / points * 4 sides
+		//vertices = 1 quad base +  triangle (3 verticies each) * 4 sides
 		initArrays(4 + 3 * 4,	// num vertices
 			4,		// num tris
 			1);		// num quads

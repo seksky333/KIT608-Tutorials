@@ -10,6 +10,7 @@
 #include "Math.h"
 #include "Cube.h"
 #include "Pyramid.h"
+#include "Cylinder.h"
 
 using namespace T3D;
 namespace T3D
@@ -19,7 +20,7 @@ namespace T3D
         //light to the scene
         GameObject* lightObj = new GameObject(this);
         Light* light = new Light(Light::Type::DIRECTIONAL);
-        light->setAmbient(1, 1, 1);
+        light->setAmbient(.3, .3, .3);
         light->setDiffuse(1, 1, 1);
         light->setSpecular(1, 1, 1);
         lightObj->setLight(light);
@@ -39,13 +40,15 @@ namespace T3D
         Material* green =
             renderer->createMaterial(Renderer::PR_OPAQUE);
         green->setDiffuse(0, 1, 0, 1);
-        //cube
+        //Cylinder
         GameObject* pyramid = new GameObject(this);
-        pyramid->setMesh(new Pyramid(1));
+        //pyramid->setMesh(new Pyramid(1));
+        pyramid->setMesh(new Cylinder(1,1,6));
+        //pyramid->setMesh(new Cube(1));
         pyramid->setMaterial(green);
         pyramid->getTransform()->setLocalPosition(Vector3(0, 0, 0));
         pyramid->getTransform()->setParent(root);
-        pyramid->getTransform()->name = "Pyramid";
+        pyramid->getTransform()->name = "Cylinder";
 
         return true;
     }
