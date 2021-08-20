@@ -30,6 +30,8 @@
     <ClCompile Include="GLTestRenderer.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="KeyboardController.cpp" />
+    <ClCompile Include="Lamp.cpp" />
+    <ClCompile Include="LampTutorial.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="LookAtBehaviour.cpp" />
@@ -89,6 +91,8 @@
     <ClInclude Include="GLTestRenderer.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="KeyboardController.h" />
+    <ClInclude Include="Lamp.h" />
+    <ClInclude Include="LampTutorial.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="LookAtBehaviour.h" />

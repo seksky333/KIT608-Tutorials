@@ -3,14 +3,14 @@
 
 namespace T3D
 {
-	Cylinder::Cylinder(int r, int h, int d)
+	Cylinder::Cylinder(float r, float h, int d)
 	{
 		// Init vertex and index arrays
 		int sideTopStart = d * 2;
 		//since the top cap will use 7 verticies, the bottom start needs to +1
 		int sideBottomStart = d * 3 +1;
 		//body + (6 triangles - 6 verticies on the side + 1 center point)
-		initArrays((d * 2) + (7 * 2),	// num vertices
+		initArrays((d * 2) + ((d +1) * 2),	// num vertices
 			d * 2,		// num tris - top + bottom
 			d);		// num quads
 

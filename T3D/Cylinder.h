@@ -7,7 +7,7 @@ namespace T3D
 	{
 	public:
 		//! \brief Create Cube with volume = `size^3`.
-		Cylinder(int r, int h, int d);
+		Cylinder(float r, float h, int d);
 
 		//! \brief Destroy Cube.
 		/*! \note Mesh superclass deletes arrays if they have been created, no need to do anything here
