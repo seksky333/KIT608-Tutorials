@@ -45,6 +45,7 @@ namespace T3D
 			t.setLocalRotation(Quaternion(Vector3(0, Math::PI / 2, 0)));
 			t.setLocalScale(Vector3(0.01, 0.01, 1.0)); // no need to scale the z-direction because the profile is in the XY plane
 			armsp.addTransform(t);
+			armsp.addTransform(t);
 			//Adjust the scale for the next path instance
 			t.setLocalScale(Vector3(0.9, 1, 1.0));
 			armsp.addTransform(t);
@@ -77,12 +78,13 @@ namespace T3D
 			//arm1->getTransform()->name = "Arm1";
 
 
-			armsp.addTransform(t);
 
 			////baseJoint
 			baseJoint = new GameObject(app);
 			baseJoint->getTransform()->setParent(base->getTransform());
 			baseJoint->getTransform()->name = "BaseJoint";
+
+			armsp.addTransform(t);
 
 			////elbowJoint
 			elbowJoint = new GameObject(app);
@@ -91,11 +93,13 @@ namespace T3D
 			elbowJoint->getTransform()->setLocalRotation(Quaternion(Vector3(Math::PI / 4, 0, 0))); // this rotation is just to make a good starting pose
 			elbowJoint->getTransform()->name = "ElbowJoint";
 
+			armsp.addTransform(t);
 			////shadeJoint
 			shadeJoint = new GameObject(app);
 			shadeJoint->getTransform()->setLocalPosition(Vector3(0, 0.2, 0));
 			shadeJoint->getTransform()->setParent(elbowJoint->getTransform());
 			shadeJoint->getTransform()->name = "ShadeJoint";
+			armsp.addTransform(t);
 
 			//arm1 attaches to baseJoint with a 10cm offset in the y-direction 
 			arm1 = new GameObject(app);
@@ -112,23 +116,40 @@ namespace T3D
 
 			//lampShade
 			std::vector<Vector3> lampShadeProfile;
-			lampShadeProfile.push_back(Vector3(0.0f, -0.7f, 0.0f));
+			lampShadeProfile.push_back(Vector3(0.0f, -0.07f, 0.0f));
 			lampShadeProfile.push_back(Vector3(0.06f, -0.03f, 0.0f));
 			lampShadeProfile.push_back(Vector3(0.085f, 0.06f, 0.0f));
 			lampShadeProfile.push_back(Vector3(0.11f, 0.13f, 0.0f));
+			//5
 			lampShadeProfile.push_back(Vector3(0.14f, 0.19f, 0.0f));
+			lampShadeProfile.push_back(Vector3(0.14f, 0.19f, 0.0f));
+			//6
 			lampShadeProfile.push_back(Vector3(0.13f, 0.2f, 0.0f));
+			lampShadeProfile.push_back(Vector3(0.13f, 0.2f, 0.0f));
+
 			lampShadeProfile.push_back(Vector3(0.085f, 0.14f, 0.0f));
+
+			//8
 			lampShadeProfile.push_back(Vector3(0.07f, 0.08f, 0.0f));
+			lampShadeProfile.push_back(Vector3(0.07f, 0.08f, 0.0f));
+
 			lampShadeProfile.push_back(Vector3(0.0f, 0.079f, 0.0f));
+			
+			
+			//lampshadesp.makeCirclePath(0, 6*20);
+			lampshadesp.makeCirclePath(0, 6 * 20);
 
 			//lampShade attaches to shadeJoint
 			lampShade = new GameObject(app);
-			lampShade->setMesh(new Sweep(lampShadeProfile, armsp, false));
-			lampShade->getTransform()->setLocalPosition(Vector3(0, 0.1, 0));
+			lampShade->setMesh(new Sweep(lampShadeProfile, lampshadesp, true));
+			lampShade->getTransform()->setLocalPosition(Vector3(0, 0.05, 0));
 			lampShade->getTransform()->setParent(shadeJoint->getTransform());
 			lampShade->getTransform()->name = "lampShade";
 
+			lampshadesp.addTransform(t);
+
+
+			
 		}
 	}
 

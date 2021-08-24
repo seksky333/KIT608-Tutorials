@@ -17,6 +17,7 @@ namespace T3D
 		GameObject* elbowJoint;
 		GameObject* shadeJoint;
 		SweepPath armsp;
+		SweepPath lampshadesp;
 		Transform t;
 	};
 }

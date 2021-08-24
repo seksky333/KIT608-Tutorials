@@ -60,6 +60,7 @@ namespace T3D
         lamp->elbowJoint->getTransform()->setLocalRotation(Quaternion(Vector3(Math::PI / 4, 0, 0)));
 
         lamp->lampShade->setMaterial(grey);
+        lamp->shadeJoint->getTransform()->setLocalRotation(Quaternion(Vector3(Math::PI / 4, 0, 0)));
 
         return true;
 	}
