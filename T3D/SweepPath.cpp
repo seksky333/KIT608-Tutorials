@@ -38,7 +38,23 @@ namespace T3D{
 			t.setLocalRotation(Quaternion(Vector3(0,-angle,0)));
 			path.push_back(t);
 		}
-
 	}
+	void SweepPath::makeCustomCirclePath(float radius, int density) {
+		path.clear();
+		const double PI = 3.141592653589793238463;
+		const double unitCircleCircumferenceTmp = 2 * PI;
 
+		const double unitCircleCircumference = Math::TWO_PI;
+
+		
+		//for (int i = 0; i < density; i++) {
+		for (float theta = 0; theta < unitCircleCircumference; theta += density) {
+			Transform t;
+			Vector3 vector = Vector3(radius * cos(theta), 0, radius * sin(theta));
+			//float angle = Math::TWO_PI * i / density;
+			t.setLocalPosition(vector);
+			t.setLocalRotation(Quaternion(Vector3(0, -theta, 0)));
+			path.push_back(t);
+		}
+	}
 }

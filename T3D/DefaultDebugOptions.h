@@ -42,7 +42,7 @@ namespace T3D
 
 		//! \brief Movement speed when acceleration key (`Shift` by default) is held
 		//static constexpr float keySensitivityMax   = 100.0f;
-		static constexpr float keySensitivityMax = 10.0f * 3;
+		static constexpr float keySensitivityMax = 10.0f * 1;
 
 		//! \brief Rotational speed when acceleration key (`Shift` by default) isn't held
 		static constexpr float mouseSensitivityMin = 0.0005f;

@@ -31,6 +31,8 @@ namespace T3D
 
 		//! \brief Create a circular path.
 		void makeCirclePath(float radius, int density);
+		
+		void makeCustomCirclePath(float radius, int density);
 
 		//! \brief Get a Transform from the path.
 		Transform operator[](int index) const;

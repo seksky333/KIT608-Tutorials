@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Assignment_1.cpp" />
     <ClCompile Include="Billboard.cpp" />
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -46,6 +47,7 @@
     <ClCompile Include="ParticleEmitter.cpp" />
     <ClCompile Include="ParticleGravity.cpp" />
     <ClCompile Include="PerfLogTask.cpp" />
+    <ClCompile Include="PhoneCase.cpp" />
     <ClCompile Include="Plane.cpp" />
     <ClCompile Include="PlaneMesh.cpp" />
     <ClCompile Include="Pyramid.cpp" />
@@ -73,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Assignment_1.h" />
     <ClInclude Include="Billboard.h" />
     <ClInclude Include="Bone.h" />
     <ClInclude Include="Camera.h" />
@@ -106,6 +109,7 @@
     <ClInclude Include="ParticleEmitter.h" />
     <ClInclude Include="ParticleGravity.h" />
     <ClInclude Include="PerfLogTask.h" />
+    <ClInclude Include="PhoneCase.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="PlaneMesh.h" />
     <ClInclude Include="Pyramid.h" />

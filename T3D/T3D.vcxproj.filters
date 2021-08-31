@@ -240,6 +240,12 @@
     <ClCompile Include="LampTutorial.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Assignment_1.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="PhoneCase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mesh.h">
@@ -423,6 +429,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LampTutorial.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Assignment_1.h">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="PhoneCase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

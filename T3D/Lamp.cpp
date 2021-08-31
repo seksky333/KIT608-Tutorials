@@ -77,8 +77,6 @@ namespace T3D
 			//arm1->getTransform()->setParent(base->getTransform()); // not correct attachment yet
 			//arm1->getTransform()->name = "Arm1";
 
-
-
 			////baseJoint
 			baseJoint = new GameObject(app);
 			baseJoint->getTransform()->setParent(base->getTransform());
@@ -137,7 +135,9 @@ namespace T3D
 			
 			
 			//lampshadesp.makeCirclePath(0, 6*20);
-			lampshadesp.makeCirclePath(0, 6 * 20);
+			//lampshadesp.makeCirclePath(0, 6 * 20);
+			//lampshadesp.makeCirclePath(0, 3);
+			lampshadesp.makeCustomCirclePath(0.1, 3);
 
 			//lampShade attaches to shadeJoint
 			lampShade = new GameObject(app);
@@ -145,7 +145,6 @@ namespace T3D
 			lampShade->getTransform()->setLocalPosition(Vector3(0, 0.05, 0));
 			lampShade->getTransform()->setParent(shadeJoint->getTransform());
 			lampShade->getTransform()->name = "lampShade";
-
 			lampshadesp.addTransform(t);
 
 
