@@ -13,6 +13,7 @@
 #include "Cylinder.h"
 #include "Lamp.h"
 #include "PhoneCase.h"
+#include "WineGlass.h"
 #include "Assignment_1.h"
 
 
@@ -24,13 +25,12 @@ namespace T3D
         //light to the scene
         GameObject* lightObj = new GameObject(this);
         Light* light = new Light(Light::Type::DIRECTIONAL);
-        light->setAmbient(.3, .3, .3);
+        light->setAmbient(1, 1, 1);
         light->setDiffuse(1, 1, 1);
         light->setSpecular(1, 1, 1);
         lightObj->setLight(light);
         lightObj->getTransform()->
-            setLocalRotation(
-                Vector3(-45 * Math::DEG2RAD, 70 * Math::DEG2RAD, 0));
+            setLocalRotation(Vector3(-45 * Math::DEG2RAD, 70 * Math::DEG2RAD, 0));
         lightObj->getTransform()->setParent(root);
         //camera
         //add a camera to the scene
@@ -51,12 +51,18 @@ namespace T3D
         grey->setDiffuse(0.8, 0.8, 0.9, 1);
 
        
-        PhoneCase* phoneCase = new PhoneCase(this);
-        phoneCase->setMaterial(grey);
-        phoneCase->getTransform()->setLocalPosition(Vector3(0, 0, 0));
-        phoneCase->getTransform()->setParent(root);
-        phoneCase->arm1->setMaterial(grey);
+        //PhoneCase* phoneCase = new PhoneCase(this);
+        //phoneCase->setMaterial(grey);
+        //phoneCase->getTransform()->setLocalPosition(Vector3(0, 0, 0));
+        //phoneCase->getTransform()->setParent(root);
+        //phoneCase->arm1->setMaterial(grey);
         //phoneCase->phoneCase->setMaterial(grey);
+
+        WineGlass* wineGlass = new WineGlass(this);
+        wineGlass->setMaterial(grey);
+        wineGlass->getTransform()->setLocalPosition(Vector3(0, 0, 0));
+        wineGlass->getTransform()->setParent(root);
+        wineGlass->wineGlass->setMaterial(grey);
 
         return true;
     }

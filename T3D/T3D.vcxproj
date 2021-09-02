@@ -71,6 +71,7 @@
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Tutorial1.cpp" />
     <ClCompile Include="Tutorial4.cpp" />
+    <ClCompile Include="WineGlass.cpp" />
     <ClCompile Include="WinGLApplication.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +137,7 @@
     <ClInclude Include="Tutorial4.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Vector4.h" />
+    <ClInclude Include="WineGlass.h" />
     <ClInclude Include="WinGLApplication.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

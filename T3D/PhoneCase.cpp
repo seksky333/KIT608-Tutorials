@@ -20,15 +20,15 @@ namespace T3D
 {
 	PhoneCase::PhoneCase(T3DApplication* app) :GameObject(app) {
 		{
-			std::vector<Vector3> phoneCaseProfile;
-			phoneCaseProfile.push_back(Vector3(-0.2f, -0.1f, 0.0f));
-			phoneCaseProfile.push_back(Vector3(0.07f, -0.1f, 0.0f));
-			phoneCaseProfile.push_back(Vector3(0.07f, -0.11f, 0.0f));
-			phoneCaseProfile.push_back(Vector3(0.08f, -0.11f, 0.0f));
-			phoneCaseProfile.push_back(Vector3(0.08f, -0.1f, 0.0f));
-			phoneCaseProfile.push_back(Vector3(0.2f, -0.1f, 0.0f));
-			phoneCaseProfile.push_back(Vector3(0.2f, 0.1f, 0.0f));
-			phoneCaseProfile.push_back(Vector3(-0.2f, 0.1f, 0.0f));
+			//std::vector<Vector3> phoneCaseProfile;
+			//phoneCaseProfile.push_back(Vector3(-0.2f, -0.1f, 0.0f));
+			//phoneCaseProfile.push_back(Vector3(0.07f, -0.1f, 0.0f));
+			//phoneCaseProfile.push_back(Vector3(0.07f, -0.11f, 0.0f));
+			//phoneCaseProfile.push_back(Vector3(0.08f, -0.11f, 0.0f));
+			//phoneCaseProfile.push_back(Vector3(0.08f, -0.1f, 0.0f));
+			//phoneCaseProfile.push_back(Vector3(0.2f, -0.1f, 0.0f));
+			//phoneCaseProfile.push_back(Vector3(0.2f, 0.1f, 0.0f));
+			//phoneCaseProfile.push_back(Vector3(-0.2f, 0.1f, 0.0f));
 
 			//arm 1
 			std::vector<Vector3> armProfile;
@@ -53,25 +53,29 @@ namespace T3D
 			t.setLocalScale(Vector3(0.9, 1, 1.0));
 			armsp.addTransform(t);
 			armsp.addTransform(t);
+
 			//Adjust the position and scale for the next path instance
 			t.setLocalPosition(Vector3(-0.0075, 0, 0));
 			t.setLocalScale(Vector3(1, 1, 1.0));
 			armsp.addTransform(t);
-			armsp.addTransform(t);
+			//armsp.addTransform(t);
+
 			//Adjust the position for the next path instance
 			t.setLocalPosition(Vector3(0.0075, 0, 0));
+			t.setLocalScale(Vector3(1, 1, 1.0));
 			armsp.addTransform(t);
-			armsp.addTransform(t);
+			//armsp.addTransform(t);
+
 			//Adjust the position for the next path instance
-			t.setLocalPosition(Vector3(0.01, 0, 0));
-			t.setLocalScale(Vector3(0.9, 1, 1.0));
+			t.setLocalPosition(Vector3(0.1, 0, 0));
+			t.setLocalScale(Vector3(0.9, 0, 1.0));
 			armsp.addTransform(t);
 			armsp.addTransform(t);
 
 			//Adjust the scale for the final 'cap'
-			t.setLocalScale(Vector3(0.01, 0.01, 1.0));
-			armsp.addTransform(t);
-			armsp.addTransform(t);
+			//t.setLocalScale(Vector3(0.01, 0.01, 1.0));
+			//armsp.addTransform(t);
+			//armsp.addTransform(t);
 
 			arm1 = new GameObject(app);
 			arm1->setMesh(new Sweep(armProfile, armsp, false));
