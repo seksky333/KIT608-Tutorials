@@ -47,12 +47,14 @@
     <ClCompile Include="ParticleEmitter.cpp" />
     <ClCompile Include="ParticleGravity.cpp" />
     <ClCompile Include="PerfLogTask.cpp" />
-    <ClCompile Include="PhoneCase.cpp" />
+    <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="Plane.cpp" />
     <ClCompile Include="PlaneMesh.cpp" />
     <ClCompile Include="Pyramid.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Robot.cpp" />
+    <ClCompile Include="RobotHand.cpp" />
     <ClCompile Include="RotateBehaviour.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderTest.cpp" />
@@ -64,6 +66,7 @@
     <ClCompile Include="SweepPath.cpp" />
     <ClCompile Include="T3DApplication.cpp" />
     <ClCompile Include="T3DTest.cpp" />
+    <ClCompile Include="Tablet.cpp" />
     <ClCompile Include="Task.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="TerrainFollower.cpp" />
@@ -110,12 +113,14 @@
     <ClInclude Include="ParticleEmitter.h" />
     <ClInclude Include="ParticleGravity.h" />
     <ClInclude Include="PerfLogTask.h" />
-    <ClInclude Include="PhoneCase.h" />
+    <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="PlaneMesh.h" />
     <ClInclude Include="Pyramid.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="Robot.h" />
+    <ClInclude Include="RobotHand.h" />
     <ClInclude Include="RotateBehaviour.h" />
     <ClInclude Include="DefaultDebugOptions.h" />
     <ClInclude Include="Shader.h" />
@@ -128,6 +133,7 @@
     <ClInclude Include="SweepPath.h" />
     <ClInclude Include="T3DApplication.h" />
     <ClInclude Include="T3DTest.h" />
+    <ClInclude Include="Tablet.h" />
     <ClInclude Include="Task.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="TerrainFollower.h" />

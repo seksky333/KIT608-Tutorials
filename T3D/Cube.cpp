@@ -67,7 +67,7 @@ namespace T3D
 		//bottom
 		setQuadFace(pos++,19,18,17,16);
 		//top
-		//setQuadFace(pos++,20,21,22,23);
+		setQuadFace(pos++,20,21,22,23);
 
 		// Check vertex and index arrays
 		checkArrays();

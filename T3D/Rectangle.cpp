@@ -1,4 +1,4 @@
-#include "PhoneCase.h"
+#include "Rectangle.h"
 
 #include "GameObject.h"
 #include "Camera.h"
@@ -18,30 +18,30 @@
 
 namespace T3D
 {
-	PhoneCase::PhoneCase(T3DApplication* app) :GameObject(app) {
+	Rectangle::Rectangle(T3DApplication* app) :GameObject(app) {
 		{
-			//std::vector<Vector3> phoneCaseProfile;
-			//phoneCaseProfile.push_back(Vector3(-0.2f, -0.1f, 0.0f));
-			//phoneCaseProfile.push_back(Vector3(0.07f, -0.1f, 0.0f));
-			//phoneCaseProfile.push_back(Vector3(0.07f, -0.11f, 0.0f));
-			//phoneCaseProfile.push_back(Vector3(0.08f, -0.11f, 0.0f));
-			//phoneCaseProfile.push_back(Vector3(0.08f, -0.1f, 0.0f));
-			//phoneCaseProfile.push_back(Vector3(0.2f, -0.1f, 0.0f));
-			//phoneCaseProfile.push_back(Vector3(0.2f, 0.1f, 0.0f));
-			//phoneCaseProfile.push_back(Vector3(-0.2f, 0.1f, 0.0f));
+			std::vector<Vector3> rectangleProfile;
+			rectangleProfile.push_back(Vector3(-0.2f, -0.1f, 0.0f));
+			rectangleProfile.push_back(Vector3(0.07f, -0.1f, 0.0f));
+			rectangleProfile.push_back(Vector3(0.07f, -0.11f, 0.0f));
+			rectangleProfile.push_back(Vector3(0.08f, -0.11f, 0.0f));
+			rectangleProfile.push_back(Vector3(0.08f, -0.1f, 0.0f));
+			rectangleProfile.push_back(Vector3(0.2f, -0.1f, 0.0f));
+			rectangleProfile.push_back(Vector3(0.2f, 0.1f, 0.0f));
+			rectangleProfile.push_back(Vector3(-0.2f, 0.1f, 0.0f));
 
 			//arm 1
-			std::vector<Vector3> armProfile;
-			armProfile.push_back(Vector3(0.0f, -0.12f, 0.0f));
-			armProfile.push_back(Vector3(0.014f, -0.114f, 0.0f));
-			armProfile.push_back(Vector3(0.02f, -0.1f, 0.0f));
-			armProfile.push_back(Vector3(0.02f, 0.1f, 0.0f));
-			armProfile.push_back(Vector3(0.014f, 0.114f, 0.0f));
-			armProfile.push_back(Vector3(0.0f, 0.12f, 0.0f));
-			armProfile.push_back(Vector3(-0.014f, 0.114f, 0.0f));
-			armProfile.push_back(Vector3(-0.02f, 0.1f, 0.0f));
-			armProfile.push_back(Vector3(-0.02f, -0.1f, 0.0f));
-			armProfile.push_back(Vector3(-0.014f, -0.114f, 0.0f));
+			//std::vector<Vector3> armProfile;
+			//armProfile.push_back(Vector3(0.0f, -0.12f, 0.0f));
+			//armProfile.push_back(Vector3(0.014f, -0.114f, 0.0f));
+			//armProfile.push_back(Vector3(0.02f, -0.1f, 0.0f));
+			//armProfile.push_back(Vector3(0.02f, 0.1f, 0.0f));
+			//armProfile.push_back(Vector3(0.014f, 0.114f, 0.0f));
+			//armProfile.push_back(Vector3(0.0f, 0.12f, 0.0f));
+			//armProfile.push_back(Vector3(-0.014f, 0.114f, 0.0f));
+			//armProfile.push_back(Vector3(-0.02f, 0.1f, 0.0f));
+			//armProfile.push_back(Vector3(-0.02f, -0.1f, 0.0f));
+			//armProfile.push_back(Vector3(-0.014f, -0.114f, 0.0f));
 
 			//create the first transform
 			t.setLocalPosition(Vector3(0, 0, 0));
@@ -78,7 +78,7 @@ namespace T3D
 			//armsp.addTransform(t);
 
 			arm1 = new GameObject(app);
-			arm1->setMesh(new Sweep(armProfile, armsp, false));
+			arm1->setMesh(new Sweep(rectangleProfile, armsp, false));
 			arm1->getTransform()->setLocalPosition(Vector3(0, 0, 0)); // not correctly positioned yet
 			//arm1->getTransform()->setLocalPosition(Vector3(0, 0.1, 0)); 
 			arm1->getTransform()->setParent(getTransform()); // not correct attachment yet

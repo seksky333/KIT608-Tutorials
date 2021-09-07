@@ -17,7 +17,7 @@ namespace T3D
 		// Set vertices
 		float theta = 0;
 
-		float dTheta = Math::TWO_PI / d;
+		float dTheta = (Math::TWO_PI )/ d;
 		for (int i = 0; i < d; i++) {
 			theta = i * dTheta;
 			float x = r * cos(theta);

@@ -4,11 +4,11 @@
 namespace T3D
 {
 
-	class PhoneCase : public GameObject
+	class Rectangle : public GameObject
 	{
 	public:
-		PhoneCase(T3DApplication* app);
-		~PhoneCase(void);
+		Rectangle(T3DApplication* app);
+		~Rectangle(void);
 
 		GameObject* phoneCase;
 		SweepPath phoneCaseSP;

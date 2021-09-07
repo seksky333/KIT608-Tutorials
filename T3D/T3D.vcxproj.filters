@@ -240,13 +240,22 @@
     <ClCompile Include="Lamp.cpp">
       <Filter>Source Files\Component\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="PhoneCase.cpp">
+    <ClCompile Include="Rectangle.cpp">
       <Filter>Source Files\Component\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Pyramid.cpp">
       <Filter>Source Files\Component\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="WineGlass.cpp">
+      <Filter>Source Files\Component\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Robot.cpp">
+      <Filter>Source Files\Component\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="RobotHand.cpp">
+      <Filter>Source Files\Component\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Tablet.cpp">
       <Filter>Source Files\Component\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
@@ -422,26 +431,35 @@
     <ClInclude Include="Tutorial4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Pyramid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Cylinder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Lamp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="LampTutorial.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Assignment_1.h">
       <Filter>Header Files\Application</Filter>
     </ClInclude>
-    <ClInclude Include="PhoneCase.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Cylinder.h">
+      <Filter>Header Files\Component\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Lamp.h">
+      <Filter>Header Files\Component\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Rectangle.h">
+      <Filter>Header Files\Component\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyramid.h">
+      <Filter>Header Files\Component\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="WineGlass.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Component\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Robot.h">
+      <Filter>Header Files\Component\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="RobotHand.h">
+      <Filter>Header Files\Component\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Tablet.h">
+      <Filter>Header Files\Component\Mesh</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

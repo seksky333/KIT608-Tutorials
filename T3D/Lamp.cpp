@@ -146,9 +146,6 @@ namespace T3D
 			lampShade->getTransform()->setParent(shadeJoint->getTransform());
 			lampShade->getTransform()->name = "lampShade";
 			lampshadesp.addTransform(t);
-
-
-			
 		}
 	}
 

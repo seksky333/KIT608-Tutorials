@@ -11,6 +11,7 @@
 #include "Cube.h"
 #include "Pyramid.h"
 #include "Cylinder.h"
+#include "Tablet.h"
 #include "Lamp.h"
 
 using namespace T3D;
@@ -42,14 +43,15 @@ namespace T3D
             renderer->createMaterial(Renderer::PR_OPAQUE);
         green->setDiffuse(0, 1, 0, 1);
 
-        GameObject* cylinder = new GameObject(this);
-        //pyramid->setMesh(new Pyramid(1));
-        cylinder->setMesh(new Cylinder(.1, .01, 16));
-        //pyramid->setMesh(new Cube(1));
-        cylinder->setMaterial(green);
-        cylinder->getTransform()->setLocalPosition(Vector3(0, 0, 0));
-        cylinder->getTransform()->setParent(root);
-        cylinder->getTransform()->name = "Cylinder";
+        GameObject* shape = new GameObject(this);
+        //shape->setMesh(new Pyramid(1));
+        //shape->setMesh(new Cylinder(.1, .1, 16));
+        shape->setMesh(new Tablet(Vector3(10,2,10), .3, 1, .1, 6));
+        //shape->setMesh(new Cube(1));
+        shape->setMaterial(green);
+        shape->getTransform()->setLocalPosition(Vector3(0, 0, 0));
+        shape->getTransform()->setParent(root);
+        shape->getTransform()->name = "Shape";
   
 
         return true;

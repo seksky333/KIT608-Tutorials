@@ -11,10 +11,13 @@
 #include "Cube.h"
 #include "Pyramid.h"
 #include "Cylinder.h"
+#include "Sphere.h"
 #include "Lamp.h"
-#include "PhoneCase.h"
 #include "WineGlass.h"
+#include "Robot.h"
+#include "RobotHand.h"
 #include "Assignment_1.h"
+
 
 
 using namespace T3D;
@@ -51,18 +54,39 @@ namespace T3D
         grey->setDiffuse(0.8, 0.8, 0.9, 1);
 
        
-        //PhoneCase* phoneCase = new PhoneCase(this);
-        //phoneCase->setMaterial(grey);
-        //phoneCase->getTransform()->setLocalPosition(Vector3(0, 0, 0));
-        //phoneCase->getTransform()->setParent(root);
-        //phoneCase->arm1->setMaterial(grey);
-        //phoneCase->phoneCase->setMaterial(grey);
+        //WineGlass* wineGlass = new WineGlass(this);
+        //wineGlass->setMaterial(grey);
+        //wineGlass->getTransform()->setLocalPosition(Vector3(0, 0, 0));
+        //wineGlass->getTransform()->setParent(root);
+        //wineGlass->wineGlass->setMaterial(grey);
 
-        WineGlass* wineGlass = new WineGlass(this);
-        wineGlass->setMaterial(grey);
-        wineGlass->getTransform()->setLocalPosition(Vector3(0, 0, 0));
-        wineGlass->getTransform()->setParent(root);
-        wineGlass->wineGlass->setMaterial(grey);
+        //Add a sphere mesh as a child of the torus
+        Robot* robot = new Robot(this);
+        robot->setMaterial(green);
+        robot->getTransform()->setLocalPosition(Vector3(0, 0, 0));
+        robot->getTransform()->setParent(root);
+
+        robot->body->setMaterial(green);
+        robot->head->setMaterial(grey);
+        robot->leftShoulder->setMaterial(grey);
+        robot->leftArm->setMaterial(green);
+        robot->leftHand->setMaterial(grey);
+
+        robot->leftHandJoint->getTransform()->setLocalRotation(Quaternion(Vector3(Math::PI, Math::PI / 2, 0)));
+
+        robot->leftShoulder->getTransform()->setLocalRotation(Quaternion(Vector3(0, 0, Math::PI / 4)));
+
+        //robot->leftArmJoint->getTransform()->setLocalRotation(Quaternion(Vector3(0, 0, Math::PI / 4)));
+        //robot->headJoint->getTransform()->setLocalRotation(Quaternion(Vector3(0, Math::PI / 4, 0)));
+        
+
+
+        //test running RobotHand
+        //RobotHand* robotHand = new RobotHand(this);
+        //robotHand->setMaterial(green);
+        //robotHand->getTransform()->setLocalPosition(Vector3(0, 0, 0));
+        //robotHand->getTransform()->setParent(root);
+        //robotHand->robotHand->setMaterial(green);
 
         return true;
     }
