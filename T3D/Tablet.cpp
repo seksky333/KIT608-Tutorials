@@ -18,7 +18,7 @@ namespace T3D
 		//body (6 triangles - 6 verticies on the side + 2 extra verticies for the body + 2 points for the center of the top and the bottom ) + 4 screen depression points
 		initArrays((bodyCornerVerticies * 4) + (4 * 2) + (4 * 2) + 4,    // num vertices
 			bodyCornerVerticies * 4,        // num tris - top + bottom
-			d * 4 + 5);        // num quads + screen depression quads (5)
+			d * 4 + 5 + 13);        // num quads + screen depression quads (5) + tablet frame quads(13)
 
 		/*
 		* 1.Creating points for the corner's body
@@ -155,8 +155,8 @@ namespace T3D
 		const int cCornerTopCap3Point = cCornerTopCapTriBaseIndex + 9; //33
 		
 		const int cCornerBottomCapTriBaseIndex = d * 5;//30
-		const int cCornerBottomCap1Point = cCornerBottomCapTriBaseIndex + 12; //25
-		const int cCornerBottomCap3Point = cCornerBottomCapTriBaseIndex + 11; //24
+		const int cCornerBottomCap1Point = cCornerBottomCapTriBaseIndex + 11; //41
+		const int cCornerBottomCap3Point = cCornerBottomCapTriBaseIndex + 10; //40
 		
 		const int cCornerQuadCapBaseIndex = d*2;//12
 		const int cCornerQuadCap1Point = cCornerQuadCapBaseIndex + 20; //32
@@ -211,16 +211,33 @@ namespace T3D
 			//18 + i, 48 + i, 56 + i, 57 + i, 49 + i
 			setQuadFace(dCornerQuadCapBaseIndex + i, dCornerQuadCap1Point + i, dCornerQuadCap2Point + i, dCornerQuadCap3Point + i, dCornerQuadCap4Point + i);
 		}
-		const int sDQuadBaseIndex = d * 4;//24
 		//Screen depression quads
+		const int sDQuadBaseIndex = d * 4;//24
 		//centre
 		setQuadFace(sDQuadBaseIndex , 66, 67, 64, 65);
-
 		setQuadFace(sDQuadBaseIndex+1, 55, 7, 64, 67);
 		setQuadFace(sDQuadBaseIndex+2, 7, 23, 65, 64);
 		setQuadFace(sDQuadBaseIndex+3, 23, 39, 66, 65);
 		setQuadFace(sDQuadBaseIndex+4, 39, 55, 67, 66);
 
+		//tablet 
+		//top frame
+		const int tabletFrameIndex = 29;//29
+		setQuadFace(tabletFrameIndex, 7, 0, 16, 23);
+		setQuadFace(tabletFrameIndex+1, 23, 22, 38, 39);
+		setQuadFace(tabletFrameIndex + 2, 39, 32, 48, 55);
+		setQuadFace(tabletFrameIndex + 3, 55, 54, 6, 7);
+		//side frame
+		setQuadFace(tabletFrameIndex + 4, 54, 62, 14, 6);
+		setQuadFace(tabletFrameIndex + 5, 0, 8, 24, 16);
+		setQuadFace(tabletFrameIndex + 6, 22, 30, 46, 38);
+		setQuadFace(tabletFrameIndex + 7, 32, 40, 56, 48);
+		//bottom frame
+		setQuadFace(tabletFrameIndex + 8, 47, 31, 15, 63);
+		setQuadFace(tabletFrameIndex + 9, 63, 15, 14, 62);
+		setQuadFace(tabletFrameIndex + 10, 15, 31, 24, 8);
+		setQuadFace(tabletFrameIndex + 11, 31, 47, 46, 30);
+		setQuadFace(tabletFrameIndex + 12, 47, 63, 56, 40);
 
 		//Corner D
 		//setTriFace(36, 49, bottomLeftCornerTopCentreVertex, 48);
@@ -276,58 +293,6 @@ namespace T3D
 		//setQuadFace(4, 4, 5,  13,  12);
 		//setQuadFace(5, 5, 6, 14, 13);
 
-
-
-
-
-		//for (int i = 0; i < d; i++) {
-		//	setQuadFace(i,   // face id
-		//		i,         // current top vertex
-		//		(i + 1) % d,   // next top vertex (wrapping)
-		//		d + (i + 1) % d, // next bottom vertex (wrapping) 
-		//		d + i        // current bottom vertex
-		//	);
-		//	int topCapTriBottomVertex1 = 0;
-		//	int topCapTriTopVertex1 = 0;
-		//	int topCapTriBottomVertex2 = 0;
-
-		//	topCapTriBottomVertex1 = sideTopStart + i;
-		//	topCapTriTopVertex1 = d + sideTopStart;
-		//	topCapTriBottomVertex2 = sideTopStart + i + 1;
-
-			//handle the last triangle
-			//if ((sideTopStart + i + 1) == d + sideTopStart) {
-			//	topCapTriBottomVertex2 = sideTopStart;
-			//}
-			//top cap
-			//setTriFace(i,   // face id
-			//	topCapTriBottomVertex1,
-			//	topCapTriTopVertex1, // next bottom vertex (wrapping) 
-			//	topCapTriBottomVertex2
-			//);
-
-			//int bottomCapTriBottomVertex1 = 0;
-			//int bottomCapTriTopVertex1 = 0;
-			//int bottomCapTriBottomVertex2 = 0;
-
-			//bottomCapTriBottomVertex1 = sideBottomStart + i;
-			//bottomCapTriTopVertex1 = d + sideBottomStart;
-			//bottomCapTriBottomVertex2 = sideBottomStart + i + 1;
-			////handle the last triangle
-			//if ((sideBottomStart + i + 1) == d + sideBottomStart) {
-			//	bottomCapTriBottomVertex2 = sideBottomStart;
-			//}
-
-			//bottom cap
-			//setTriFace(d + i,   // face id
-			//	bottomCapTriBottomVertex2,
-			//	bottomCapTriTopVertex1, // next bottom vertex (wrapping) 
-			//	bottomCapTriBottomVertex1
-			//);
-		//}
-
-		//setQuadFace(d, );
-		//setQuadFace(d+1);
 
 		// Check vertex and index arrays
 		checkArrays();
