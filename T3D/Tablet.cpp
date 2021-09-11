@@ -251,47 +251,14 @@ namespace T3D
 		
 		//Corner B
 		//setTriFace(12, 17, topRightCornerTopCentreVertex, 16);
-		//setTriFace(13, 18, topRightCornerTopCentreVertex, 17);
-		//setTriFace(14, 19, topRightCornerTopCentreVertex, 18);
-		//setTriFace(15, 20, topRightCornerTopCentreVertex, 19);
-		//setTriFace(16, 21, topRightCornerTopCentreVertex, 20);
-		//setTriFace(17, 22, topRightCornerTopCentreVertex, 21);
-
 		//setTriFace(18, 24, topRightCornerBottomCentreVertex, 25);
-		//setTriFace(19, 25, topRightCornerBottomCentreVertex, 26);
-		//setTriFace(20, 26, topRightCornerBottomCentreVertex, 27);
-		//setTriFace(21, 27, topRightCornerBottomCentreVertex, 28);
-		//setTriFace(22, 28, topRightCornerBottomCentreVertex, 29);
-		//setTriFace(23, 29, topRightCornerBottomCentreVertex, 30);
-
 		//setQuadFace(6,  16,  24,  25,   17);
-		//setQuadFace(7, 17, 25, 26, 18);
-		//setQuadFace(8, 18, 26, 27, 19);
-		//setQuadFace(9, 19, 27, 28, 20);
-		//setQuadFace(10, 20, 28, 29, 21);
-		//setQuadFace(11, 21, 29, 30, 22);
 
 		//Corner A
 		//setTriFace(0, 0, bottomRightCornerTopCentreVertex, 1);
-		//setTriFace(1, 1, bottomRightCornerTopCentreVertex, 2);
-		//setTriFace(2, 2, bottomRightCornerTopCentreVertex, 3);
-		//setTriFace(3, 3, bottomRightCornerTopCentreVertex, 4);
-		//setTriFace(4, 4, bottomRightCornerTopCentreVertex, 5);
-		//setTriFace(5, 5, bottomRightCornerTopCentreVertex, 6);
-		// 
 		//setTriFace(6, 9,   bottomRightCornerBottomCentreVertex, 8);
-		//setTriFace(7, 10,  bottomRightCornerBottomCentreVertex, 9);
-		//setTriFace(8, 11,  bottomRightCornerBottomCentreVertex, 10);
-		//setTriFace(9, 12,  bottomRightCornerBottomCentreVertex, 11);
-		//setTriFace(10, 13, bottomRightCornerBottomCentreVertex, 12);
-		//setTriFace(11, 14, bottomRightCornerBottomCentreVertex, 13);
-		// 
 		//setQuadFace(0, 0, 1,  9,   8);
-		//setQuadFace(1, 1, 2,  10,  9);
-		//setQuadFace(2, 2, 3,  11,  10);
-		//setQuadFace(3, 3, 4,  12,  11);
-		//setQuadFace(4, 4, 5,  13,  12);
-		//setQuadFace(5, 5, 6, 14, 13);
+
 
 
 		// Check vertex and index arrays
