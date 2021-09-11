@@ -18,9 +18,9 @@ namespace T3D
 		//since the top cap will use 7 verticies, the bottom start needs to +1
 		int sideBottomStart = d + 1;
 		//body (6 triangles - 6 verticies on the side + 2 extra verticies for the body + 2 points for the center of the top and the bottom )
-		initArrays((bodyCornerVerticies * 3) + (3 * 2) + (3 * 2),    // num vertices
-			bodyCornerVerticies * 3,        // num tris - top + bottom
-			d * 3);        // num quads
+		initArrays((bodyCornerVerticies * 4) + (4 * 2) + (4 * 2),    // num vertices
+			bodyCornerVerticies * 4,        // num tris - top + bottom
+			d * 4);        // num quads
 
 		/*
 		* 1.Creating points for the corner's body
@@ -41,6 +41,9 @@ namespace T3D
 
 		int topLeftTopIndex = 0;
 		int topLeftBottomIndex = 0;
+
+		int bottomLeftTopIndex = 0;
+		int bottomLeftBottomIndex = 0;
 		for (int i = 0; i < d+1; i++) {
 			theta = i * dTheta;
 			float x = corner_radius * cos(theta);
@@ -48,7 +51,6 @@ namespace T3D
 
 			// bottom-right top verticies
 			setVertex(i, (centerPoint.x + halfBezelWidth) + x, size.y, (centerPoint.z + halfBezelWidth) + z);
-			
 			// bottom-right bottom verticies 
 			bottomRightBottomIndex = (dVerticies +1);//8
 			setVertex(bottomRightBottomIndex + i, (centerPoint.x + halfBezelWidth) + x, -size.y, (centerPoint.z + halfBezelWidth) + z);
@@ -56,7 +58,6 @@ namespace T3D
 			// top-right top verticies
 			topRightTopIndex = (dVerticies * 2) + 2;//16
 			setVertex(topRightTopIndex + i, (centerPoint.x + halfBezelWidth) + x, size.y, (-centerPoint.z - halfBezelWidth) - z);
-			
 			// top-right bottom verticies
 			topRightBottomIndex = (dVerticies * 3) + 3;//24
 			setVertex(topRightBottomIndex + i, (centerPoint.x + halfBezelWidth) + x, -size.y, (-centerPoint.z - halfBezelWidth) - z);
@@ -64,10 +65,17 @@ namespace T3D
 			//top-left top verticies
 			topLeftTopIndex = (dVerticies * 4) + 4;//32
 			setVertex(topLeftTopIndex + i, (-centerPoint.x - halfBezelWidth) - x, size.y, (-centerPoint.z - halfBezelWidth) - z);
-
 			//top-left bottom verticies
 			topLeftBottomIndex = (dVerticies * 5) + 5;//40
 			setVertex(topLeftBottomIndex + i, (-centerPoint.x - halfBezelWidth) - x, -size.y, (-centerPoint.z - halfBezelWidth) - z);
+
+			//bottom-left top verticies
+			bottomLeftTopIndex = (dVerticies * 6) + 6;//48
+			setVertex(bottomLeftTopIndex + i, (-centerPoint.x - halfBezelWidth) - x, size.y, (centerPoint.z + halfBezelWidth) + z);
+
+			//bottom-left bottom verticies
+			bottomLeftBottomIndex = (dVerticies * 7) + 7;//56
+			setVertex(bottomLeftBottomIndex + i, (-centerPoint.x - halfBezelWidth) - x, -size.y, (centerPoint.z + halfBezelWidth) + z);
 		}
 		/*
 		* 2.Creating center points for the corner's body
@@ -105,6 +113,17 @@ namespace T3D
 		//47
 		const int topLeftCornerBottomCentreVertex = (dVerticies * 6) + 5;
 		setVertex(topLeftCornerBottomCentreVertex, -centerPoint.x, -size.y, -centerPoint.z);
+
+
+		//48 - 54 (7 vectices for the corner d top body)
+		//55
+		const int bottoomLeftCornerTopCentreVertex = (dVerticies * 7) + 6;
+		setVertex(bottoomLeftCornerTopCentreVertex, -centerPoint.x, size.y, centerPoint.z);
+
+		//56 - 62 (7 vectices for the corner d bottom body)
+		//63
+		const int bottomLeftCornerBottomCentreVertex = (dVerticies * 8) + 7;
+		setVertex(bottomLeftCornerBottomCentreVertex, -centerPoint.x, -size.y, centerPoint.z);
 
 
 		/*
@@ -146,6 +165,21 @@ namespace T3D
 		const int cCornerQuadCap3Point = cCornerQuadCapBaseIndex + 29; //41
 		const int cCornerQuadCap4Point = cCornerQuadCapBaseIndex + 28; //40
 
+		//d coorner = bottom-left corner
+		const int dCornerTopCapTriBaseIndex = d * 6;//36
+		const int dCornerTopCap1Point = dCornerTopCapTriBaseIndex + 13; //48
+		const int dCornerTopCap3Point = dCornerTopCapTriBaseIndex +12; //49
+
+		const int dCornerBottomCapTriBaseIndex = d * 7;//42
+		const int dCornerBottomCap1Point = dCornerBottomCapTriBaseIndex + 14; //56
+		const int dCornerBottomCap3Point = dCornerBottomCapTriBaseIndex + 15; //57
+
+		const int dCornerQuadCapBaseIndex = d * 3;//18
+		const int dCornerQuadCap1Point = dCornerQuadCapBaseIndex + 30; //48
+		const int dCornerQuadCap2Point = dCornerQuadCapBaseIndex + 38; //56
+		const int dCornerQuadCap3Point = dCornerQuadCapBaseIndex + 39; //57
+		const int dCornerQuadCap4Point = dCornerQuadCapBaseIndex + 31; //49
+
 		for (int i = 0; i < d; i++)
 		{	
 			//bottom-right corner
@@ -167,9 +201,22 @@ namespace T3D
 			setTriFace(cCornerTopCapTriBaseIndex + i, cCornerTopCap1Point + i, topLeftCornerTopCentreVertex, cCornerTopCap3Point + i);
 			//30 + i, 41 + i, 47, 42 + i
 			setTriFace(cCornerBottomCapTriBaseIndex + i, cCornerBottomCap1Point + i, topLeftCornerBottomCentreVertex, cCornerBottomCap3Point + i);
-			//12 + i, 32 + i, 41 + i, 42 + i, 33 + i
+			//12 + i, 32 + i, 33 + i, 41 + i, 40 + i
 			setQuadFace(cCornerQuadCapBaseIndex + i, cCornerQuadCap1Point + i, cCornerQuadCap2Point + i, cCornerQuadCap3Point + i, cCornerQuadCap4Point + i);
+
+			//bottom-left corner
+			//36 + i, 49 + i, 55, 48 + i
+			setTriFace(dCornerTopCapTriBaseIndex + i, dCornerTopCap1Point + i, bottoomLeftCornerTopCentreVertex, dCornerTopCap3Point + i);
+			//42 + i, 56 + i, 63, 57 + i
+			setTriFace(dCornerBottomCapTriBaseIndex + i, dCornerBottomCap1Point + i, bottomLeftCornerBottomCentreVertex, dCornerBottomCap3Point + i);
+			//18 + i, 48 + i, 56 + i, 57 + i, 49 + i
+			setQuadFace(dCornerQuadCapBaseIndex + i, dCornerQuadCap1Point + i, dCornerQuadCap2Point + i, dCornerQuadCap3Point + i, dCornerQuadCap4Point + i);
 		}
+		//Corner D
+		//setTriFace(36, 49, bottomLeftCornerTopCentreVertex, 48);
+		//setTriFace(42, 56, bottomLeftCornerBottomCentreVertex, 57);
+		//setQuadFace(18, 48, 56, 57, 49);
+
 		//Corner C
 		//setTriFace(24, 32, topLeftCornerTopCentreVertex, 33);
 		//setTriFace(30, 42, topLeftCornerBottomCentreVertex, 41);
