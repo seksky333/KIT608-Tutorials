@@ -120,7 +120,7 @@ namespace T3D
 
 			//lampShade attaches to shadeJoint
 			leftArm = new GameObject(app);
-			leftArm->setMesh(new Sweep(leftArmProfile, leftArmSP, false));
+			leftArm->setMesh(new Sweep(leftArmProfile, leftArmSP, true));
 			leftArm->getTransform()->setLocalPosition(Vector3(0, -.15, 0));
 			leftArm->getTransform()->setParent(leftArmJoint->getTransform());
 			leftArm->getTransform()->name = "LeftArm";
