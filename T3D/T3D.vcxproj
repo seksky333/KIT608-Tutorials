@@ -67,6 +67,7 @@
     <ClCompile Include="T3DApplication.cpp" />
     <ClCompile Include="T3DTest.cpp" />
     <ClCompile Include="Tablet.cpp" />
+    <ClCompile Include="TableWithGlass.cpp" />
     <ClCompile Include="Task.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="TerrainFollower.cpp" />
@@ -134,6 +135,7 @@
     <ClInclude Include="T3DApplication.h" />
     <ClInclude Include="T3DTest.h" />
     <ClInclude Include="Tablet.h" />
+    <ClInclude Include="TableWithGlass.h" />
     <ClInclude Include="Task.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="TerrainFollower.h" />

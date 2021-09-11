@@ -18,71 +18,35 @@
 
 namespace T3D
 {
-	Rectangle::Rectangle(T3DApplication* app) :GameObject(app) {
+	Rectangle::Rectangle(Vector3 size) {
 		{
-			std::vector<Vector3> rectangleProfile;
-			rectangleProfile.push_back(Vector3(-0.2f, -0.1f, 0.0f));
-			rectangleProfile.push_back(Vector3(0.07f, -0.1f, 0.0f));
-			rectangleProfile.push_back(Vector3(0.07f, -0.11f, 0.0f));
-			rectangleProfile.push_back(Vector3(0.08f, -0.11f, 0.0f));
-			rectangleProfile.push_back(Vector3(0.08f, -0.1f, 0.0f));
-			rectangleProfile.push_back(Vector3(0.2f, -0.1f, 0.0f));
-			rectangleProfile.push_back(Vector3(0.2f, 0.1f, 0.0f));
-			rectangleProfile.push_back(Vector3(-0.2f, 0.1f, 0.0f));
+			initArrays((4*2),    // num vertices
+				0,        // num tris - top + bottom
+				6);        // num quads + screen depression quads (5) + tablet frame quads(13)
 
-			//arm 1
-			//std::vector<Vector3> armProfile;
-			//armProfile.push_back(Vector3(0.0f, -0.12f, 0.0f));
-			//armProfile.push_back(Vector3(0.014f, -0.114f, 0.0f));
-			//armProfile.push_back(Vector3(0.02f, -0.1f, 0.0f));
-			//armProfile.push_back(Vector3(0.02f, 0.1f, 0.0f));
-			//armProfile.push_back(Vector3(0.014f, 0.114f, 0.0f));
-			//armProfile.push_back(Vector3(0.0f, 0.12f, 0.0f));
-			//armProfile.push_back(Vector3(-0.014f, 0.114f, 0.0f));
-			//armProfile.push_back(Vector3(-0.02f, 0.1f, 0.0f));
-			//armProfile.push_back(Vector3(-0.02f, -0.1f, 0.0f));
-			//armProfile.push_back(Vector3(-0.014f, -0.114f, 0.0f));
+			setVertex(0, -size.x, size.y, -size.z);
+			setVertex(1, size.x, size.y, -size.z);
+			setVertex(2, size.x, size.y, size.z);
+			setVertex(3, -size.x, size.y, size.z);
 
-			//create the first transform
-			t.setLocalPosition(Vector3(0, 0, 0));
-			t.setLocalRotation(Quaternion(Vector3(0, Math::PI / 2, 0)));
-			t.setLocalScale(Vector3(0.01, 0.01, 1.0)); // no need to scale the z-direction because the profile is in the XY plane
-			armsp.addTransform(t);
-			armsp.addTransform(t);
-			//Adjust the scale for the next path instance
-			t.setLocalScale(Vector3(0.9, 1, 1.0));
-			armsp.addTransform(t);
-			armsp.addTransform(t);
+			setVertex(4, -size.x, -size.y, -size.z);
+			setVertex(5, size.x,  -size.y, -size.z);
+			setVertex(6, size.x,  -size.y, size.z);
+			setVertex(7, -size.x, -size.y, size.z);
 
-			//Adjust the position and scale for the next path instance
-			t.setLocalPosition(Vector3(-0.0075, 0, 0));
-			t.setLocalScale(Vector3(1, 1, 1.0));
-			armsp.addTransform(t);
-			//armsp.addTransform(t);
+			setQuadFace(0, 0,3, 2, 1);
+			setQuadFace(1, 4, 5, 6, 7);
 
-			//Adjust the position for the next path instance
-			t.setLocalPosition(Vector3(0.0075, 0, 0));
-			t.setLocalScale(Vector3(1, 1, 1.0));
-			armsp.addTransform(t);
-			//armsp.addTransform(t);
+			setQuadFace(2, 3, 7, 6, 2);
+			setQuadFace(3, 2, 6, 5, 1);
+			setQuadFace(4, 1, 5, 4, 0);
+			setQuadFace(5, 0, 4, 7, 3);
 
-			//Adjust the position for the next path instance
-			t.setLocalPosition(Vector3(0.1, 0, 0));
-			t.setLocalScale(Vector3(0.9, 0, 1.0));
-			armsp.addTransform(t);
-			armsp.addTransform(t);
+			// Check vertex and index arrays
+			checkArrays();
 
-			//Adjust the scale for the final 'cap'
-			//t.setLocalScale(Vector3(0.01, 0.01, 1.0));
-			//armsp.addTransform(t);
-			//armsp.addTransform(t);
-
-			arm1 = new GameObject(app);
-			arm1->setMesh(new Sweep(rectangleProfile, armsp, false));
-			arm1->getTransform()->setLocalPosition(Vector3(0, 0, 0)); // not correctly positioned yet
-			//arm1->getTransform()->setLocalPosition(Vector3(0, 0.1, 0)); 
-			arm1->getTransform()->setParent(getTransform()); // not correct attachment yet
-			arm1->getTransform()->name = "Arm1";
+			// Calculate normals
+			calcNormals();
 		}
 	}
 

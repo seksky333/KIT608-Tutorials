@@ -4,17 +4,12 @@
 namespace T3D
 {
 
-	class Rectangle : public GameObject
+	class Rectangle : public Mesh
 	{
 	public:
-		Rectangle(T3DApplication* app);
-		~Rectangle(void);
-
-		GameObject* phoneCase;
-		SweepPath phoneCaseSP;
-		Transform t;
-
-		GameObject* arm1;
-		SweepPath armsp;
+		Rectangle(Vector3 size);
+		virtual ~Rectangle(void) = default;
 	};
+
+
 }

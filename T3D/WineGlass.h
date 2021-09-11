@@ -8,11 +8,11 @@ namespace T3D
 	{
 	public:
 		WineGlass(T3DApplication* app);
-		~WineGlass(void);
 
 		GameObject* wineGlass;
 		SweepPath wineGlassSP;
 		Transform t;
 
 	};
+
 }

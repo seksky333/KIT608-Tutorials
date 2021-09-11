@@ -13,6 +13,8 @@
 #include "Cylinder.h"
 #include "Tablet.h"
 #include "Lamp.h"
+#include "Rectangle.h"
+#include "TableWithGlass.h"
 
 using namespace T3D;
 namespace T3D
@@ -43,16 +45,33 @@ namespace T3D
             renderer->createMaterial(Renderer::PR_OPAQUE);
         green->setDiffuse(0, 1, 0, 1);
 
+        Material* grey = renderer->createMaterial(Renderer::PR_OPAQUE);
+        grey->setDiffuse(0.8, 0.8, 0.9, 1);
+
         GameObject* shape = new GameObject(this);
         //shape->setMesh(new Pyramid(1));
         //shape->setMesh(new Cylinder(.1, .1, 16));
-        shape->setMesh(new Tablet(Vector3(12,.5,6), .3, 1, .3, 6));
+        //densitiy can only works for 6
+        //shape->setMesh(new Tablet(Vector3(12,.5,6), .3, 1, .3, 6));
+        //shape->setMesh(new Rectangle(Vector3(12,.5,6)));
         //shape->setMesh(new Cube(1));
-        shape->setMaterial(green);
-        shape->getTransform()->setLocalPosition(Vector3(0, 0, 0));
-        shape->getTransform()->setParent(root);
-        shape->getTransform()->name = "Shape";
+        //shape->setMaterial(green);
+        //shape->getTransform()->setLocalPosition(Vector3(0, 0, 0));
+        //shape->getTransform()->setParent(root);
+        //shape->getTransform()->name = "Shape";
   
+        TableWithGlass* tableWithGlass = new TableWithGlass(this);
+        tableWithGlass->setMaterial(green);
+        tableWithGlass->getTransform()->setLocalPosition(Vector3(0, 0, 0));
+        tableWithGlass->getTransform()->setParent(root);
+        
+        tableWithGlass->base->setMaterial(green);
+        tableWithGlass->leg1->setMaterial(grey);
+        tableWithGlass->leg2->setMaterial(grey);
+        tableWithGlass->leg3->setMaterial(grey);
+        tableWithGlass->leg4->setMaterial(grey);
+        tableWithGlass->wineGlass->setMaterial(grey);
+
 
         return true;
     }
