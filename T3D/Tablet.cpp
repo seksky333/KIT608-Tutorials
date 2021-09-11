@@ -12,15 +12,13 @@ namespace T3D
 		*/
 
 		int d = density;
-		// Init vertex and index arrays
-		int sideTopStart = 0;
 		const int bodyCornerVerticies = d *2;
 		//since the top cap will use 7 verticies, the bottom start needs to +1
 		int sideBottomStart = d + 1;
-		//body (6 triangles - 6 verticies on the side + 2 extra verticies for the body + 2 points for the center of the top and the bottom )
-		initArrays((bodyCornerVerticies * 4) + (4 * 2) + (4 * 2),    // num vertices
+		//body (6 triangles - 6 verticies on the side + 2 extra verticies for the body + 2 points for the center of the top and the bottom ) + 4 screen depression points
+		initArrays((bodyCornerVerticies * 4) + (4 * 2) + (4 * 2) + 4,    // num vertices
 			bodyCornerVerticies * 4,        // num tris - top + bottom
-			d * 4);        // num quads
+			d * 4 + 5);        // num quads + screen depression quads (5)
 
 		/*
 		* 1.Creating points for the corner's body
@@ -87,45 +85,46 @@ namespace T3D
 		//7
 		const int bottomRightCornerTopCentreVertex = dVerticies;
 		setVertex(bottomRightCornerTopCentreVertex, centerPoint.x, size.y, centerPoint.z);
-
 		//bottom cap origin point 25
 		//8 - 14 (7 vectices for the corner a bottom body)
 		//15
 		const int aCornerBottomCentreVertex = (dVerticies * 2)+1;
 		setVertex(aCornerBottomCentreVertex, centerPoint.x, -size.y, centerPoint.z);
-
 		//16 - 22 (7 vectices for the corner b top body)
 		//23
 		const int topRightCornerTopCentreVertex = (dVerticies * 3) +2;
 		setVertex(topRightCornerTopCentreVertex , centerPoint.x, size.y, -centerPoint.z);
-
 		//24 - 30 (7 vectices for the corner b bottom body)
 		//31
 		const int topRightCornerBottomCentreVertex = (dVerticies * 4) +3;
 		setVertex(topRightCornerBottomCentreVertex, centerPoint.x, -size.y, -centerPoint.z);
-
 		//32 - 38 (7 vectices for the corner c top body)
 		//39
 		const int topLeftCornerTopCentreVertex = (dVerticies * 5) + 4;
 		setVertex(topLeftCornerTopCentreVertex, -centerPoint.x, size.y, -centerPoint.z);
-
 		//40 - 46 (7 vectices for the corner c bottom body)
 		//47
 		const int topLeftCornerBottomCentreVertex = (dVerticies * 6) + 5;
 		setVertex(topLeftCornerBottomCentreVertex, -centerPoint.x, -size.y, -centerPoint.z);
-
-
 		//48 - 54 (7 vectices for the corner d top body)
 		//55
 		const int bottoomLeftCornerTopCentreVertex = (dVerticies * 7) + 6;
 		setVertex(bottoomLeftCornerTopCentreVertex, -centerPoint.x, size.y, centerPoint.z);
-
 		//56 - 62 (7 vectices for the corner d bottom body)
 		//63
 		const int bottomLeftCornerBottomCentreVertex = (dVerticies * 8) + 7;
 		setVertex(bottomLeftCornerBottomCentreVertex, -centerPoint.x, -size.y, centerPoint.z);
-
-
+		//Screen depression points
+		//64 - 67
+		const float adjustedScreenDepression = size.y - screen_depression;
+		//bottom right
+		setVertex(64, centerPoint.x, adjustedScreenDepression, centerPoint.z);
+		//top right
+		setVertex(65, centerPoint.x, adjustedScreenDepression, -centerPoint.z);
+		//top left
+		setVertex(66, -centerPoint.x, adjustedScreenDepression, -centerPoint.z);
+		//bottom left
+		setVertex(67, -centerPoint.x, adjustedScreenDepression, centerPoint.z);
 		/*
 		* 3.Creating faces
 		*/
@@ -212,6 +211,17 @@ namespace T3D
 			//18 + i, 48 + i, 56 + i, 57 + i, 49 + i
 			setQuadFace(dCornerQuadCapBaseIndex + i, dCornerQuadCap1Point + i, dCornerQuadCap2Point + i, dCornerQuadCap3Point + i, dCornerQuadCap4Point + i);
 		}
+		const int sDQuadBaseIndex = d * 4;//24
+		//Screen depression quads
+		//centre
+		setQuadFace(sDQuadBaseIndex , 66, 67, 64, 65);
+
+		setQuadFace(sDQuadBaseIndex+1, 55, 7, 64, 67);
+		setQuadFace(sDQuadBaseIndex+2, 7, 23, 65, 64);
+		setQuadFace(sDQuadBaseIndex+3, 23, 39, 66, 65);
+		setQuadFace(sDQuadBaseIndex+4, 39, 55, 67, 66);
+
+
 		//Corner D
 		//setTriFace(36, 49, bottomLeftCornerTopCentreVertex, 48);
 		//setTriFace(42, 56, bottomLeftCornerBottomCentreVertex, 57);

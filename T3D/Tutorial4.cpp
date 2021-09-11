@@ -46,7 +46,7 @@ namespace T3D
         GameObject* shape = new GameObject(this);
         //shape->setMesh(new Pyramid(1));
         //shape->setMesh(new Cylinder(.1, .1, 16));
-        shape->setMesh(new Tablet(Vector3(12,1,6), .3, 1, .1, 6));
+        shape->setMesh(new Tablet(Vector3(12,1,6), .3, 1, .3, 6));
         //shape->setMesh(new Cube(1));
         shape->setMaterial(green);
         shape->getTransform()->setLocalPosition(Vector3(0, 0, 0));
