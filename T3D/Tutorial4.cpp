@@ -60,17 +60,17 @@ namespace T3D
         //shape->getTransform()->setParent(root);
         //shape->getTransform()->name = "Shape";
   
-        TableWithGlass* tableWithGlass = new TableWithGlass(this);
-        tableWithGlass->setMaterial(green);
-        tableWithGlass->getTransform()->setLocalPosition(Vector3(0, 0, 0));
-        tableWithGlass->getTransform()->setParent(root);
-        
-        tableWithGlass->base->setMaterial(green);
-        tableWithGlass->leg1->setMaterial(grey);
-        tableWithGlass->leg2->setMaterial(grey);
-        tableWithGlass->leg3->setMaterial(grey);
-        tableWithGlass->leg4->setMaterial(grey);
-        tableWithGlass->wineGlass->setMaterial(grey);
+        //TableWithGlass* tableWithGlass = new TableWithGlass(this);
+        //tableWithGlass->setMaterial(green);
+        //tableWithGlass->getTransform()->setLocalPosition(Vector3(0, 0, 0));
+        //tableWithGlass->getTransform()->setParent(root);
+        //
+        //tableWithGlass->base->setMaterial(green);
+        //tableWithGlass->leg1->setMaterial(grey);
+        //tableWithGlass->leg2->setMaterial(grey);
+        //tableWithGlass->leg3->setMaterial(grey);
+        //tableWithGlass->leg4->setMaterial(grey);
+        //tableWithGlass->wineGlass->setMaterial(grey);
 
 
         return true;

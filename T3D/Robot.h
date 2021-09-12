@@ -8,6 +8,9 @@ namespace T3D
 	public:
 		Robot(T3DApplication* app);
 		~Robot(void);
+		std::vector<Vector3> getArmProfile();
+		std::vector<Vector3> getHandProfile();
+		std::vector<Vector3> getLegProfile();
 
 		GameObject* body;
 		GameObject* head;
@@ -15,6 +18,9 @@ namespace T3D
 		GameObject* leftArm;
 		GameObject* leftHand;
 		GameObject* rightShoulder;
+		GameObject* rightArm;
+		GameObject* rightHand;
+
 
 		GameObject* headJoint;
 
@@ -22,11 +28,27 @@ namespace T3D
 		GameObject* leftArmJoint;
 		GameObject* leftHandJoint;
 
+		GameObject* leftLegJoint;
+		GameObject* leftLeg;
+		GameObject* leftFootJoint;
+		GameObject* leftFoot;
+
+		GameObject* rightShoulderJoint;
+		GameObject* rightArmJoint;
 		GameObject* rightHandJoint;
+
+		GameObject* rightLegJoint;
+		GameObject* rightLeg;
+		GameObject* rightFootJoint;
+		GameObject* rightFoot;
 
 		SweepPath bodysp;
 		SweepPath leftArmSP;
 		SweepPath leftHandSP;
+		SweepPath rightArmSP;
+		SweepPath rightHandSP;
+		SweepPath leftLegSP;
+		SweepPath rightLegSP;
 		Transform t;
 	};
 }

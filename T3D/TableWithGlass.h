@@ -6,7 +6,7 @@ namespace T3D
 		class TableWithGlass : public GameObject
 	{
 	public:
-		TableWithGlass(T3DApplication* app);
+		TableWithGlass(T3DApplication* app, float length, float width, float height, int wineGlassPos);
 		std::vector<Vector3> getWineGlassProfile();
 		Vector3 getWineGlassLocation(float legXPos, float legZPos, int desiredPos);
 

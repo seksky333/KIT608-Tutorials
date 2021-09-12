@@ -13,12 +13,12 @@
 #include "Cylinder.h"
 #include "Sphere.h"
 #include "Lamp.h"
+#include "Tablet.h"
 #include "WineGlass.h"
+#include "TableWithGlass.h"
 #include "Robot.h"
 #include "RobotHand.h"
 #include "Assignment_1.h"
-
-
 
 using namespace T3D;
 namespace T3D
@@ -49,45 +49,68 @@ namespace T3D
             renderer->createMaterial(Renderer::PR_OPAQUE);
         green->setDiffuse(0, 1, 0, 1);
 
-
         Material* grey = renderer->createMaterial(Renderer::PR_OPAQUE);
         grey->setDiffuse(0.8, 0.8, 0.9, 1);
 
-       
-        //WineGlass* wineGlass = new WineGlass(this);
-        //wineGlass->setMaterial(grey);
-        //wineGlass->getTransform()->setLocalPosition(Vector3(0, 0, 0));
-        //wineGlass->getTransform()->setParent(root);
-        //wineGlass->wineGlass->setMaterial(grey);
+        Material* red = renderer->createMaterial(Renderer::PR_OPAQUE);
+        red->setDiffuse(1, 0, 0, 1);
 
-        //Add a sphere mesh as a child of the torus
+        Material* blue = renderer->createMaterial(Renderer::PR_OPAQUE);
+        blue->setDiffuse(0, 0, 1, 1);
+
+
+       /*Part 1*/
+        WineGlass* wineGlass = new WineGlass(this);
+        wineGlass->setMaterial(grey);
+        wineGlass->getTransform()->setLocalPosition(Vector3(0, 0, 3));
+        wineGlass->getTransform()->setParent(root);
+        wineGlass->wineGlass->setMaterial(grey);
+
+        /*Part 2*/
+        TableWithGlass* tableWithGlass = new TableWithGlass(this, 1.2, .6, .3, 3);
+        tableWithGlass->setMaterial(green);
+        tableWithGlass->getTransform()->setLocalPosition(Vector3(0, 0, 0));
+        tableWithGlass->getTransform()->setParent(root);
+        tableWithGlass->base->setMaterial(blue);
+        tableWithGlass->leg1->setMaterial(grey);
+        tableWithGlass->leg2->setMaterial(grey);
+        tableWithGlass->leg3->setMaterial(grey);
+        tableWithGlass->leg4->setMaterial(grey);
+        tableWithGlass->wineGlass->setMaterial(red);
+
+        /*Part 3*/
+        GameObject* tablet = new GameObject(this);
+        tablet->setMaterial(grey);
+        tablet->setMesh(new Tablet(Vector3(12, .5, 6), .3, 1, .3, 6));
+        tablet->getTransform()->setLocalPosition(Vector3(0, -3, 0));
+        tablet->getTransform()->setParent(root);
+
+        /*Part 4*/
         Robot* robot = new Robot(this);
         robot->setMaterial(green);
-        robot->getTransform()->setLocalPosition(Vector3(0, 0, 0));
+        robot->getTransform()->setLocalPosition(Vector3(0, 0, -3));
         robot->getTransform()->setParent(root);
-
         robot->body->setMaterial(green);
         robot->head->setMaterial(grey);
         robot->leftShoulder->setMaterial(grey);
         robot->leftArm->setMaterial(green);
         robot->leftHand->setMaterial(grey);
-
-        robot->leftHandJoint->getTransform()->setLocalRotation(Quaternion(Vector3(Math::PI, Math::PI / 2, 0)));
+        robot->leftLeg->setMaterial(green);
+        robot->leftFoot->setMaterial(grey);
+        robot->rightShoulder->setMaterial(grey);
+        robot->rightArm->setMaterial(green);
+        robot->rightHand->setMaterial(grey);
+        robot->rightLeg->setMaterial(green);
+        robot->rightFoot->setMaterial(grey);
 
         robot->leftShoulder->getTransform()->setLocalRotation(Quaternion(Vector3(0, 0, Math::PI / 4)));
+        robot->leftHandJoint->getTransform()->setLocalRotation(Quaternion(Vector3(Math::PI, Math::PI / 2, 0)));
+
+        robot->rightHandJoint->getTransform()->setLocalRotation(Quaternion(Vector3(Math::PI, Math::PI / 2, 0)));
 
         //robot->leftArmJoint->getTransform()->setLocalRotation(Quaternion(Vector3(0, 0, Math::PI / 4)));
         //robot->headJoint->getTransform()->setLocalRotation(Quaternion(Vector3(0, Math::PI / 4, 0)));
         
-
-
-        //test running RobotHand
-        //RobotHand* robotHand = new RobotHand(this);
-        //robotHand->setMaterial(green);
-        //robotHand->getTransform()->setLocalPosition(Vector3(0, 0, 0));
-        //robotHand->getTransform()->setParent(root);
-        //robotHand->robotHand->setMaterial(green);
-
         return true;
     }
 

@@ -19,71 +19,80 @@
 
 namespace T3D
 {
-	TableWithGlass::TableWithGlass(T3DApplication* app) :GameObject(app) {
+	TableWithGlass::TableWithGlass(T3DApplication* app, float length, float width, float height, int wineGlassPos) :GameObject(app) {
 		{
 
 
-			const int tableLength= 12;
-			const int tableWidth= 6;
+			const float tableLength= length;
+			const float tableWidth= width;
+			const float tableHeight = height;
+
+			const float tableBaseHeight = tableHeight *.1;
+			const float tableLegHeight = tableHeight *.9;
+			
+			const float tableWineGlassY = tableHeight * .8;
+
+			const float tableLegRadius = .05;
 
 			const int wineGlassDesiredLocation = 3;
 
 			const float legXPos = tableLength * .9;
+			const float legYPos = tableLegHeight;
 			const float legZPos = tableWidth * .8;
 
 			base = new GameObject(app);
-			base->setMesh(new Rectangle(Vector3(12, .5, 6)));
+			base->setMesh(new Rectangle(Vector3(tableLength, tableBaseHeight, tableWidth)));
 			base->getTransform()->setParent(getTransform()); // attaching this piece to the Lamp object's transform
 			base->getTransform()->setLocalPosition(Vector3(0, 0.02, 0));
 			base->getTransform()->name = "Base";
 
 			leg1Joint = new GameObject(app);
-			leg1Joint->getTransform()->setLocalPosition(Vector3(-legXPos, -3, -legZPos));
+			leg1Joint->getTransform()->setLocalPosition(Vector3(-legXPos, -legYPos, -legZPos));
 			leg1Joint->getTransform()->setParent(base->getTransform());
 			leg1Joint->getTransform()->name = "Leg1Joint";
 
 			leg1= new GameObject(app);
-			leg1->setMesh(new Cylinder(.25, 3,6*4));
+			leg1->setMesh(new Cylinder(tableLegRadius, tableLegHeight,6*4));
 			leg1->getTransform()->setLocalPosition(Vector3(0, 0, 0));
 			leg1->getTransform()->setParent(leg1Joint->getTransform());
 			leg1->getTransform()->name = "Leg1";
 
 			leg2Joint = new GameObject(app);
-			leg2Joint->getTransform()->setLocalPosition(Vector3(-legXPos, -3, legZPos));
+			leg2Joint->getTransform()->setLocalPosition(Vector3(-legXPos, -legYPos, legZPos));
 			leg2Joint->getTransform()->setParent(base->getTransform());
 			leg2Joint->getTransform()->name = "Leg2Joint";
 
 			leg2 = new GameObject(app);
-			leg2->setMesh(new Cylinder(.25, 3, 6 * 4));
+			leg2->setMesh(new Cylinder(tableLegRadius, tableLegHeight, 6 * 4));
 			leg2->getTransform()->setLocalPosition(Vector3(0, 0, 0));
 			leg2->getTransform()->setParent(leg2Joint->getTransform());
 			leg2->getTransform()->name = "Leg2";
 
 			leg3Joint = new GameObject(app);
-			leg3Joint->getTransform()->setLocalPosition(Vector3(legXPos, -3, -legZPos));
+			leg3Joint->getTransform()->setLocalPosition(Vector3(legXPos, -legYPos, -legZPos));
 			leg3Joint->getTransform()->setParent(base->getTransform());
 			leg3Joint->getTransform()->name = "Leg3Joint";
 
 			leg3 = new GameObject(app);
-			leg3->setMesh(new Cylinder(.25, 3, 6 * 4));
+			leg3->setMesh(new Cylinder(tableLegRadius, tableLegHeight, 6 * 4));
 			leg3->getTransform()->setLocalPosition(Vector3(0, 0, 0));
 			leg3->getTransform()->setParent(leg3Joint->getTransform());
 			leg3->getTransform()->name = "Leg3";
 
 			leg4Joint = new GameObject(app);
-			leg4Joint->getTransform()->setLocalPosition(Vector3(legXPos, -3, legZPos));
+			leg4Joint->getTransform()->setLocalPosition(Vector3(legXPos, -legYPos, legZPos));
 			leg4Joint->getTransform()->setParent(base->getTransform());
 			leg4Joint->getTransform()->name = "Leg4Joint";
 
 			leg4 = new GameObject(app);
-			leg4->setMesh(new Cylinder(.25, 3, 6 * 4));
+			leg4->setMesh(new Cylinder(tableLegRadius, tableLegHeight, 6 * 4));
 			leg4->getTransform()->setLocalPosition(Vector3(0, 0, 0));
 			leg4->getTransform()->setParent(leg4Joint->getTransform());
 			leg4->getTransform()->name = "Leg4";
 
 			Vector3 wineGlassDesiredPosition = getWineGlassLocation(legXPos, legZPos, wineGlassDesiredLocation);
 			wineGlassLocation = new GameObject(app);
-			wineGlassLocation->getTransform()->setLocalPosition(Vector3(wineGlassDesiredPosition.x, .8, wineGlassDesiredPosition.z));
+			wineGlassLocation->getTransform()->setLocalPosition(Vector3(wineGlassDesiredPosition.x, tableWineGlassY, wineGlassDesiredPosition.z));
 			wineGlassLocation->getTransform()->setParent(base->getTransform());
 			wineGlassLocation->getTransform()->name = "WineGlassLocation";
 
