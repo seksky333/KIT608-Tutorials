@@ -231,7 +231,7 @@
     <ClCompile Include="LampTutorial.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Assignment_1.cpp">
+    <ClCompile Include="Assignment1Test.cpp">
       <Filter>Source Files\Application</Filter>
     </ClCompile>
     <ClCompile Include="Cylinder.cpp">
@@ -437,7 +437,7 @@
     <ClInclude Include="LampTutorial.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Assignment_1.h">
+    <ClInclude Include="Assignment1Test.h">
       <Filter>Header Files\Application</Filter>
     </ClInclude>
     <ClInclude Include="Cylinder.h">

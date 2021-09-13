@@ -18,12 +18,12 @@
 #include "TableWithGlass.h"
 #include "Robot.h"
 #include "RobotHand.h"
-#include "Assignment_1.h"
+#include "Assignment1Test.h"
 
 using namespace T3D;
 namespace T3D
 {
-    bool Assignment_1::init() {
+    bool Assignment1Test::init() {
         WinGLApplication::init();
         //light to the scene
         GameObject* lightObj = new GameObject(this);
@@ -40,7 +40,8 @@ namespace T3D
         //This camera is super fast... you have been warned
         GameObject* camObj = new GameObject(this);
         renderer->camera = new Camera(0.1, 500.0, 45.0, 1.6);
-        camObj->getTransform()->setLocalPosition(Vector3(0, 0.5, 3));
+        camObj->getTransform()->setLocalPosition(Vector3(0, 0, 20));
+        camObj->getTransform()->setLocalRotation(Vector3(0, 0, 0));
         camObj->setCamera(renderer->camera);
         camObj->getTransform()->setParent(root);
         camObj->addComponent(new KeyboardController());
@@ -59,14 +60,14 @@ namespace T3D
         blue->setDiffuse(0, 0, 1, 1);
 
 
-       /*Part 1*/
+       /*Task 1*/
         WineGlass* wineGlass = new WineGlass(this);
         wineGlass->setMaterial(grey);
         wineGlass->getTransform()->setLocalPosition(Vector3(0, 0, 3));
         wineGlass->getTransform()->setParent(root);
         wineGlass->wineGlass->setMaterial(grey);
 
-        /*Part 2*/
+        /*Task 2*/
         TableWithGlass* tableWithGlass = new TableWithGlass(this, 1.2, .6, .3, 3);
         tableWithGlass->setMaterial(green);
         tableWithGlass->getTransform()->setLocalPosition(Vector3(0, 0, 0));
@@ -78,14 +79,16 @@ namespace T3D
         tableWithGlass->leg4->setMaterial(grey);
         tableWithGlass->wineGlass->setMaterial(red);
 
-        /*Part 3*/
+        /*Task 3*/
         GameObject* tablet = new GameObject(this);
         tablet->setMaterial(grey);
+        //The tablet won't draw properly when you change the scaling parameters
+        //which means it only works for the current set of parameters
         tablet->setMesh(new Tablet(Vector3(12, .5, 6), .3, 1, .3, 6));
         tablet->getTransform()->setLocalPosition(Vector3(0, -3, 0));
         tablet->getTransform()->setParent(root);
 
-        /*Part 4*/
+        /*Task 5*/
         Robot* robot = new Robot(this);
         robot->setMaterial(green);
         robot->getTransform()->setLocalPosition(Vector3(0, 0, -3));

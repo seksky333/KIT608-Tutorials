@@ -2,7 +2,7 @@
 #include "WinGLApplication.h"
 namespace T3D
 {
-	class Assignment_1 :public WinGLApplication
+	class Assignment1Test :public WinGLApplication
 	{
 	public:
 		bool init();
