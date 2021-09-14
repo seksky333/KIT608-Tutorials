@@ -23,7 +23,7 @@ void main()
 	// Specular calculation
 	vec3 R = normalize(reflect(L,N));
 	vec3 V = normalize(P.xyz);
-	float specularIntensity = pow(max(dot(R, V),0),0.2*gl_FrontMaterial.shininess);
+	float specularIntensity = pow(max(dot(R, V),0),2.2*gl_FrontMaterial.shininess);
 	vec4 specular = gl_FrontMaterial.specular * gl_LightSource[0].specular * specularIntensity;
 	
 	color = clamp(ambient+emission+diffuse+specular, 0, 1);

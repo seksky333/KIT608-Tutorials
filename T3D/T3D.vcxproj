@@ -58,6 +58,7 @@
     <ClCompile Include="RotateBehaviour.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderTest.cpp" />
+    <ClCompile Include="ShadingTutorial.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="SoundTestTask.cpp" />
@@ -126,6 +127,7 @@
     <ClInclude Include="DefaultDebugOptions.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderTest.h" />
+    <ClInclude Include="ShadingTutorial.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="SoundTestTask.h" />
