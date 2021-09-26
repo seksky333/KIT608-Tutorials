@@ -44,6 +44,29 @@ namespace T3D
 		 */
 		static float lerp(float first, float second, float t) { return t*(second-first)+first; }
 
+		static float smoothedLerp(float first, float second, float t, float at) {
+			float dist = second - first;
+
+			float acceleration = dist / (at * (1 - at));
+			float velocity = acceleration * at;
+
+			if (t < 0) {
+				return first;
+			}
+			else if (t < at) {
+				return first + 0.5 * acceleration * t * t;
+			}
+			else if (t < 1 - at) {
+				return first + 0.5 * acceleration * at * at + velocity * (t - at);
+			}
+			else if (t <=1) {
+				return first + 0.5 * acceleration * at * at + velocity * (1-2*at) + velocity * (t -1 + at) -0.5 * acceleration * (t-1+at) * (t-1+at);
+			}
+			else {
+				return second; 
+			}
+		}
+
 		static float** generateFractal(int size, float min, float max, float roughness, bool tile = false);
 
 		/*! randRange

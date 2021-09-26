@@ -135,9 +135,9 @@ namespace T3D
 			
 			
 			//lampshadesp.makeCirclePath(0, 6*20);
-			//lampshadesp.makeCirclePath(0, 6 * 20);
+			lampshadesp.makeCirclePath(0, 6 * 20);
 			//lampshadesp.makeCirclePath(0, 3);
-			lampshadesp.makeCustomCirclePath(0.1, 3);
+			//lampshadesp.makeCustomCirclePath(0.1, 3);
 
 			//lampShade attaches to shadeJoint
 			lampShade = new GameObject(app);
