@@ -7,7 +7,10 @@ namespace T3D
 	class LampBehaviour : public Component
 	{
 	public:
-		LampBehaviour() { };
+		LampBehaviour() { 
+			elapsedTime = 0;
+			lampTransform = NULL;
+		};
 		~LampBehaviour(void) = default;
 		void update(float dt);
 

@@ -37,7 +37,7 @@ namespace T3D
 			bodyProfile.push_back(Vector3(-0.2f, 0.2f, 0.0f));
 
 			//create the first transform
-			t.setLocalPosition(Vector3(0, 0, 0));
+			t.setLocalPosition(Vector3(-0.10, 0, 0));
 			t.setLocalRotation(Quaternion(Vector3(0, Math::PI/2, 0)));
 			//t.setLocalRotation(Quaternion(Vector3(0, 0, 0)));
 			t.setLocalScale(Vector3(0.001, 0.001, 1.0)); // no need to scale the z-direction because the profile is in the XY plane
@@ -47,11 +47,12 @@ namespace T3D
 			t.setLocalScale(Vector3(0.9, 1, 1.0));
 			bodysp.addTransform(t);
 			bodysp.addTransform(t);
-
-
+			t.setLocalPosition(Vector3(-0.1, 0, 0));
+			bodysp.addTransform(t);
+			bodysp.addTransform(t);
 			//Adjust the position for the next path instance
-			t.setLocalPosition(Vector3(0.2, 0, 0));
-			t.setLocalScale(Vector3(.9, 1, 1.0));
+			t.setLocalPosition(Vector3(0.1, 0, 0));
+			t.setLocalScale(Vector3(0.9, 1, 1.0));
 			bodysp.addTransform(t);
 			bodysp.addTransform(t);
 
@@ -62,7 +63,7 @@ namespace T3D
 
 			body = new GameObject(app);
 			body->setMesh(new Sweep(bodyProfile, bodysp, false));
-			body->getTransform()->setLocalPosition(Vector3(-0.1, 0, 0)); // not correctly positioned yet
+			body->getTransform()->setLocalPosition(Vector3(0.0, 0, 0)); // not correctly positioned yet
 			//arm1->getTransform()->setLocalPosition(Vector3(0, 0.1, 0)); 
 			body->getTransform()->setParent(getTransform()); // not correct attachment yet
 			body->getTransform()->name = "Body";
@@ -82,12 +83,36 @@ namespace T3D
 			//head->setMesh(new Sphere(.1, 16 * 2));
 			head->setMesh(new Cube(.07));
 			head->getTransform()->setParent(headJoint->getTransform()); // attaching this piece to the Lamp object's transform
-			head->getTransform()->setLocalPosition(Vector3(0.1, .26, 0));
+			head->getTransform()->setLocalPosition(Vector3(0.0, .26, 0));
 			head->getTransform()->name = "Head";
 
-			//rightHandJoint
+			//leftEyeJoint
+			leftEyeJoint = new GameObject(app);
+			leftEyeJoint->getTransform()->setLocalPosition(Vector3(0.07, 0.03, 0.04));
+			leftEyeJoint->getTransform()->setParent(head->getTransform());
+			leftEyeJoint->getTransform()->name = "LeftEyeJoint";
+
+			leftEye = new GameObject(app); // note the use of 'app' not 'this' - you should understand why
+			leftEye->setMesh(new Sphere(0.015, 16 * 2));
+			leftEye->getTransform()->setParent(leftEyeJoint->getTransform()); // attaching this piece to the Lamp object's transform
+			leftEye->getTransform()->setLocalPosition(Vector3(0, 0, 0));
+			leftEye->getTransform()->name = "LeftEye";
+
+			//rightEyeJoint
+			rightEyeJoint = new GameObject(app);
+			rightEyeJoint->getTransform()->setLocalPosition(Vector3(0.07, 0.03, -0.04));
+			rightEyeJoint->getTransform()->setParent(head->getTransform());
+			rightEyeJoint->getTransform()->name = "RightEyeJoint";
+
+			rightEye = new GameObject(app); // note the use of 'app' not 'this' - you should understand why
+			rightEye->setMesh(new Sphere(0.015, 16 * 2));
+			rightEye->getTransform()->setParent(rightEyeJoint->getTransform()); // attaching this piece to the Lamp object's transform
+			rightEye->getTransform()->setLocalPosition(Vector3(0, 0, 0));
+			rightEye->getTransform()->name = "RightEye";
+
+			//rightShoulderJoint
 			rightShoulderJoint = new GameObject(app);
-			rightShoulderJoint->getTransform()->setLocalPosition(Vector3(0.1, 0.125, -0.25));
+			rightShoulderJoint->getTransform()->setLocalPosition(Vector3(0.0, 0.125, -0.25));
 			rightShoulderJoint->getTransform()->setParent(body->getTransform());
 			rightShoulderJoint->getTransform()->name = "RightHandJoint";
 
@@ -162,7 +187,7 @@ namespace T3D
 
 			//rightLegJoint
 			rightLegJoint = new GameObject(app);
-			rightLegJoint->getTransform()->setLocalPosition(Vector3(0.1, -0.1425, -0.10));
+			rightLegJoint->getTransform()->setLocalPosition(Vector3(0.0, -0.1425, -0.10));
 			rightLegJoint->getTransform()->setParent(body->getTransform());
 			rightLegJoint->getTransform()->name = "LeftLegJoint";
 
@@ -191,7 +216,7 @@ namespace T3D
 
 			//leftLegJoint
 			leftLegJoint = new GameObject(app);
-			leftLegJoint->getTransform()->setLocalPosition(Vector3(0.1, -0.1425, 0.10));
+			leftLegJoint->getTransform()->setLocalPosition(Vector3(0.0, -0.1425, 0.10));
 			leftLegJoint->getTransform()->setParent(body->getTransform());
 			leftLegJoint->getTransform()->name = "LeftLegJoint";
 
@@ -220,7 +245,7 @@ namespace T3D
 
 			//leftShoulderJoint
 			leftShoulderJoint= new GameObject(app);
-			leftShoulderJoint->getTransform()->setLocalPosition(Vector3(0.1,0.125, 0.25));
+			leftShoulderJoint->getTransform()->setLocalPosition(Vector3(0.0,0.125, 0.25));
 			leftShoulderJoint->getTransform()->setParent(body->getTransform());
 			leftShoulderJoint->getTransform()->name = "LeftHandJoint";
 

@@ -14,6 +14,7 @@ namespace T3D
 
 		GameObject* body;
 		GameObject* head;
+		GameObject* headJoint;
 		GameObject* leftShoulder;
 		GameObject* leftArm;
 		GameObject* leftHand;
@@ -21,8 +22,12 @@ namespace T3D
 		GameObject* rightArm;
 		GameObject* rightHand;
 
+		GameObject* leftEyeJoint;
+		GameObject* leftEye;
+		GameObject* rightEyeJoint;
+		GameObject* rightEye;
+		
 
-		GameObject* headJoint;
 
 		GameObject* leftShoulderJoint;
 		GameObject* leftArmJoint;

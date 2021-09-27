@@ -31,9 +31,9 @@ int main(int argc, char* argv[]) {
 	
 	//T3DApplication* theApp = new LampTutorial();
 	//T3DApplication* theApp = new Tutorial4();
-	//T3DApplication* theApp = new Assignment1Test();
+	T3DApplication* theApp = new Assignment1Test();
 	//T3DApplication* theApp = new ShadingTutorial();
-	T3DApplication* theApp = new  AnimationTutorial();
+	//T3DApplication* theApp = new  AnimationTutorial();
 	//T3DApplication *theApp = new GLTestApplication();
 	//T3DApplication *theApp = new ShaderTest();
 

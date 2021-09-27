@@ -4,10 +4,9 @@
 using namespace T3D;
 namespace T3D
 {
-
+	
 	void LampBehaviour::update(float dt) {
-		elapsedTime = 0;
-		lampTransform = NULL;
+
 
 		float t = 0;
 		elapsedTime += dt;

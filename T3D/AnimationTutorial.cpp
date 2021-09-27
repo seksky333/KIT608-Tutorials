@@ -73,26 +73,26 @@ namespace T3D
         lamp->addComponent(lampDirectionBehaviour);
         //cube->addComponent(new LookAtBehaviour(sphere->getTransform()));
         
-        //LampBehaviour* lampBehaviour = new LampBehaviour();
-        //lampBehaviour->lampTransform = lamp->getTransform();
-        //lamp->addComponent(lampBehaviour);
+        LampBehaviour* lampBehaviour = new LampBehaviour();
+        lampBehaviour->lampTransform = lamp->getTransform();
+        lamp->addComponent(lampBehaviour);
 
         //AnimationTest* animTask = new AnimationTest(this);
         //animTask->lampTransform = lamp->getTransform();
         //addTask(animTask);
 
-        Animation* anim = new Animation(10.0);
-        lamp->addComponent(anim);
-        anim->addKey("ElbowJoint", 0, Quaternion(Vector3(0, 0, 0)), Vector3(0, 0.2, 0));
-        anim->addKey("ElbowJoint", 5.0, Quaternion(Vector3(-Math::HALF_PI, 0, 0)), Vector3(0, 0.2, 0));
-        anim->addKey("ElbowJoint", 7.0, Quaternion(Vector3(Math::HALF_PI, 0, 0)), Vector3(0, 0.2, 0));
-        anim->addKey("ElbowJoint", 10.0, Quaternion(Vector3(0, 0, 0)), Vector3(0, 0.2, 0));
-        anim->addKey("ShadeJoint", 0, Quaternion(Vector3(0, 0, 0)), Vector3(0, 0.2, 0));
-        anim->addKey("ShadeJoint", 5.0, Quaternion(Vector3(0, 0, -Math::HALF_PI)), Vector3(0, 0.2, 0));
-        anim->addKey("ShadeJoint", 7.0, Quaternion(Vector3(0, 0, Math::HALF_PI)), Vector3(0, 0.2, 0));
-        anim->addKey("ShadeJoint", 10.0, Quaternion(Vector3(0, 0, 0)), Vector3(0, 0.2, 0));
+        //Animation* anim = new Animation(10.0);
+        //lamp->addComponent(anim);
+        //anim->addKey("ElbowJoint", 0, Quaternion(Vector3(0, 0, 0)), Vector3(0, 0.2, 0));
+        //anim->addKey("ElbowJoint", 5.0, Quaternion(Vector3(-Math::HALF_PI, 0, 0)), Vector3(0, 0.2, 0));
+        //anim->addKey("ElbowJoint", 7.0, Quaternion(Vector3(Math::HALF_PI, 0, 0)), Vector3(0, 0.2, 0));
+        //anim->addKey("ElbowJoint", 10.0, Quaternion(Vector3(0, 0, 0)), Vector3(0, 0.2, 0));
+        //anim->addKey("ShadeJoint", 0, Quaternion(Vector3(0, 0, 0)), Vector3(0, 0.2, 0));
+        //anim->addKey("ShadeJoint", 5.0, Quaternion(Vector3(0, 0, -Math::HALF_PI)), Vector3(0, 0.2, 0));
+        //anim->addKey("ShadeJoint", 7.0, Quaternion(Vector3(0, 0, Math::HALF_PI)), Vector3(0, 0.2, 0));
+        //anim->addKey("ShadeJoint", 10.0, Quaternion(Vector3(0, 0, 0)), Vector3(0, 0.2, 0));
         //anim->loop(true);
-        anim->play();
+        //anim->play();
 
         return true;
     }

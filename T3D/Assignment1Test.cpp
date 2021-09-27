@@ -95,11 +95,13 @@ namespace T3D
         robot->getTransform()->setParent(root);
         robot->body->setMaterial(green);
         robot->head->setMaterial(grey);
+        robot->leftEye->setMaterial(grey);
         robot->leftShoulder->setMaterial(grey);
         robot->leftArm->setMaterial(green);
         robot->leftHand->setMaterial(grey);
         robot->leftLeg->setMaterial(green);
         robot->leftFoot->setMaterial(grey);
+        robot->rightEye->setMaterial(grey);
         robot->rightShoulder->setMaterial(grey);
         robot->rightArm->setMaterial(green);
         robot->rightHand->setMaterial(grey);
@@ -110,7 +112,7 @@ namespace T3D
         robot->leftHandJoint->getTransform()->setLocalRotation(Quaternion(Vector3(Math::PI, Math::PI / 2, 0)));
 
         robot->rightHandJoint->getTransform()->setLocalRotation(Quaternion(Vector3(Math::PI, Math::PI / 2, 0)));
-
+        robot->headJoint->getTransform()->setLocalRotation(Quaternion(Vector3(0, -Math::PI / 4, 0)));
         //robot->leftArmJoint->getTransform()->setLocalRotation(Quaternion(Vector3(0, 0, Math::PI / 4)));
         //robot->headJoint->getTransform()->setLocalRotation(Quaternion(Vector3(0, Math::PI / 4, 0)));
         

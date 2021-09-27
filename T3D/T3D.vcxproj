@@ -12,6 +12,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="AnimationTest.cpp" />
+    <ClCompile Include="AnimationTutorial.cpp" />
     <ClCompile Include="Assignment1Test.cpp" />
     <ClCompile Include="Billboard.cpp" />
     <ClCompile Include="Bone.cpp" />
@@ -32,6 +34,7 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="KeyboardController.cpp" />
     <ClCompile Include="Lamp.cpp" />
+    <ClCompile Include="LampBehaviour.cpp" />
     <ClCompile Include="LampTutorial.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Logger.cpp" />
@@ -81,6 +84,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="AnimationTest.h" />
+    <ClInclude Include="AnimationTutorial.h" />
     <ClInclude Include="Assignment1Test.h" />
     <ClInclude Include="Billboard.h" />
     <ClInclude Include="Bone.h" />
@@ -101,6 +106,7 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="KeyboardController.h" />
     <ClInclude Include="Lamp.h" />
+    <ClInclude Include="LampBehaviour.h" />
     <ClInclude Include="LampTutorial.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Logger.h" />

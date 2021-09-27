@@ -15,6 +15,7 @@
 #include "Lamp.h"
 #include "Rectangle.h"
 #include "TableWithGlass.h"
+#include "Robot.h"
 
 using namespace T3D;
 namespace T3D
@@ -48,7 +49,7 @@ namespace T3D
         Material* grey = renderer->createMaterial(Renderer::PR_OPAQUE);
         grey->setDiffuse(0.8, 0.8, 0.9, 1);
 
-        GameObject* shape = new GameObject(this);
+        //GameObject* shape = new GameObject(this);
         //shape->setMesh(new Pyramid(1));
         //shape->setMesh(new Cylinder(.1, .1, 16));
         //densitiy can only works for 6
@@ -71,6 +72,30 @@ namespace T3D
         //tableWithGlass->leg3->setMaterial(grey);
         //tableWithGlass->leg4->setMaterial(grey);
         //tableWithGlass->wineGlass->setMaterial(grey);
+
+        Robot* robot = new Robot(this);
+        robot->setMaterial(green);
+        robot->getTransform()->setLocalPosition(Vector3(0, 0, 0));
+        robot->getTransform()->setParent(root);
+        robot->body->setMaterial(green);
+        robot->head->setMaterial(grey);
+        robot->leftEye->setMaterial(grey);
+        robot->leftShoulder->setMaterial(grey);
+        robot->leftArm->setMaterial(green);
+        robot->leftHand->setMaterial(grey);
+        robot->leftLeg->setMaterial(green);
+        robot->leftFoot->setMaterial(grey);
+        robot->rightEye->setMaterial(grey);
+        robot->rightShoulder->setMaterial(grey);
+        robot->rightArm->setMaterial(green);
+        robot->rightHand->setMaterial(grey);
+        robot->rightLeg->setMaterial(green);
+        robot->rightFoot->setMaterial(grey);
+
+        robot->leftShoulder->getTransform()->setLocalRotation(Quaternion(Vector3(0, 0, Math::PI / 4)));
+        robot->leftHandJoint->getTransform()->setLocalRotation(Quaternion(Vector3(Math::PI, Math::PI / 2, 0)));
+        robot->rightHandJoint->getTransform()->setLocalRotation(Quaternion(Vector3(Math::PI, Math::PI / 2, 0)));
+        robot->headJoint->getTransform()->setLocalRotation(Quaternion(Vector3(0, -Math::PI / 4, 0)));
 
 
         return true;
