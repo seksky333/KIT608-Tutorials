@@ -15,6 +15,7 @@
 #include "AnimationTest.h"
 #include "LookAtBehaviour.h"
 #include "LampBehaviour.h"
+#include "Animation.h"
 
 
 using namespace T3D;
@@ -76,11 +77,22 @@ namespace T3D
         //lampBehaviour->lampTransform = lamp->getTransform();
         //lamp->addComponent(lampBehaviour);
 
-        AnimationTest* animTask = new AnimationTest(this);
-        animTask->lampTransform = lamp->getTransform();
-        addTask(animTask);
+        //AnimationTest* animTask = new AnimationTest(this);
+        //animTask->lampTransform = lamp->getTransform();
+        //addTask(animTask);
 
-
+        Animation* anim = new Animation(10.0);
+        lamp->addComponent(anim);
+        anim->addKey("ElbowJoint", 0, Quaternion(Vector3(0, 0, 0)), Vector3(0, 0.2, 0));
+        anim->addKey("ElbowJoint", 5.0, Quaternion(Vector3(-Math::HALF_PI, 0, 0)), Vector3(0, 0.2, 0));
+        anim->addKey("ElbowJoint", 7.0, Quaternion(Vector3(Math::HALF_PI, 0, 0)), Vector3(0, 0.2, 0));
+        anim->addKey("ElbowJoint", 10.0, Quaternion(Vector3(0, 0, 0)), Vector3(0, 0.2, 0));
+        anim->addKey("ShadeJoint", 0, Quaternion(Vector3(0, 0, 0)), Vector3(0, 0.2, 0));
+        anim->addKey("ShadeJoint", 5.0, Quaternion(Vector3(0, 0, -Math::HALF_PI)), Vector3(0, 0.2, 0));
+        anim->addKey("ShadeJoint", 7.0, Quaternion(Vector3(0, 0, Math::HALF_PI)), Vector3(0, 0.2, 0));
+        anim->addKey("ShadeJoint", 10.0, Quaternion(Vector3(0, 0, 0)), Vector3(0, 0.2, 0));
+        //anim->loop(true);
+        anim->play();
 
         return true;
     }
