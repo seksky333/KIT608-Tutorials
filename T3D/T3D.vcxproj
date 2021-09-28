@@ -73,9 +73,12 @@
     <ClCompile Include="Tablet.cpp" />
     <ClCompile Include="TableWithGlass.cpp" />
     <ClCompile Include="Task.cpp" />
+    <ClCompile Include="TCube.cpp" />
+    <ClCompile Include="TCylinder.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="TerrainFollower.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TextureTutorial.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Tutorial1.cpp" />
     <ClCompile Include="Tutorial4.cpp" />
@@ -145,9 +148,12 @@
     <ClInclude Include="Tablet.h" />
     <ClInclude Include="TableWithGlass.h" />
     <ClInclude Include="Task.h" />
+    <ClInclude Include="TCube.h" />
+    <ClInclude Include="TCylinder.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="TerrainFollower.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TextureTutorial.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Tutorial1.h" />
     <ClInclude Include="Tutorial4.h" />
