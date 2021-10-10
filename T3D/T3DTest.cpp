@@ -28,10 +28,10 @@
 #include "Math.h"
 #include "Sweep.h"
 #include "SweepPath.h"
-
+#include "SoundTestTask.h"
 #include "Light.h"
 #include "Renderer.h"
-
+#include "Input.h"
 namespace T3D {
 
 	bool T3DTest::init() {
@@ -39,7 +39,8 @@ namespace T3D {
 		WinGLApplication::init();
 
 		//Create a skybox and add some fog
-		renderer->loadSkybox("Resources/Sunny1");
+		//renderer->loadSkybox("Resources/Sunny1");
+		renderer->loadSkybox("Resources/dsb");
 		renderer->setFog(0.007f,0.8f,0.8f,0.8f,1.0f);
 		renderer->toggleFog();
 
@@ -90,7 +91,7 @@ namespace T3D {
 				
 		//Create a material with a procedurally generated texture
 		Texture *proctex = new Texture(512,512);
-		proctex->createFractal(Colour(40,150,50,255),Colour(120,220,100,255),25.0f,false);
+		proctex->createFractal(Colour(255, 255, 255,255),Colour(255, 255, 255,255),25.0f,false);
 		renderer->loadTexture(proctex, true);		
 		Material *procmat = renderer->createMaterial(Renderer::PR_TERRAIN);
 		procmat->setTexture(proctex,50);
@@ -111,7 +112,8 @@ namespace T3D {
 		GameObject *terrain = new GameObject(this);
 		Terrain *terrainComponent = new Terrain();
 		terrain->addComponent(terrainComponent);
-		terrainComponent->createFractalTerrain(256,500,15,2.0); // procedurally generate terrain
+		terrainComponent->createTerrain("Resources/yosemite_hm.bmp", 500, 15 );
+		//terrainComponent->createFractalTerrain(256,500,15,2.0); // procedurally generate terrain
 		terrain->setMaterial(procmat);
 		terrain->getTransform()->setLocalPosition(Vector3(0,-20,0));
 		terrain->getTransform()->setParent(root);
@@ -223,6 +225,8 @@ namespace T3D {
 		//Add a help overlay
 		addTask(new DiagMessageTask(this, "Press F9 for help", 2, 32, true, 5.0));
 
+		//sound effect
+		//addTask(new SoundTestTask(this));
 		return true;
 	}
 }

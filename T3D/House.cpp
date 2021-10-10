@@ -1,13 +1,13 @@
-#include "TCube.h"
+#include "House.h"
 
 
 using namespace T3D;
 namespace T3D
 {
-	void TCube::init() {
+	void House::init() {
 
 	}
-	TCube::TCube(float size)
+	House::House(float size)
 	{
 		//int vpos = 0;
 		int uvpos = 0;

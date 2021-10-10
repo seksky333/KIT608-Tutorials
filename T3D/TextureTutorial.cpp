@@ -19,7 +19,7 @@
 #include "Animation.h"
 #include "TCube.h"
 #include "TCylinder.h"
-
+#include "House.h"
 
 using namespace T3D;
 namespace T3D
@@ -55,10 +55,15 @@ namespace T3D
         Material* grey = renderer->createMaterial(Renderer::PR_OPAQUE);
         grey->setDiffuse(0.8, 0.8, 0.9, 1);
 
-        //Texture* cratetex = new Texture("Resources/crate013jc.jpg", true, true);
-        //renderer->loadTexture(cratetex);
-        //Material* cratemat = renderer->createMaterial(Renderer::PR_OPAQUE);
-        //cratemat->setTexture(cratetex);
+        Texture* cratetex = new Texture("Resources/crate013jc.jpg", true, true);
+        renderer->loadTexture(cratetex);
+        Material* cratemat = renderer->createMaterial(Renderer::PR_OPAQUE);
+        cratemat->setTexture(cratetex);
+
+        Texture* barreltex = new Texture("Resources/ExplosiveBarrel.jpg", true, true);
+        renderer->loadTexture(barreltex);
+        Material* barrelmat = renderer->createMaterial(Renderer::PR_OPAQUE);
+        barrelmat->setTexture(barreltex);
 
         //GameObject* cube = new GameObject(this);
         //cube->setMesh(new TCube(1));
@@ -67,12 +72,19 @@ namespace T3D
         //cube->getTransform()->setParent(root);
         //cube->getTransform()->name = "TCube";
 
-        GameObject* shape = new GameObject(this);
-        shape->setMesh(new TCylinder(.1, .1, 8));
-        shape->setMaterial(green);
-        shape->getTransform()->setLocalPosition(Vector3(0, 0, 0));
-        shape->getTransform()->setParent(root);
-        shape->getTransform()->name = "Shape";
+        //GameObject* shape = new GameObject(this);
+        //shape->setMesh(new TCylinder(.1, .1, 8));
+        //shape->setMaterial(green);
+        //shape->getTransform()->setLocalPosition(Vector3(0, 0, 0));
+        //shape->getTransform()->setParent(root);
+        //shape->getTransform()->name = "Shape";
+
+        GameObject* house = new GameObject(this);
+        house->setMesh(new House(1));
+        house->setMaterial(green);
+        house->getTransform()->setLocalPosition(Vector3(0, 0, 0));
+        house->getTransform()->setParent(root);
+        house->getTransform()->name = "House";
 
         return true;
     }

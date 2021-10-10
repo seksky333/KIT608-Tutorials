@@ -15,6 +15,7 @@
     <ClCompile Include="AnimationTest.cpp" />
     <ClCompile Include="AnimationTutorial.cpp" />
     <ClCompile Include="Assignment1Test.cpp" />
+    <ClCompile Include="Assignment2Test.cpp" />
     <ClCompile Include="Billboard.cpp" />
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -31,6 +32,7 @@
     <ClCompile Include="GLShader.cpp" />
     <ClCompile Include="GLTestApplication.cpp" />
     <ClCompile Include="GLTestRenderer.cpp" />
+    <ClCompile Include="House.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="KeyboardController.cpp" />
     <ClCompile Include="Lamp.cpp" />
@@ -90,6 +92,7 @@
     <ClInclude Include="AnimationTest.h" />
     <ClInclude Include="AnimationTutorial.h" />
     <ClInclude Include="Assignment1Test.h" />
+    <ClInclude Include="Assignment2Test.h" />
     <ClInclude Include="Billboard.h" />
     <ClInclude Include="Bone.h" />
     <ClInclude Include="Camera.h" />
@@ -106,6 +109,7 @@
     <ClInclude Include="GLShader.h" />
     <ClInclude Include="GLTestApplication.h" />
     <ClInclude Include="GLTestRenderer.h" />
+    <ClInclude Include="House.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="KeyboardController.h" />
     <ClInclude Include="Lamp.h" />
