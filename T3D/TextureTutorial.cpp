@@ -55,7 +55,7 @@ namespace T3D
         Material* grey = renderer->createMaterial(Renderer::PR_OPAQUE);
         grey->setDiffuse(0.8, 0.8, 0.9, 1);
 
-        Texture* houseTex = new Texture("Resources/house_texture.png", true, true);
+        Texture* houseTex = new Texture("Resources/house_texture_v2.png", true, true);
         renderer->loadTexture(houseTex);
         Material* houseMat = renderer->createMaterial(Renderer::PR_OPAQUE);
         houseMat->setTexture(houseTex);

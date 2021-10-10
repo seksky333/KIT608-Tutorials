@@ -16,9 +16,9 @@ namespace T3D
 
 		// Init vertex and index arrays
 		//cube faces + 2 for the roof
-		initArrays((4 * 6) + 2,	// num vertices
+		initArrays((4 * 5) + (3 * 2) + (4*2),	// num vertices
 			2,		// num tris - 2 tris for the roof
-			(6-1) + 2);		// num quads (6 -1 (top face replaced by the roof))
+			5 + 2);		// num quads (6 -1 (top face replaced by the roof))
 							//+ 2 quads for the roof
 		// Set vertices
 		int pos = 0;
@@ -40,7 +40,6 @@ namespace T3D
 		setUV(uvpos++, 0.418, 0.1);
 		setUV(uvpos++, 0.418, 0.47);
 		setUV(uvpos++, 0.05, 0.47);
-		
 		//left
 		setVertex(pos++, -size, -size, -size);
 		setVertex(pos++, -size,  size, -size);
@@ -55,10 +54,10 @@ namespace T3D
 		setVertex(pos++, size, size, -size);
 		setVertex(pos++, size, size, size);
 		setVertex(pos++, size, -size, size);
-		setUV(uvpos++, 0.418, 0.1);
-		setUV(uvpos++, 0.418, 0.47);
-		setUV(uvpos++, 0.05, 0.47);
-		setUV(uvpos++, 0.05, 0.1);
+		setUV(uvpos++, 0.52929, 0.47);
+		setUV(uvpos++, 0.52929, 0.1);
+		setUV(uvpos++, 0.94726, 0.1);
+		setUV(uvpos++, 0.94726, 0.47);
 		//bottom
 		setVertex(pos++, -size, -size, -size);
 		setVertex(pos++, -size, -size, size);
@@ -69,18 +68,59 @@ namespace T3D
 		setUV(uvpos++, 0.418, 0.47);
 		setUV(uvpos++, 0.05, 0.47);
 		//top
+		//back
+		//20
 		setVertex(pos++, -size, size, -size);
-		setVertex(pos++, -size, size, size);
-		setVertex(pos++, size, size, size);
+		//21*
+		setVertex(pos++, 0, size * 2, -size);
+		//22
 		setVertex(pos++, size, size, -size);
-		setUV(uvpos++, 0.05, 0.1);
-		setUV(uvpos++, 0.418, 0.1);
-		setUV(uvpos++, 0.418, 0.47);
-		setUV(uvpos++, 0.05, 0.47);
+		setUV(uvpos++, 0.060, 0.94);
+		setUV(uvpos++, 0.273, 0.523);
+		setUV(uvpos++, 0.453, 0.94);
+		//front
+		//23
+		setVertex(pos++, -size, size, size);
+		//24*
+		setVertex(pos++, 0, size * 2, size);
+		//25
+		setVertex(pos++, size, size, size);
+		setUV(uvpos++, 0.060, 0.94);
+		setUV(uvpos++, 0.273, 0.523);
+		setUV(uvpos++, 0.453, 0.94);
+		//left
+		//26 top start
+		setVertex(pos++, 0, size * 2, -size);
+		//27 bottom start
+		setVertex(pos++, size, size, -size);
+		////28 bottom end
+		setVertex(pos++, size, size, size);
+		////29 top end
+		setVertex(pos++, 0, size * 2, size);
+		setUV(uvpos++, 0.06835, 0.54296);
+		setUV(uvpos++, 0.06835, 0.94);
+		setUV(uvpos++, 0.459, 0.94);
+		setUV(uvpos++, 0.459, 0.54296);
+		//right
+		//30 top start
+		setVertex(pos++, 0, size * 2, -size);
+		//31 bottom start
+		setVertex(pos++, -size, size, -size);
+		//32 bottom end
+		setVertex(pos++, -size, size, size);
+		//33 top end
+		setVertex(pos++, 0, size * 2, size);
+		setUV(uvpos++, 0.06835, 0.54296);
+		setUV(uvpos++, 0.06835, 0.94);
+		setUV(uvpos++, 0.459, 0.94);
+		setUV(uvpos++, 0.459, 0.54296);
 
 		//roof
-		setVertex(24, 0, size*2, size);
-		setVertex(25, 0, size*2, -size);
+		//setVertex(24, 0, size*2, size);
+		//setVertex(24, 0, size * 2, size);
+		//setVertex(24, 0, size * 2, size);
+
+		//setVertex(25, 0, size*2, -size);
 		//setUV(uvpos++, 0.5, 0.5);
 		//setUV(uvpos++, 1, 0.5);
 
@@ -107,10 +147,11 @@ namespace T3D
 		//roof
 		//triangle pos
 		int triPos = 0;
-		setTriFace(triPos++,22, 24, 21);
-		setTriFace(triPos++, 20, 25, 23);
-		setQuadFace(pos++, 25, 20, 21, 24);
-		setQuadFace(pos++, 24, 22, 23, 25);
+		setTriFace(triPos++,20, 21, 22);
+		setTriFace(triPos++, 25, 24, 23);
+
+		setQuadFace(pos++, 29, 28, 27, 26);
+		setQuadFace(pos++, 30, 31, 32, 33);
 		
 
 		// Check vertex and index arrays
