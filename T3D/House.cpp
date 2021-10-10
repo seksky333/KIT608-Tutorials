@@ -15,68 +15,79 @@ namespace T3D
 
 
 		// Init vertex and index arrays
-		initArrays(4 * 6,	// num vertices
-			0,		// num tris
-			6);		// num quads
-
- // Set vertices
-
-
+		//cube faces + 2 for the roof
+		initArrays((4 * 6) + 2,	// num vertices
+			2,		// num tris - 2 tris for the roof
+			(6-1) + 2);		// num quads (6 -1 (top face replaced by the roof))
+							//+ 2 quads for the roof
+		// Set vertices
 		int pos = 0;
 		//front
 		setVertex(pos++, -size, -size, -size);
 		setVertex(pos++, size, -size, -size);
 		setVertex(pos++, size, size, -size);
 		setVertex(pos++, -size, size, -size);
-		setUV(uvpos++, 0, 0);
-		setUV(uvpos++, 0.5, 0);
-		setUV(uvpos++, 0.5, 0.5);
-		setUV(uvpos++, 0, 0.5);
+		setUV(uvpos++, 0.05, 0.1);
+		setUV(uvpos++, 0.418, 0.1);
+		setUV(uvpos++, 0.418, 0.47);
+		setUV(uvpos++, 0.05, 0.47);
 		//back
 		setVertex(pos++, -size, -size, size);
-		setVertex(pos++, size, -size, size);
-		setVertex(pos++, size, size, size);
+		setVertex(pos++,  size, -size, size);
+		setVertex(pos++,  size,  size, size);
 		setVertex(pos++, -size, size, size);
-		setUV(uvpos++, 0, 0);
-		setUV(uvpos++, 0.5, 0);
-		setUV(uvpos++, 0.5, 0.5);
-		setUV(uvpos++, 0, 0.5);
+		setUV(uvpos++, 0.05, 0.1);
+		setUV(uvpos++, 0.418, 0.1);
+		setUV(uvpos++, 0.418, 0.47);
+		setUV(uvpos++, 0.05, 0.47);
+		
 		//left
 		setVertex(pos++, -size, -size, -size);
-		setVertex(pos++, -size, size, -size);
-		setVertex(pos++, -size, size, size);
+		setVertex(pos++, -size,  size, -size);
+		setVertex(pos++, -size,  size, size);
 		setVertex(pos++, -size, -size, size);
-		setUV(uvpos++, 0, 0.5);
-		setUV(uvpos++, 0.5, 0.5);
-		setUV(uvpos++, 0.5, 1);
-		setUV(uvpos++, 0, 1);
+		setUV(uvpos++, 0.418, 0.1);
+		setUV(uvpos++, 0.418, 0.47);
+		setUV(uvpos++, 0.05, 0.47);
+		setUV(uvpos++, 0.05, 0.1);
 		//right
 		setVertex(pos++, size, -size, -size);
 		setVertex(pos++, size, size, -size);
 		setVertex(pos++, size, size, size);
 		setVertex(pos++, size, -size, size);
-		setUV(uvpos++, 0.5, 0);
-		setUV(uvpos++, 1, 0);
-		setUV(uvpos++, 1, 0.5);
-		setUV(uvpos++, 0.5, 0.5);
+		setUV(uvpos++, 0.418, 0.1);
+		setUV(uvpos++, 0.418, 0.47);
+		setUV(uvpos++, 0.05, 0.47);
+		setUV(uvpos++, 0.05, 0.1);
 		//bottom
 		setVertex(pos++, -size, -size, -size);
 		setVertex(pos++, -size, -size, size);
 		setVertex(pos++, size, -size, size);
 		setVertex(pos++, size, -size, -size);
-		setUV(uvpos++, 0, 0);
-		setUV(uvpos++, 0.5, 0);
-		setUV(uvpos++, 0.5, 0.5);
-		setUV(uvpos++, 0, 0.5);
+		setUV(uvpos++, 0.05, 0.1);
+		setUV(uvpos++, 0.418, 0.1);
+		setUV(uvpos++, 0.418, 0.47);
+		setUV(uvpos++, 0.05, 0.47);
 		//top
 		setVertex(pos++, -size, size, -size);
 		setVertex(pos++, -size, size, size);
 		setVertex(pos++, size, size, size);
 		setVertex(pos++, size, size, -size);
-		setUV(uvpos++, 0.5, 0.5);
-		setUV(uvpos++, 1, 0.5);
-		setUV(uvpos++, 1, 1);
-		setUV(uvpos++, 0.5, 1);
+		setUV(uvpos++, 0.05, 0.1);
+		setUV(uvpos++, 0.418, 0.1);
+		setUV(uvpos++, 0.418, 0.47);
+		setUV(uvpos++, 0.05, 0.47);
+
+		//roof
+		setVertex(24, 0, size*2, size);
+		setVertex(25, 0, size*2, -size);
+		//setUV(uvpos++, 0.5, 0.5);
+		//setUV(uvpos++, 1, 0.5);
+
+
+
+		//setUV(uvpos++, 1, 1);
+		//setUV(uvpos++, 1, 1);
 
 		// Build quads
 		pos = 0;
@@ -91,7 +102,16 @@ namespace T3D
 		//bottom
 		setQuadFace(pos++, 19, 18, 17, 16);
 		//top
-		setQuadFace(pos++, 20, 21, 22, 23);
+		//setQuadFace(pos++, 20, 21, 22, 23);
+
+		//roof
+		//triangle pos
+		int triPos = 0;
+		setTriFace(triPos++,22, 24, 21);
+		setTriFace(triPos++, 20, 25, 23);
+		setQuadFace(pos++, 25, 20, 21, 24);
+		setQuadFace(pos++, 24, 22, 23, 25);
+		
 
 		// Check vertex and index arrays
 		checkArrays();
@@ -99,32 +119,32 @@ namespace T3D
 		// Calculate normals
 		calcNormals();
 
-		// Setup other arrays		
-		pos = 0;
+		 //Setup other arrays		
+		//pos = 0;
 		//front
-		for (int i = 0; i < 4; i++) {
-			colors[pos++] = 1; colors[pos++] = 0; colors[pos++] = 0; colors[pos++] = 1;
-		}
-		//back
-		for (int i = 0; i < 4; i++) {
-			colors[pos++] = 1; colors[pos++] = 0; colors[pos++] = 0; colors[pos++] = 1;
-		}
-		//left
-		for (int i = 0; i < 4; i++) {
-			colors[pos++] = 0; colors[pos++] = 1; colors[pos++] = 0; colors[pos++] = 1;
-		}
-		//right
-		for (int i = 0; i < 4; i++) {
-			colors[pos++] = 0; colors[pos++] = 1; colors[pos++] = 0; colors[pos++] = 1;
-		}
-		//bottom
-		for (int i = 0; i < 4; i++) {
-			colors[pos++] = 0; colors[pos++] = 0; colors[pos++] = 1; colors[pos++] = 1;
-		}
-		//top
-		for (int i = 0; i < 4; i++) {
-			colors[pos++] = 0; colors[pos++] = 0; colors[pos++] = 1; colors[pos++] = 1;
-		}
+		//for (int i = 0; i < 4; i++) {
+		//	colors[pos++] = 1; colors[pos++] = 0; colors[pos++] = 0; colors[pos++] = 1;
+		//}
+		////back
+		//for (int i = 0; i < 4; i++) {
+		//	colors[pos++] = 1; colors[pos++] = 0; colors[pos++] = 0; colors[pos++] = 1;
+		//}
+		////left
+		//for (int i = 0; i < 4; i++) {
+		//	colors[pos++] = 0; colors[pos++] = 1; colors[pos++] = 0; colors[pos++] = 1;
+		//}
+		////right
+		//for (int i = 0; i < 4; i++) {
+		//	colors[pos++] = 0; colors[pos++] = 1; colors[pos++] = 0; colors[pos++] = 1;
+		//}
+		////bottom
+		//for (int i = 0; i < 4; i++) {
+		//	colors[pos++] = 0; colors[pos++] = 0; colors[pos++] = 1; colors[pos++] = 1;
+		//}
+		////top
+		//for (int i = 0; i < 4; i++) {
+		//	colors[pos++] = 0; colors[pos++] = 0; colors[pos++] = 1; colors[pos++] = 1;
+		//}
 
 
 

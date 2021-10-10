@@ -43,7 +43,7 @@ namespace T3D
         //This camera is super fast... you have been warned
         GameObject* camObj = new GameObject(this);
         renderer->camera = new Camera(0.1, 500.0, 45.0, 1.6);
-        camObj->getTransform()->setLocalPosition(Vector3(0, 0.5, 3));
+        camObj->getTransform()->setLocalPosition(Vector3(-1, 2, 5));
         camObj->setCamera(renderer->camera);
         camObj->getTransform()->setParent(root);
         camObj->addComponent(new KeyboardController());
@@ -55,15 +55,20 @@ namespace T3D
         Material* grey = renderer->createMaterial(Renderer::PR_OPAQUE);
         grey->setDiffuse(0.8, 0.8, 0.9, 1);
 
-        Texture* cratetex = new Texture("Resources/crate013jc.jpg", true, true);
-        renderer->loadTexture(cratetex);
-        Material* cratemat = renderer->createMaterial(Renderer::PR_OPAQUE);
-        cratemat->setTexture(cratetex);
+        Texture* houseTex = new Texture("Resources/house_texture.png", true, true);
+        renderer->loadTexture(houseTex);
+        Material* houseMat = renderer->createMaterial(Renderer::PR_OPAQUE);
+        houseMat->setTexture(houseTex);
 
-        Texture* barreltex = new Texture("Resources/ExplosiveBarrel.jpg", true, true);
-        renderer->loadTexture(barreltex);
-        Material* barrelmat = renderer->createMaterial(Renderer::PR_OPAQUE);
-        barrelmat->setTexture(barreltex);
+        //Texture* cratetex = new Texture("Resources/crate013jc.jpg", true, true);
+        //renderer->loadTexture(cratetex);
+        //Material* cratemat = renderer->createMaterial(Renderer::PR_OPAQUE);
+        //cratemat->setTexture(cratetex);
+
+        //Texture* barreltex = new Texture("Resources/ExplosiveBarrel.jpg", true, true);
+        //renderer->loadTexture(barreltex);
+        //Material* barrelmat = renderer->createMaterial(Renderer::PR_OPAQUE);
+        //barrelmat->setTexture(barreltex);
 
         //GameObject* cube = new GameObject(this);
         //cube->setMesh(new TCube(1));
@@ -81,7 +86,7 @@ namespace T3D
 
         GameObject* house = new GameObject(this);
         house->setMesh(new House(1));
-        house->setMaterial(green);
+        house->setMaterial(houseMat);
         house->getTransform()->setLocalPosition(Vector3(0, 0, 0));
         house->getTransform()->setParent(root);
         house->getTransform()->name = "House";
