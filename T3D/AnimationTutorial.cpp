@@ -78,7 +78,7 @@ namespace T3D
         //lamp->addComponent(lampBehaviour);
 
         AnimationTest* animTask = new AnimationTest(this);
-        animTask->lampTransform = lamp->getTransform();
+        animTask->transform = lamp->getTransform();
         addTask(animTask);
 
         Animation* anim = new Animation(10.0);

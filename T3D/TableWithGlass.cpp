@@ -34,7 +34,7 @@ namespace T3D
 
 			const float tableLegRadius = .05;
 
-			const int wineGlassDesiredLocation = 3;
+			const int wineGlassDesiredLocation = wineGlassPos;
 
 			const float legXPos = tableLength * .9;
 			const float legYPos = tableLegHeight;

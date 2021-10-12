@@ -15,7 +15,9 @@
     <ClCompile Include="AnimationTest.cpp" />
     <ClCompile Include="AnimationTutorial.cpp" />
     <ClCompile Include="Assignment1Test.cpp" />
-    <ClCompile Include="Assignment2Test.cpp" />
+    <ClCompile Include="BillboardTask.cpp" />
+    <ClCompile Include="Robot1Anime.cpp" />
+    <ClCompile Include="Task1and5.cpp" />
     <ClCompile Include="Billboard.cpp" />
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -63,7 +65,7 @@
     <ClCompile Include="RotateBehaviour.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderTest.cpp" />
-    <ClCompile Include="ShadingTutorial.cpp" />
+    <ClCompile Include="Task3.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="SoundTestTask.cpp" />
@@ -80,7 +82,7 @@
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="TerrainFollower.cpp" />
     <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="TextureTutorial.cpp" />
+    <ClCompile Include="Task2.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Tutorial1.cpp" />
     <ClCompile Include="Tutorial4.cpp" />
@@ -92,7 +94,9 @@
     <ClInclude Include="AnimationTest.h" />
     <ClInclude Include="AnimationTutorial.h" />
     <ClInclude Include="Assignment1Test.h" />
-    <ClInclude Include="Assignment2Test.h" />
+    <ClInclude Include="BillboardTask.h" />
+    <ClInclude Include="Robot1Anime.h" />
+    <ClInclude Include="Task1and5.h" />
     <ClInclude Include="Billboard.h" />
     <ClInclude Include="Bone.h" />
     <ClInclude Include="Camera.h" />
@@ -140,7 +144,7 @@
     <ClInclude Include="DefaultDebugOptions.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderTest.h" />
-    <ClInclude Include="ShadingTutorial.h" />
+    <ClInclude Include="Task3.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="SoundTestTask.h" />
@@ -157,7 +161,7 @@
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="TerrainFollower.h" />
     <ClInclude Include="Texture.h" />
-    <ClInclude Include="TextureTutorial.h" />
+    <ClInclude Include="Task2.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Tutorial1.h" />
     <ClInclude Include="Tutorial4.h" />

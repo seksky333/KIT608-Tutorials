@@ -9,7 +9,7 @@ namespace T3D {
 		AnimationTest(T3DApplication* app);
 		void update(float dt);
 
-		T3D::Transform* lampTransform;
+		T3D::Transform* transform;
 		float elapsedTime;
 	};
 }
