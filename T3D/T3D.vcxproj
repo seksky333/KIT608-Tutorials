@@ -16,7 +16,9 @@
     <ClCompile Include="AnimationTutorial.cpp" />
     <ClCompile Include="Assignment1Test.cpp" />
     <ClCompile Include="BillboardTask.cpp" />
-    <ClCompile Include="Robot1Anime.cpp" />
+    <ClCompile Include="CameraTask.cpp" />
+    <ClCompile Include="Robot1Task.cpp" />
+    <ClCompile Include="Robot2Task.cpp" />
     <ClCompile Include="Task1and5.cpp" />
     <ClCompile Include="Billboard.cpp" />
     <ClCompile Include="Bone.cpp" />
@@ -95,7 +97,9 @@
     <ClInclude Include="AnimationTutorial.h" />
     <ClInclude Include="Assignment1Test.h" />
     <ClInclude Include="BillboardTask.h" />
-    <ClInclude Include="Robot1Anime.h" />
+    <ClInclude Include="CameraTask.h" />
+    <ClInclude Include="Robot1Task.h" />
+    <ClInclude Include="Robot2Task.h" />
     <ClInclude Include="Task1and5.h" />
     <ClInclude Include="Billboard.h" />
     <ClInclude Include="Bone.h" />

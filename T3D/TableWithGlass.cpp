@@ -30,7 +30,7 @@ namespace T3D
 			const float tableBaseHeight = tableHeight *.1;
 			const float tableLegHeight = tableHeight *.9;
 			
-			const float tableWineGlassY = tableHeight * .8;
+			const float tableWineGlassY = tableHeight * 1.1;
 
 			const float tableLegRadius = .05;
 
@@ -113,16 +113,16 @@ namespace T3D
 		switch (desiredPos) {
 		case 0:
 			//leg joint1
-			return Vector3(-legXPos, 0, -legZPos);
+			return Vector3(-legXPos *.8, 0, -legZPos);
 		case 1:
 			//leg joint2
-			return Vector3(-legXPos, 0, legZPos);
+			return Vector3(-legXPos*.8, 0.5, legZPos);
 		case 2:
 			//leg joint3
-			return Vector3(legXPos, 0, -legZPos);
+			return Vector3(legXPos*.8, 0, -legZPos);
 		case 3:
 			//leg joint4
-			return Vector3(legXPos, 0, legZPos);
+			return Vector3(legXPos*.8, 0, legZPos);
 		}
 	}
 

@@ -204,7 +204,7 @@ namespace T3D
 
 			//rightFootJoint
 			rightFootJoint = new GameObject(app);
-			rightFootJoint->getTransform()->setLocalPosition(Vector3(0.0, -0.1, 0.0));
+			rightFootJoint->getTransform()->setLocalPosition(Vector3(0.0, -0.2, 0.0));
 			rightFootJoint->getTransform()->setParent(rightLeg->getTransform());
 			rightFootJoint->getTransform()->name = "RightFootJoint";
 
@@ -233,7 +233,7 @@ namespace T3D
 
 			//leftFootJoint
 			leftFootJoint = new GameObject(app);
-			leftFootJoint->getTransform()->setLocalPosition(Vector3(0.0,-0.1,0.0));
+			leftFootJoint->getTransform()->setLocalPosition(Vector3(0.0,-0.2,0.0));
 			leftFootJoint->getTransform()->setParent(leftLeg->getTransform());
 			leftFootJoint->getTransform()->name = "LeftFootJoint";
 
@@ -328,13 +328,13 @@ namespace T3D
 	}
 	std::vector<Vector3> Robot::getLegProfile() {
 		std::vector<Vector3> legProfile;
-		legProfile.push_back(Vector3(0.065f, -0.1f, 0.0f));
-		legProfile.push_back(Vector3(0.065f, -0.1f, 0.0f));
+		legProfile.push_back(Vector3(0.065f, -0.2f, 0.0f));
+		legProfile.push_back(Vector3(0.065f, -0.2f, 0.0f));
 		legProfile.push_back(Vector3(0.065f, -0.05f, 0.0f));
 		legProfile.push_back(Vector3(0.065f, -0.0f, 0.0f));
 		legProfile.push_back(Vector3(0.065f, 0.05f, 0.0f));
-		legProfile.push_back(Vector3(0.065f, 0.1f, 0.0f));
-		legProfile.push_back(Vector3(0.065f, 0.1f, 0.0f));
+		legProfile.push_back(Vector3(0.065f, 0.2f, 0.0f));
+		legProfile.push_back(Vector3(0.065f, 0.2f, 0.0f));
 		return legProfile;
 	}
 

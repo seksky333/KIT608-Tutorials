@@ -282,7 +282,7 @@
     <ClCompile Include="House.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Robot1Anime.cpp">
+    <ClCompile Include="Robot1Task.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Task3.cpp">
@@ -292,6 +292,12 @@
       <Filter>Source Files\Application</Filter>
     </ClCompile>
     <ClCompile Include="BillboardTask.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Robot2Task.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraTask.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -521,7 +527,7 @@
     <ClInclude Include="House.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Robot1Anime.h">
+    <ClInclude Include="Robot1Task.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Task3.h">
@@ -531,6 +537,12 @@
       <Filter>Header Files\Application</Filter>
     </ClInclude>
     <ClInclude Include="BillboardTask.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Robot2Task.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraTask.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
