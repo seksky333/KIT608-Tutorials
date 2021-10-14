@@ -1,5 +1,5 @@
 #include "Task.h"
-#include "GameObject.h"
+#include "Robot.h"
 #include "Animation.h"
 namespace T3D {
 
@@ -12,7 +12,7 @@ namespace T3D {
 		void update(float dt);
 		void addRobotWalking(std::string element, int startFramePos, int endFramePos, Animation* anim);
 
-		GameObject* gameObj;
+		Robot* robot;
 		float elapsedTime;
 	};
 

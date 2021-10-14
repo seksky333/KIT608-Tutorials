@@ -37,6 +37,12 @@ namespace T3D
 		else if (elapsedTime > 14.0 && elapsedTime < 15.0) {
 			gameObj->setVisible(false);
 		}
+		else if (elapsedTime > 26.0 && elapsedTime < 29.0) {
+			gameObj1->setVisible(true);
+		}
+		else if (elapsedTime > 29.0 && elapsedTime < 30.0) {
+			gameObj1->setVisible(false);
+		}
 		else {
 			//do nothing
 		}

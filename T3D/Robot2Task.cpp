@@ -32,8 +32,8 @@ namespace T3D
 		walkingAnime->addKey("LeftLegJoint", 10.0, Quaternion(Vector3(legJPosX, legJPosY, legJPosZ)), Vector3(legJPosX, legJPosY, legJPosZ));
 		walkingAnime->loop(false);
 
-		std::string  debugText = "elapsedTime:" + std::to_string(elapsedTime);
-		printf("* Debug: %s \n", debugText.c_str());
+		//std::string  debugText = "elapsedTime:" + std::to_string(elapsedTime);
+		//printf("* Debug: %s \n", debugText.c_str());
 
 		if (elapsedTime < 5.0) {
 		}
@@ -87,6 +87,10 @@ namespace T3D
 			}
 			t = (elapsedTime - 23) / 2;
 			robot->leftShoulderJoint->getTransform()->setLocalRotation(Quaternion(Vector3::lerp(Vector3(0, 0, Math::PI / 2), Vector3(0, 0, 0), t)));
+		}
+		else if (elapsedTime > 36.0 && elapsedTime < 38.0) {
+			t = (elapsedTime - 36) / 2;
+			robot->body->getTransform()->setLocalRotation(Quaternion(Vector3::lerp(Vector3(0, Math::PI / 1.8, 0), Vector3(0, Math::PI/10 , 0), t)));
 		}
 		else {
 			if (!isWalking) {

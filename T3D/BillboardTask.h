@@ -10,6 +10,8 @@ namespace T3D {
 		void update(float dt);
 
 		GameObject* gameObj;
+		GameObject* gameObj1;
+		GameObject* gameObj2;
 		float elapsedTime;
 	};
 

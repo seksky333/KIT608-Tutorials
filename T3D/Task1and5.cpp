@@ -30,6 +30,7 @@
 #include "Robot1Task.h"
 #include "Robot2Task.h"
 #include "CameraTask.h"
+#include "WineGlassTask.h"
 
 
 using namespace T3D;
@@ -182,9 +183,9 @@ namespace T3D
         cameraTask->camObj = camObj;
         addTask(cameraTask);
 
-        //Robot1Task* robot1AnimeTask = new Robot1Task(this);
-        //robot1AnimeTask->gameObj= robot1;
-        //addTask(robot1AnimeTask);
+        Robot1Task* robot1AnimeTask = new Robot1Task(this);
+        robot1AnimeTask->robot= robot1;
+        addTask(robot1AnimeTask);
 
         Robot2Task* robot2AnimeTask = new Robot2Task(this);
         robot2AnimeTask->robot = robot2;
@@ -240,7 +241,16 @@ namespace T3D
         tableWithGlass->leg3->setMaterial(grey);
         tableWithGlass->leg4->setMaterial(grey);
         tableWithGlass->wineGlass->setMaterial(blue);
-        tableWithGlass->setVisible(false);
+
+
+        WineGlassTask* wineGlassTask = new WineGlassTask(this);
+        wineGlassTask->gameObj = tableWithGlass->wineGlass;
+        wineGlassTask->base = tableWithGlass->base;
+        wineGlassTask->leg1 = tableWithGlass->leg1;
+        wineGlassTask->leg2 = tableWithGlass->leg2;
+        wineGlassTask->leg3 = tableWithGlass->leg3;
+        wineGlassTask->leg4 = tableWithGlass->leg4;
+        addTask(wineGlassTask);
 
 
         //Create a textured material by adding text
@@ -258,19 +268,43 @@ namespace T3D
         textmat->setTexture(texttex, 1);
         textmat->setEmissive(1, 1, 1, 1);
 
-        //Add a welcome message
+        //Create a textured material by adding text
+        Texture* texttex1 = new Texture(128, 32);
+        /*texttex->clear(Colour(48, 48, 48, 255));*/
+        texttex1->clear(Colour(255, 255, 255, 255));
+        if (f != NULL) {
+            texttex1->writeText(12, 0, "What", Colour(255, 0, 0, 255), f->getFont());
+            texttex1->writeText(60, 0, "the", Colour(255, 0, 0, 255), f->getFont());
+            texttex1->writeText(96, 0, "...", Colour(255, 0, 0, 0), f->getFont());
+        }
+        renderer->loadTexture(texttex1, true);
+        Material* textmat1 = renderer->createMaterial(Renderer::PR_OPAQUE);
+        textmat1->setTexture(texttex1, 1);
+        textmat1->setEmissive(1, 1, 1, 1);
+
+        //Add a This is boring message
         GameObject* billboard = new GameObject(this);
         Billboard* billboardComponent = new Billboard(renderer->camera->gameObject->getTransform(), true);
         billboard->addComponent(billboardComponent);
-        billboard->setMaterial(textmat);			// hello world
+        billboard->setMaterial(textmat);			
         billboard->getTransform()->setLocalPosition(Vector3(-1, 1., 0));
         billboard->getTransform()->setLocalScale(Vector3(2, 2, 1));
         billboard->getTransform()->setParent(root);
         billboard->getTransform()->name = "Billboard";
-        //billboard->setVisible(false);
+
+        GameObject* billboard1 = new GameObject(this);
+        Billboard* billboardComponent1 = new Billboard(renderer->camera->gameObject->getTransform(), true);
+        billboard1->addComponent(billboardComponent1);
+        billboard1->setMaterial(textmat1);
+        billboard1->getTransform()->setLocalPosition(Vector3(-1, 1., 0));
+        billboard1->getTransform()->setLocalScale(Vector3(2, 2, 1));
+        billboard1->getTransform()->setParent(root);
+        billboard1->getTransform()->name = "Billboard1";
+        billboard1->setVisible(false);
 
         BillboardTask* billTask = new BillboardTask(this);
         billTask->gameObj = billboard;
+        billTask->gameObj1 = billboard1;
         addTask(billTask);
 
         //sound effect

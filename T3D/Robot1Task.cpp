@@ -11,7 +11,7 @@ namespace T3D
 
 	Robot1Task::Robot1Task(T3DApplication* app) : Task(app) {
 		elapsedTime = 0;
-		gameObj = NULL;
+		robot = NULL;
 	}
 
 	void Robot1Task::update(float dt) {
@@ -19,8 +19,8 @@ namespace T3D
 		elapsedTime += dt;
 		//t = elapsedTime / 5.0;
 
-		Animation* walkingAnime = new Animation(10.0);
-		gameObj->addComponent(walkingAnime);
+		Animation* walkingAnime = new Animation(60.0);
+		robot->addComponent(walkingAnime);
 
 		walkingAnime->addKey("RightLegJoint", 0, Quaternion(Vector3(legJPosX, legJPosY, -legJPosZ)), Vector3(legJPosX, legJPosY, -legJPosZ));
 		addRobotWalking("RightLegJoint", 1, 9, walkingAnime);
@@ -37,28 +37,81 @@ namespace T3D
 			//	walkingAnime->play();
 			//	isWalking = true;
 			//}
-			t = (elapsedTime - 0) / 5;
-			gameObj->getTransform()->setLocalPosition(Vector3::lerp(Vector3(0, 0, 0), Vector3(1, 0, 0), t));
+			//t = (elapsedTime - 0) / 5;
+			//robot->getTransform()->setLocalPosition(Vector3::lerp(Vector3(0, 0, 0), Vector3(1, 0, 0), t));
 		}
 		// 5 - 10
-		else if (elapsedTime < 10.0) {
-			//if (isWalking) {
-			//	walkingAnime->pause();
-			//	isWalking = false;
-			//}
+		else if (elapsedTime > 10.0 && elapsedTime < 12.0) {
+			//testing
+			/*t = (elapsedTime - 10) /2;
+			robot->leftHandJoint->getTransform()->setLocalRotation(Quaternion(Vector3::lerp(Vector3(Math::PI, Math::PI / 2, 0), Vector3(Math::PI, Math::TWO_PI, 0), t)));*/
+
+			//face right
+			//robot->body->getTransform()->setLocalRotation(Quaternion(Vector3::lerp(Vector3(0, Math::PI - (Math::PI / 4), 0), Vector3(0,  Math::PI, 0), t)));
+
+			//face front
+			//robot->body->getTransform()->setLocalRotation(Quaternion(Vector3::lerp(Vector3(0, Math::PI, 0), Vector3(0,  Math::PI/2.5, 0), t)));
+			//face right
+			/*robot->body->getTransform()->setLocalRotation(Quaternion(Vector3::lerp(Vector3(0, Math::PI / 2.5, 0), Vector3(0, Math::PI, 0), t)));*/
 
 			//total duration is 10 seconds, we want 1 at the end of that 10 seconds
-			t = (elapsedTime - 5) / 5;
-			gameObj->getTransform()->setLocalPosition(Vector3::lerp(Vector3(1, 0, 0), Vector3(2, 0, 0), t));
+			//t = (elapsedTime - 5) / 5;
+			//robot->getTransform()->setLocalPosition(Vector3::lerp(Vector3(1, 0, 0), Vector3(2, 0, 0), t));
 		}
 		// 10 - 15
 		else if (elapsedTime < 15.0) {
-			t = (elapsedTime - 10) / 5;
-			gameObj->getTransform()->setLocalPosition(Vector3::lerp(Vector3(2, 0, 0), Vector3(3, 0, 0), t));
+			//t = (elapsedTime - 10) / 5;
+			//robot->getTransform()->setLocalPosition(Vector3::lerp(Vector3(2, 0, 0), Vector3(3, 0, 0), t));
+		}
+		else if (elapsedTime > 30.0 && elapsedTime < 32.0) {
+			if (!isWalking) {
+				walkingAnime->play();
+				isWalking = true;
+			}
+			t = (elapsedTime - 30) / 2;
+			//face front
+			robot->body->getTransform()->setLocalRotation(Quaternion(Vector3::lerp(Vector3(0, Math::PI - (Math::PI / 4), 0), Vector3(0,  Math::PI/2.5, 0), t)));
+		}
+		else if (elapsedTime > 32.0 && elapsedTime < 34.0) {
+			t = (elapsedTime - 32) / 2;
+			robot->getTransform()->setLocalPosition(Vector3::lerp(Vector3(0, 0, 1), Vector3(.8, 0, 1), t));
+		}
+		else if (elapsedTime > 34.0 && elapsedTime < 36.0) {
+			if (elapsedTime > 35.90) {
+				if (isWalking) {
+					walkingAnime->pause();
+					isWalking = false;
+				}
+			}
+			else {
+				t = (elapsedTime - 34) / 2;
+				robot->body->getTransform()->setLocalRotation(Quaternion(Vector3::lerp(Vector3(0, Math::PI / 2.5, 0), Vector3(0, Math::PI / 1, 0), t)));
+			}
+		}
+		else if (elapsedTime > 36.0 && elapsedTime < 39.0) {
+			if (!isWalking) {
+				walkingAnime->play();
+				isWalking = true;
+			}
+			t = (elapsedTime - 36) / 3;
+			robot->getTransform()->setLocalPosition(Vector3::lerp(Vector3(.8, 0, 1), Vector3(.8, 0, -0.7), t));
+		}
+		else if (elapsedTime > 39.0 && elapsedTime < 40.0) {
+			if (isWalking) {
+				walkingAnime->pause();
+				isWalking = false;
+			}
+		}
+		else if (elapsedTime > 40.0 && elapsedTime < 41.0) {
+			t = (elapsedTime - 40) / 4;
+			robot->leftHandJoint->getTransform()->setLocalRotation(Quaternion(Vector3::lerp(Vector3(Math::PI, Math::PI / 2, 0), Vector3(Math::PI, Math::TWO_PI, 0), t)));
+		}
+		else if (elapsedTime > 41.0 && elapsedTime < 42.0) {
+			t = (elapsedTime - 41) / 4;
+			robot->leftHandJoint->getTransform()->setLocalRotation(Quaternion(Vector3::lerp(Vector3(Math::PI, Math::TWO_PI, 0), Vector3(Math::PI, -Math::TWO_PI, 0), t)));
 		}
 		else {
 			//do nothing
-			elapsedTime = 0.0;
 		}
 	}
 

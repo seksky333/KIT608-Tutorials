@@ -89,6 +89,7 @@
     <ClCompile Include="Tutorial1.cpp" />
     <ClCompile Include="Tutorial4.cpp" />
     <ClCompile Include="WineGlass.cpp" />
+    <ClCompile Include="WineGlassTask.cpp" />
     <ClCompile Include="WinGLApplication.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +173,7 @@
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Vector4.h" />
     <ClInclude Include="WineGlass.h" />
+    <ClInclude Include="WineGlassTask.h" />
     <ClInclude Include="WinGLApplication.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

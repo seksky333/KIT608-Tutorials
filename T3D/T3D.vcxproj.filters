@@ -300,6 +300,9 @@
     <ClCompile Include="CameraTask.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WineGlassTask.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mesh.h">
@@ -543,6 +546,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CameraTask.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WineGlassTask.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
