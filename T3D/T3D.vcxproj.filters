@@ -303,6 +303,9 @@
     <ClCompile Include="WineGlassTask.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BrokenRobot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mesh.h">
@@ -549,6 +552,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WineGlassTask.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BrokenRobot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

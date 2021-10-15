@@ -22,6 +22,7 @@
 #include "WineGlass.h"
 #include "TableWithGlass.h"
 #include "Robot.h"
+#include "BrokenRobot.h"
 #include "RobotHand.h"
 #include "Terrain.h"
 #include "SoundTestTask.h"
@@ -89,31 +90,6 @@ namespace T3D
 
         Material* blue = renderer->createMaterial(Renderer::PR_OPAQUE);
         blue->setDiffuse(0, 0, 1, 1);
-        //Lamp* lamp = new Lamp(this);
-        //lamp->setMaterial(grey);
-        //lamp->getTransform()->setLocalPosition(Vector3(0, 0, 0));
-        //lamp->getTransform()->setParent(root);
-        //lamp->base->setMaterial(grey);
-        //lamp->arm1->setMaterial(grey);
-        //lamp->arm2->setMaterial(grey);
-        //lamp->baseJoint->getTransform()->setLocalRotation(Quaternion(Vector3(-Math::PI / 10, Math::PI / 4, 0)));
-        //lamp->elbowJoint->getTransform()->setLocalRotation(Quaternion(Vector3(Math::PI / 4, 0, 0)));
-        //lamp->lampShade->setMaterial(grey);
-        //lamp->shadeJoint->getTransform()->setLocalRotation(Quaternion(Vector3(Math::PI / 4, 0, 0)));
-
-        //GameObject* directionObject = new GameObject(this);
-        //directionObject->getTransform()->setLocalPosition(Vector3(5, 0, -5));
-        //LookAtBehaviour* lampDirectionBehaviour = new LookAtBehaviour(directionObject->getTransform());
-        //lamp->addComponent(lampDirectionBehaviour);
-
-        //LampBehaviour* lampBehaviour = new LampBehaviour();
-        //lampBehaviour->lampTransform = lamp->getTransform();
-        //lamp->addComponent(lampBehaviour);
-
-
-        //AnimationTest* animTask = new AnimationTest(this);
-        //animTask->lampTransform = lamp->getTransform();
-        //addTask(animTask);
 
         Robot* robot1 = new Robot(this);
         robot1->setMaterial(green);
@@ -161,15 +137,8 @@ namespace T3D
         camObj->getTransform()->setLocalPosition(Vector3(5, .25, 0));
         camObj->setCamera(renderer->camera);
         camObj->getTransform()->setParent(root);
-        //camObj->addComponent(new KeyboardController());
         camObj->getTransform()->setLocalRotation(Quaternion(Vector3(Math::PI / 100, Math::PI / 2, 0)));
-        //camObj->getTransform()->setLocalRotation(Quaternion(Vector3((Math::PI / 100) * 15, Math::PI, 0)));
 
-        //GameObject* originObject= new GameObject(this);
-        //originObject->getTransform()->setLocalPosition(Vector3(0, 0, 0));
-        //LookAtBehaviour* lookAtCam = new LookAtBehaviour(originObject->getTransform());
-        //camObj->addComponent(lookAtCam);
-        
 
         GameObject* directionObject = new GameObject(this);
         directionObject->getTransform()->setLocalPosition(Vector3(5, 0, 0));
@@ -191,8 +160,6 @@ namespace T3D
         robot2AnimeTask->robot = robot2;
         addTask(robot2AnimeTask);
 
-
-        //robot->leftShoulder->getTransform()->setLocalRotation(Quaternion(Vector3(0, 0, Math::PI / 4)));
         robot1->body->getTransform()->setLocalRotation(Quaternion(Vector3(0, Math::PI - (Math::PI/4), 0)));
         robot1->leftHandJoint->getTransform()->setLocalRotation(Quaternion(Vector3(Math::PI, Math::PI / 2, 0)));
         robot1->rightHandJoint->getTransform()->setLocalRotation(Quaternion(Vector3(Math::PI, Math::PI / 2, 0)));
@@ -200,36 +167,7 @@ namespace T3D
         robot2->body->getTransform()->setLocalRotation(Quaternion(Vector3(0, Math::PI/4, 0)));
         robot2->leftHandJoint->getTransform()->setLocalRotation(Quaternion(Vector3(Math::PI, Math::PI / 2, 0)));
         robot2->rightHandJoint->getTransform()->setLocalRotation(Quaternion(Vector3(Math::PI, Math::PI / 2, 0)));
-        //robot->headJoint->getTransform()->setLocalRotation(Quaternion(Vector3(0, -Math::PI / 4, 0)));
-        //robot->leftArmJoint->getTransform()->setLocalRotation(Quaternion(Vector3(0, 0, Math::PI / 4)));
-        //robot->headJoint->getTransform()->setLocalRotation(Quaternion(Vector3(0, Math::PI / 4, 0)));
 
-         //Animation* anim = new Animation(10.0);
-         //robot1->addComponent(anim);
-
-        //oldversion
-        //anim->addKey("HeadJoint", 0, Quaternion(Vector3(0, 0, 0)), Vector3(0, 0.0, 0));
-        //anim->addKey("HeadJoint", 5.0, Quaternion(Vector3(0, -Math::HALF_PI, 0)), Vector3(0, 0.0, 0));
-        //anim->addKey("HeadJoint", 7.0, Quaternion(Vector3(0, Math::HALF_PI, 0)), Vector3(0, 0.0, 0));
-        //anim->addKey("HeadJoint", 10.0, Quaternion(Vector3(0, 0, 0)), Vector3(0, 0.0, 0));
-
-        //anim->addKey("LeftLegJoint", 0, Quaternion(Vector3(legJPosX, legJPosY, legJPosZ)), Vector3(legJPosX -Math::HALF_PI, legJPosY, legJPosZ));
-        //anim->addKey("LeftLegJoint", 5.0, Quaternion(Vector3(legJPosX, legJPosY, legJPosZ)), Vector3(legJPosX + Math::HALF_PI, legJPosY, legJPosZ));
-        //anim->addKey("LeftLegJoint", 7.0, Quaternion(Vector3(0, 0, 0)), Vector3(0, 0, -Math::HALF_PI));
-        //anim->addKey("LeftLegJoint", 10.0, Quaternion(Vector3(0, 0, 0)), Vector3(0, 0, Math::HALF_PI));
-
-
-
-        //latest version
-        //anim->addKey("RightLegJoint", 0, Quaternion(Vector3(legJPosX, legJPosY, -legJPosZ)), Vector3(legJPosX, legJPosY, -legJPosZ));
-        //addRobotWalking("RightLegJoint", 1, 9, anim);
-        //anim->addKey("RightLegJoint", 10.0, Quaternion(Vector3(legJPosX, legJPosY, -legJPosZ)), Vector3(legJPosX, legJPosY, -legJPosZ));
-
-        //anim->addKey("LeftLegJoint", 0, Quaternion(Vector3(legJPosX, legJPosY, legJPosZ)), Vector3(legJPosX, legJPosY, legJPosZ));
-        //addRobotWalking("LeftLegJoint", 1, 9, anim);
-        //anim->addKey("LeftLegJoint", 10.0, Quaternion(Vector3(legJPosX, legJPosY, legJPosZ)), Vector3(legJPosX, legJPosY, legJPosZ));
-        //anim->loop(true);
-        //anim->play();
 
         TableWithGlass* tableWithGlass = new TableWithGlass(this, .5, .6, .2, 2);
         tableWithGlass->setMaterial(green);
@@ -282,6 +220,33 @@ namespace T3D
         textmat1->setTexture(texttex1, 1);
         textmat1->setEmissive(1, 1, 1, 1);
 
+        //Create a textured material by adding text
+        Texture* texttex2 = new Texture(128, 32);
+        font* f2 = getFont("resources/FreeSans.ttf", 14);
+        /*texttex->clear(Colour(48, 48, 48, 255));*/
+        texttex2->clear(Colour(255, 255, 255, 255));
+        if (f != NULL) {
+            texttex2->writeText(2, 0, "Now's", Colour(255, 0, 0, 0), f2->getFont());
+            texttex2->writeText(44, 0, "super", Colour(255, 0, 0, 0), f2->getFont());
+            texttex2->writeText(84, 0, "boring", Colour(255, 0, 0, 0), f2->getFont());
+        }
+        renderer->loadTexture(texttex2, true);
+        Material* textmat2 = renderer->createMaterial(Renderer::PR_OPAQUE);
+        textmat2->setTexture(texttex2, 1);
+        textmat2->setEmissive(1, 1, 1, 1);
+
+        //Create a textured material by adding text
+        Texture* texttex3 = new Texture(128, 32);
+        texttex3->clear(Colour(48, 48, 48, 255));
+        if (f != NULL) {
+            texttex3->writeText(24, 0, "THE", Colour(255, 255, 255, 0), f->getFont());
+            texttex3->writeText(72, 0, "END", Colour(255, 255, 255, 0), f->getFont());
+        }
+        renderer->loadTexture(texttex3, true);
+        Material* textmat3 = renderer->createMaterial(Renderer::PR_OPAQUE);
+        textmat3->setTexture(texttex3, 1);
+        textmat3->setEmissive(1, 1, 1, 1);
+
         //Add a This is boring message
         GameObject* billboard = new GameObject(this);
         Billboard* billboardComponent = new Billboard(renderer->camera->gameObject->getTransform(), true);
@@ -302,13 +267,35 @@ namespace T3D
         billboard1->getTransform()->name = "Billboard1";
         billboard1->setVisible(false);
 
+        GameObject* billboard2 = new GameObject(this);
+        Billboard* billboardComponent2 = new Billboard(renderer->camera->gameObject->getTransform(), true);
+        billboard2->addComponent(billboardComponent2);
+        billboard2->setMaterial(textmat2);
+        billboard2->getTransform()->setLocalPosition(Vector3(-1, 1., 0));
+        billboard2->getTransform()->setLocalScale(Vector3(2, 2, 1));
+        billboard2->getTransform()->setParent(root);
+        billboard2->getTransform()->name = "Billboard2";
+        billboard2->setVisible(false);
+
+        GameObject* billboard3 = new GameObject(this);
+        Billboard* billboardComponent3 = new Billboard(renderer->camera->gameObject->getTransform(), true);
+        billboard3->addComponent(billboardComponent3);
+        billboard3->setMaterial(textmat3);
+        billboard3->getTransform()->setLocalPosition(Vector3(-1, 1., 0));
+        billboard3->getTransform()->setLocalScale(Vector3(2, 2, 1));
+        billboard3->getTransform()->setParent(root);
+        billboard3->getTransform()->name = "Billboard3";
+        billboard3->setVisible(false);
+
         BillboardTask* billTask = new BillboardTask(this);
         billTask->gameObj = billboard;
         billTask->gameObj1 = billboard1;
+        billTask->gameObj2 = billboard2;
+        billTask->gameObj3 = billboard3;
         addTask(billTask);
 
         //sound effect
-        //addTask(new SoundTestTask(this));
+        addTask(new SoundTestTask(this));
 
         return true;
     }

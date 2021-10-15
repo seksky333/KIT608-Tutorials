@@ -12,6 +12,7 @@ namespace T3D {
 		GameObject* gameObj;
 		GameObject* gameObj1;
 		GameObject* gameObj2;
+		GameObject* gameObj3;
 		float elapsedTime;
 	};
 
