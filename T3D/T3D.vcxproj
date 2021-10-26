@@ -18,6 +18,8 @@
     <ClCompile Include="BillboardTask.cpp" />
     <ClCompile Include="BrokenRobot.cpp" />
     <ClCompile Include="CameraTask.cpp" />
+    <ClCompile Include="Exam2d.cpp" />
+    <ClCompile Include="Exam3d.cpp" />
     <ClCompile Include="Robot1Task.cpp" />
     <ClCompile Include="Robot2Task.cpp" />
     <ClCompile Include="Task1and5.cpp" />
@@ -101,6 +103,8 @@
     <ClInclude Include="BillboardTask.h" />
     <ClInclude Include="BrokenRobot.h" />
     <ClInclude Include="CameraTask.h" />
+    <ClInclude Include="Exam2d.h" />
+    <ClInclude Include="Exam3d.h" />
     <ClInclude Include="Robot1Task.h" />
     <ClInclude Include="Robot2Task.h" />
     <ClInclude Include="Task1and5.h" />

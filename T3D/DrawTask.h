@@ -63,7 +63,7 @@ namespace T3D
 		void testCircles();
 		void testFilledShape();
 		void drawTriangles(std::vector<Vector3> points);
-		void drawArrow1(int x1, int y1, int x2, int y2, int r, int d);
+		void drawPencil(int x1, int y1, int x2, int y2, int r, int d);
 
 		//! \brief Ticks the drawing routine for this frame.
 		virtual void update(float dt);
@@ -88,7 +88,7 @@ namespace T3D
 		//! \brief One frames worth of pixels to blit onto the drawArea
 		std::vector<Pixel> pixelPlotQueue;
 		//Vector3 points[4];
-
+		int counter = 0;
 		std::vector<Vector3> vectorPoints;
 		std::vector<Vector3> points;
 		Matrix3x3 M, R, T1, T2, P, P1, T3, T4, T5, T6, S;

@@ -86,7 +86,7 @@ namespace T3D
 		//25
 		setVertex(pos++, size, size, size);
 		setUV(uvpos++, 0.060, 0.94);
-		setUV(uvpos++, 0.273, 0.523);
+		setUV(uvpos++, 0.273, 0.523);//x/512, y/512
 		setUV(uvpos++, 0.453, 0.94);
 		//left
 		//26 top start

@@ -21,9 +21,9 @@
 #include<windows.h>
 
 
-namespace T3D 
+namespace T3D
 {
-	enum class ANIMATION_STATE { DEFAULT, FORWARD, BACKWARD };
+	enum class ANIMATION_STATE { DEFAULT, FORWARD, BACKWARD, STOP };
 
 	const int xStartPos = 512;
 	const int yStartPos = 320;
@@ -40,7 +40,7 @@ namespace T3D
 	 * \note If there is nothing on the screen still, check the visual studio console for error messages in case something is out of bounds.
 	 *
 	 */
-	DrawTask::DrawTask(T3DApplication *app, Texture* tex) : Task(app)
+	DrawTask::DrawTask(T3DApplication* app, Texture* tex) : Task(app)
 	{
 		Uint32 rmask, gmask, bmask, amask;
 
@@ -72,12 +72,12 @@ namespace T3D
 	}
 
 	/*
-	 * \param 
+	 * \param
 	 * \note This isn't necessary. It could be inlined into the constructor.
 	 */
-	void DrawTask::init	(){		
+	void DrawTask::init() {
 		ANIMATION_STATE animeState = ANIMATION_STATE::DEFAULT;
-		drawArea->clear(Colour(255,255,255,255));
+		drawArea->clear(Colour(255, 255, 255, 255));
 		//points[0] = Vector3(xStartPos - 50, yStartPos, 1);
 		//points[1] = Vector3(xStartPos - 50, yStartPos + 100, 1);
 		//points[2] = Vector3(xStartPos + 50, yStartPos + 100, 1);
@@ -95,26 +95,26 @@ namespace T3D
 
 
 
-		const double rDegree = 1 ;
+		const float rDegree = 1;
 		//rotation
 		R = Matrix3x3(cos(rDegree * Math::DEG2RAD), -sin(rDegree * Math::DEG2RAD), 0,
-					   sin(rDegree * Math::DEG2RAD), cos(rDegree * Math::DEG2RAD), 0,
-						0, 0, 1);
+			sin(rDegree * Math::DEG2RAD), cos(rDegree * Math::DEG2RAD), 0,
+			0, 0, 1);
 
-		
 		//scale
-		//M = Matrix3x3(1.01, 0, 0,
-		//	0, 1.01, 0,
-		//	0, 0, 1);
-		
-
-		T1 = Matrix3x3(1, 0, -100,
-			0, 1, -100,
+		S = Matrix3x3(1.01, 0, 0,
+			0, 1.01, 0,
 			0, 0, 1);
 
-		T2 = Matrix3x3(1, 0, 100,
-			0, 1, 100,
+
+		T1 = Matrix3x3(1, 0, -50,
+			0, 1, -50,
 			0, 0, 1);
+
+		T2 = Matrix3x3(1, 0, 50,
+			0, 1, 50,
+			0, 0, 1);
+
 
 		T3 = Matrix3x3(1, 0, -xStartPos,
 			0, 1, -yStartPos,
@@ -125,25 +125,7 @@ namespace T3D
 			0, 0, 1);
 
 		P = T2 * R * T1;
-
 		P1 = T4 * R * T3;
-
-		//draw square
-		/*
-		drawDDALine(10, 10, 110, 10, Colour(255, 0, 0, 255));
-		drawDDALine(10, 10, 10, 110, Colour(0, 0, 255, 255));
-		drawDDALine(110, 10, 110, 110, Colour(60, 179, 113, 255));
-		drawDDALine(10, 110, 110, 110, Colour(255, 165, 0, 255));
-		*/
-		//drawDDALine(10, 10, 110, 10, Colour(255, 0, 0, 255));
-		//512 by 320
-
-		
-		//drawDDALine(xStartPos - 50, yStartPos , xStartPos + 50, yStartPos, Colour(255, 0, 0, 255));
-		//drawDDALine(xStartPos - 50, yStartPos, xStartPos - 50, yStartPos + 100, Colour(0, 0, 255, 255));
-		//drawDDALine(xStartPos + 50, yStartPos, xStartPos + 50, yStartPos + 100, Colour(60, 179, 113, 255));
-		//drawDDALine(xStartPos - 50, yStartPos + 100, xStartPos + 50, yStartPos + 100, Colour(255, 165, 0, 255));
-		
 	}
 
 	/*
@@ -152,16 +134,25 @@ namespace T3D
  * \note Make sure to clear the `drawArea` before you write to it.
  */
 	void DrawTask::update(float dt) {
+		//if (counter > 1000) {
+		//	animeState = ANIMATION_STATE::STOP;
+		//}
+		//else {
+		//	counter++;
+		//	printf("Counter: %d\n", counter);
+		//}
+
 		//const int xStartPosition = 250;
 		//const int yStartPosition = 250;
 
 		drawArea->clear(Colour(255, 255, 255, 255));
 		//tutorialOneDrawing();
 		//tutorialTwoDrawing();
-		//testCircles();
-		//drawPieWedge(xStartPos + 0, yStartPos, 100, Colour(255, 0, 0, 255));
 		//praticeLabTest();
-		drawArrow1(xStartPos, yStartPos, xStartPos +50, yStartPos - 50, 100, 35);
+		//testCircles();
+		drawPieWedge(xStartPos + 0, yStartPos, 100, Colour(255, 0, 0, 255));
+		//drawPencil(xStartPos, yStartPos, xStartPos +50, yStartPos - 50, 100, 35);
+		// 
 		//std::vector<Vector3> points;
 		//points.push_back(Vector3(xStartPos + 0, yStartPos + 0, 1));
 		//points.push_back(Vector3(xStartPos + 50, yStartPos + 0, 1));
@@ -211,11 +202,11 @@ namespace T3D
 		app->getRenderer()->reloadTexture(drawArea);
 	}
 	void DrawTask::drawDDAFillLine(int x1, int y1, int x2, int y2, int xx1, int yy1, int xx2, int yy2, Colour c) {
-		float  step, step2, x, y,xx,yy;
+		float  step, step2, x, y, xx, yy;
 
 		float deltax = (float(x2 - x1));
 		float deltay = (float(y2 - y1));
-		
+
 		float deltaxx = (float(xx2 - xx1));
 		float deltayy = (float(yy2 - yy1));
 		//float dy = deltay / deltax;
@@ -232,7 +223,7 @@ namespace T3D
 		deltax = deltax / step;
 		deltay = deltay / step;
 		deltaxx = deltaxx / step2;
-		deltayy= deltayy / step2;
+		deltayy = deltayy / step2;
 		//set starting position for drawing
 		x = x1;
 		y = y1;
@@ -251,22 +242,22 @@ namespace T3D
 		}
 	}
 	/*
-	 * \param x1 Start x pixel coordinate 
+	 * \param x1 Start x pixel coordinate
 	 * \param y1 Start y pixel coordinate
-	 * \param x2 End x pixel coordinate 
+	 * \param x2 End x pixel coordinate
 	 * \param y2 End y pixel coordinate
 	 * \param Colour of line
 	 *
 	 * \note Uses floating-point numbers as seen in the 2D graphics lecture.
 	 * \note `pushPixel` is used to do large batches of *bounds-checked* pixel drawing, which you may prefer to your application crashing if you go outside the texture area.
 	 */
-	void DrawTask::drawDDALine(int x1, int y1, int x2, int y2,Colour c){
+	void DrawTask::drawDDALine(int x1, int y1, int x2, int y2, Colour c) {
 
 		float  step, x, y;
 
-		float deltax = (float(x2 - x1)); 
+		float deltax = (float(x2 - x1));
 		float deltay = (float(y2 - y1));
-		
+
 		//float dy = deltay / deltax;
 		if (abs(deltax) >= abs(deltay))
 			step = abs(deltax);
@@ -285,22 +276,23 @@ namespace T3D
 			y += deltay;
 		}
 	}
-	void DrawTask::drawBresLine(int x1, int y1, int x2, int y2, Colour c){
+	void DrawTask::drawBresLine(int x1, int y1, int x2, int y2, Colour c) {
 		int  step, x, y, error;
 		bool isXGreater;
 		// Part of Bresenham’s algo
 		int deltay = (y2 - y1);
 		int deltax = (x2 - x1);
-		
+
 		//float dy = deltay / deltax;
 		if (abs(deltax) >= abs(deltay)) {
 			step = abs(deltax);
 			error = deltax / 2;
-		}else{
+		}
+		else {
 			step = abs(deltay);
 			error = deltay / 2;
 		}
-			
+
 
 		deltax = deltax / step;
 		deltay = deltay / step;
@@ -319,12 +311,12 @@ namespace T3D
 	void DrawTask::drawCircle(int cx, int cy, int r, Colour c) {
 		const double PI = 3.141592653589793238463;
 		const double unitCircleCircumference = 2 * PI;
-		float  step, x, y ;
+		float  step, x, y;
 		step = 0.001;
 		for (float theta = 0; theta < unitCircleCircumference; theta += step) {
 			x = cx + r * cos(theta);
 			y = cy + r * sin(theta);
-			
+
 			pushPixel(x, y, c);
 			drawDDALine(cx, cy, x, y, c);
 		}
@@ -343,8 +335,8 @@ namespace T3D
 			drawArea->plotPixel(cx + x, cy - y, c);
 			drawArea->plotPixel(cx - x, cy + y, c);
 			drawArea->plotPixel(cx - x, cy - y, c);
-			drawDDALine(cx, cy,  cx + x, cy + y, c);
-			drawDDALine(cx, cy , cx + x, cy - y, c);
+			drawDDALine(cx, cy, cx + x, cy + y, c);
+			drawDDALine(cx, cy, cx + x, cy - y, c);
 			drawDDALine(cx, cy, cx - x, cy + y, c);
 			drawDDALine(cx, cy, cx - x, cy - y, c);
 			drawDDALine(cx, cy, cx + y, cy + x, c);
@@ -375,20 +367,41 @@ namespace T3D
 
 		for (y = 0; y <= r / sqrt(2); y++) {
 			x = sqrt(r * r - y * y);
-			drawArea->plotPixel(cx + x, cy + y, c); drawArea->plotPixel(cx + y, cy + x, c);
-			drawArea->plotPixel(cx + x, cy - y, c); drawArea->plotPixel(cx - y, cy + x, c);
-			drawArea->plotPixel(cx - x, cy + y, c); drawArea->plotPixel(cx + y, cy - x, c);
-			drawArea->plotPixel(cx - x, cy - y, c); drawArea->plotPixel(cx - y, cy - x, c);
-			
-			drawDDALine(cx, cy, cx + x, cy + y, c);
-			drawDDALine(cx, cy, cx + x, cy - y, c);
-			drawDDALine(cx, cy, cx - x, cy + y, c);
-			drawDDALine(cx, cy, cx - x, cy - y, c);
+			//border circle
+			//upper border circle cy -
+			drawArea->plotPixel(cx - y, cy - x, c);
+			drawArea->plotPixel(cx + x, cy - y, c);
+			drawArea->plotPixel(cx + y, cy - x, c);
+			drawArea->plotPixel(cx - x, cy - y, c);
 
-			drawDDALine(cx, cy, cx + y, cy + x, c);
-			drawDDALine(cx, cy, cx + y, cy - x, c);
-			drawDDALine(cx, cy, cx - y, cy + x, c);
+			//lower border circle  cy +
+			//left cx - 
+			drawArea->plotPixel(cx - x, cy + y, c);
+			drawArea->plotPixel(cx - y, cy + x, c);
+			//right cx +
+			drawArea->plotPixel(cx + y, cy + x, c);
+			drawArea->plotPixel(cx + x, cy + y, c);
+
+
+			//Upper filled circle
+			//0 - 45 degree
+			drawDDALine(cx, cy, cx - x, cy - y, c);
+			//45 - 90 degree
 			drawDDALine(cx, cy, cx - y, cy - x, c);
+			//90 - 135 degree
+			drawDDALine(cx, cy, cx + y, cy - x, c);
+			//135 - 180 degree 
+			drawDDALine(cx, cy, cx + x, cy - y, c);
+
+			//Lower filled circle
+			//0 - 45 degree
+			drawDDALine(cx, cy, cx + x, cy + y, c);
+			//45 - 90 degree
+			drawDDALine(cx, cy, cx + y, cy + x, c);
+			//90 - 135 degree
+			drawDDALine(cx, cy, cx - y, cy + x, c);
+			//135 - 180 degree
+			drawDDALine(cx, cy, cx - x, cy + y, c);
 		}
 	}
 
@@ -405,19 +418,19 @@ namespace T3D
 	void DrawTask::drawPieWedge(int cx, int cy, int r, Colour c) {
 		float  x1, x2;
 		int ySquare;
-		int y2 = r * sin(45 * Math::DEG2RAD);
-		int  rSquare = r*r;
+		int y2 = r * sin(180 * Math::DEG2RAD);
+		int  rSquare = r * r;
 
 		for (int y = 0; y < y2; y++) {
 			ySquare = y * y;
-			x1 = y / tan(150 * Math::DEG2RAD);
+			x1 = y / cos(150 * Math::DEG2RAD);
 			//diagonal distance across the shape
 			x2 = sqrt(rSquare - ySquare);
 
 			//drawDDALine(cx, cy+ y2, cx + x2, cy + y, c);
 
-			drawDDALine(cx + x2, cy , cx + x2 , cy  + y, c);
-			
+			drawDDALine(cx + x2, cy, cx + x2, cy + y, c);
+
 		}
 	}
 
@@ -429,7 +442,7 @@ namespace T3D
 
 		auto t1 = high_resolution_clock::now();
 
-		for (int i= 0; i < 1; i += 1) {
+		for (int i = 0; i < 1; i += 1) {
 			//drawCircle(512, 360, 100, Colour(255, 0, 0, 255));
 			drawMirrorCircle(512, 360, 100, Colour(255, 0, 0, 255));
 			//drawMirrorOctantsCircle(i, i, 100, Colour(255, 0, 0, 255));
@@ -464,6 +477,7 @@ namespace T3D
 		drawMirrorCircle( 100,100,100,Colour(255, 0, 0, 255));
 		drawMirrorOctantsCircle(300, 300, 300, Colour(255, 0, 0, 255));
 		*/
+
 		drawCircleWithPythagoras(100, 100, 100, Colour(255, 0, 0, 255));
 
 		//drawDDALine(100, 100, 200, 100, Colour(255, 0, 0, 255));
@@ -490,7 +504,6 @@ namespace T3D
 		drawDDALine(100, 100, 170, 170, Colour(0, 0, 255, 255));
 		*/
 
-
 		//red north east
 		drawDDALine(100, 100, 170, 30, Colour(255, 0, 0, 255));
 		//blue south east
@@ -500,7 +513,7 @@ namespace T3D
 		//green south west
 		drawDDALine(100, 100, 30, 170, Colour(60, 179, 113, 255));
 
-		
+
 		//red  between north and north east
 		drawDDALine(100, 100, 140, 10, Colour(128, 0, 0, 255));
 		//red  between south and south east
@@ -509,82 +522,78 @@ namespace T3D
 		drawDDALine(100, 100, 55, 10, Colour(128, 0, 0, 255));
 		//red  between south and south west
 		drawDDALine(100, 100, 55, 190, Colour(128, 0, 0, 255));
-		
+
 	};
 
-	void DrawTask::tutorialTwoDrawing(){
-		//points[i] = T2 * M * T1 * points[i];
+	void DrawTask::tutorialTwoDrawing() {
+		if (animeState == ANIMATION_STATE::STOP) {
+			//do nothing
+		} else {
+			if (vectorPoints.empty()) {
+				vectorPoints.push_back(Vector3(xStartPos - 50, yStartPos, 1));
+				vectorPoints.push_back(Vector3(xStartPos - 50, yStartPos + 50, 1));
+				vectorPoints.push_back(Vector3(xStartPos + 50, yStartPos + 50, 1));
+				vectorPoints.push_back(Vector3(xStartPos + 50, yStartPos, 1));
+			}
 
-/*
-//scale
-for (int i = 0; i < 4; i++)
-{
-	points[i] =  M * points[i];
-}
-*/
+			//scale
+			//for (int i = 0; i < vectorPoints.size(); i++)
+			//{
+			//	vectorPoints[i] =  S * vectorPoints[i];
+			//}
 
+			//rotation
+			//for (int i = 0; i < vectorPoints.size(); i++)
+			//{
+			//	vectorPoints[i] = R * vectorPoints[i];
+			//}
 
-//rotation
-
-//for (int i = 0; i < 4; i++)
-//{
-//	points[i] = P * points[i];
-//}
-
-for (int i = 0; i < 4; i++)
-{
-	vectorPoints[i] = P * vectorPoints[i];
-}
-
-
-/*
-* Transformation
-*/
-		//for (int i = 0; i < 4; i++)
-		//{
-			//points[i] = P * points[i];
-		//}
-
-
-		//translation
-		//switch (animeState) {
-		//case ANIMATION_STATE::DEFAULT:
-		//	for (int i = 0; i < 4; i++)
-		//	{
-		//		points[i] =   T2 * points[i];
-		//	}
-		//	break;
-		//case ANIMATION_STATE::FORWARD:
-		//	for (int i = 0; i < 4; i++)
-		//	{
-		//		points[i] = T2 *  points[i];
-		//	}
-		//	break;
-		//case ANIMATION_STATE::BACKWARD:
-		//	for (int i = 0; i < 4; i++)
-		//	{
-		//		points[i] =   T1 * points[i];
-		//	}
-		//	break;
-		//}
-		//
-		//if (points[0].x < xStartPos - 50 || points[0].y < yStartPos) {
-		//	animeState = ANIMATION_STATE::FORWARD;
-		////reset to original position
-		//}else if(points[0].x > 1024 || points[0].y > 512) {
-		//	animeState = ANIMATION_STATE::BACKWARD;
-		//}
+			/*
+			* Transformation
+			* P = T2 * R * T1;
+			*/
+			for (int i = 0; i < vectorPoints.size(); i++)
+			{
+				vectorPoints[i] = P1 * vectorPoints[i];
+			}
 
 
-		//for (int j = 0; j < 4; j++)
-		//{
-		//	drawDDALine(points[j].x, points[j].y, points[(j + 1) % 4].x, points[(j + 1) % 4].y, Colour(60, 179, 113, 255));
-		//}
 
-		for (int j = 0; j < 4; j++)
-		{
-			drawDDALine(vectorPoints[j].x, vectorPoints[j].y, vectorPoints[(j + 1) % 4].x, vectorPoints[(j + 1) % 4].y, Colour(60, 179, 113, 255));
+			//translation
+			//switch (animeState) {
+			//case ANIMATION_STATE::DEFAULT:
+			//	for (int i = 0; i < vectorPoints.size(); i++)
+			//	{
+			//		vectorPoints[i] =   T2 * vectorPoints[i];
+			//	}
+			//	break;
+			//case ANIMATION_STATE::FORWARD:
+			//	for (int i = 0; i < vectorPoints.size(); i++)
+			//	{
+			//		vectorPoints[i] = T2 * vectorPoints[i];
+			//	}
+			//	break;
+			//case ANIMATION_STATE::BACKWARD:
+			//	for (int i = 0; i < 4; i++)
+			//	{
+			//		vectorPoints[i] =   T1 * vectorPoints[i];
+			//	}
+			//	break;
+			//}
+			//if (vectorPoints[0].x < xStartPos - 50 || vectorPoints[0].y < yStartPos) {
+			//	animeState = ANIMATION_STATE::FORWARD;
+			////reset to original position
+			//}else if(vectorPoints[0].x > 1024 || vectorPoints[0].y > 512) {
+			//	animeState = ANIMATION_STATE::BACKWARD;
+			//}
+
+
+			for (int j = 0; j < vectorPoints.size(); j++)
+			{
+				drawDDALine(vectorPoints[j].x, vectorPoints[j].y, vectorPoints[(j + 1) % 4].x, vectorPoints[(j + 1) % 4].y, Colour(60, 179, 113, 255));
+			}
 		}
+
 	}
 	void DrawTask::praticeLabTest() {
 		Vector3 offset = Vector3(100, 100, 1);
@@ -607,42 +616,72 @@ for (int i = 0; i < 4; i++)
 		{
 			drawDDALine(vectorPoints[j].x, vectorPoints[j].y, vectorPoints[(j + 1) % 2].x, vectorPoints[(j + 1) % 2].y, Colour(60, 179, 113, 255));
 		}
-		
+
 		//drawDDALine(0 + offset.x, 0+ offset.y, 100 + offset.x, 0 + offset.y,  Colour(60, 179, 113, 255));
 	}
 
-	void DrawTask::drawArrow1(int x1, int y1, int x2, int y2, int r, int d) {
-		float  x;
+	void DrawTask::drawPencil(int x1, int y1, int x2, int y2, int r, int d) {
+		float  x, y;
 		int ySquare;
 		int y3 = r * cos(45 * Math::DEG2RAD);
 		int  rSquare = r * r;
 
 		if (points.empty()) {
-
+			points.push_back(Vector3(x2 - 100, y2, 1));
 			points.push_back(Vector3(x1, y1, 1));
 			points.push_back(Vector3(x2, y2, 1));
-			points.push_back(Vector3(x2-100, y2, 1));
 		}
+
+		std::vector<Vector3> bodyVector;
+		bodyVector.push_back(Vector3(462, 270, 1));
+		bodyVector.push_back(Vector3(562, 270, 1));
+		bodyVector.push_back(Vector3(562, 100, 1));
+		bodyVector.push_back(Vector3(462, 100, 1));
 
 		for (int j = 0; j < points.size(); j++)
 		{
 			drawDDALine(points[j].x, points[j].y, points[(j + 1) % points.size()].x, points[(j + 1) % points.size()].y, Colour(0, 0, 0, 255));
 		}
 
-		float step = 0.01;
-		//step = 0.1;
-		//step = 1;
-		for (float pointer = 0; pointer < abs(x2 - x2-100); pointer += step) {
-			drawDDALine(x2, y2, x2 - pointer, y2 - d, Colour(0, 0, 0, 255));
-		};
+		for (int k = 0; k < bodyVector.size(); k++)
+		{
+			drawDDALine(bodyVector[k].x, bodyVector[k].y, bodyVector[(k + 1) % bodyVector.size()].x, bodyVector[(k + 1) % bodyVector.size()].y, Colour(0, 0, 0, 255));
+		}
 
+		//the top part - upper half circle
+		Colour c = Colour(255, 0, 0, 255);
+		int cx = 462 + (562 - 462) / 2, cy = 100;
+		r = 50;
 
-		for (int y = 0; y < y3; y++) {
-			ySquare = y * y;
-			x1 = y / tan(45 * Math::DEG2RAD);
-			//diagonal distance across the shape
-			x = sqrt(rSquare - ySquare);
-			drawDDALine(x2, y2, x, y2 - y, Colour(0, 0, 0, 255));
+		for (y = 0; y <= r / sqrt(2); y++) {
+			x = sqrt(r * r - y * y);
+			//border circle
+			//upper border circle cy -
+			drawArea->plotPixel(cx - y, cy - x, c);
+			drawArea->plotPixel(cx + x, cy - y, c);
+			drawArea->plotPixel(cx + y, cy - x, c);
+			drawArea->plotPixel(cx - x, cy - y, c);
+
+			////Upper filled circle
+			////0 - 45 degree
+			//drawDDALine(cx, cy, cx - x, cy - y, c);
+			////45 - 90 degree
+			//drawDDALine(cx, cy, cx - y, cy - x, c);
+			////90 - 135 degree
+			//drawDDALine(cx, cy, cx + y, cy - x, c);
+			////135 - 180 degree 
+			//drawDDALine(cx, cy, cx + x, cy - y, c);
+		}
+		//fill body color
+		int bodyStartX = 462, bodyStartY = 100, bodyEndX = 562, bodyEndY = 100, loopEnd = 270-100;
+		for (int l = 0; l < loopEnd; l++) {
+			drawDDALine(bodyStartX , bodyStartY+l, bodyEndX , bodyEndY+l, Colour(0, 0, 0, 255));
+		}
+
+		//fill the downward triangle with color
+		int abodyStartX = 462, abodyStartY = 270, abodyEndX = 562, abodyEndY = 270, aloopEnd = 512 - 462;
+		for (int m = 0; m < aloopEnd; m++) {
+			drawDDALine(abodyStartX + m, abodyStartY + m, abodyEndX - m, abodyEndY + m, Colour(0, 255, 0, 255));
 		}
 
 	}
@@ -650,7 +689,7 @@ for (int i = 0; i < 4; i++)
 	/*
 	 * Provides a bounds-checked and more efficient way to draw onto a surface then `plotPixel()`.
 	 * Diagnostic messages for out-of-bounds drawing are displayed onto the console, and into `T3D_Log.txt`.
-	 * 
+	 *
 	 * \param x x pixel coordinate to draw onto
 	 * \param y y pixel coordinate to draw onto
 	 * \param Colour pixel colour
@@ -658,7 +697,7 @@ for (int i = 0; i < 4; i++)
 	 */
 	void DrawTask::pushPixel(int x, int y, Colour colour)
 	{
-		pixelPlotQueue.push_back(Pixel { x, y, colour }); 
+		pixelPlotQueue.push_back(Pixel{ x, y, colour });
 	}
 
 	/*
@@ -672,9 +711,9 @@ for (int i = 0; i < 4; i++)
 	{
 		const uint32_t MaxOutOfBoundsCount = 10u;
 		uint32_t OutOfBoundsCount = 0u;
-		for (auto &Pixel : pixelPlotQueue)
+		for (auto& Pixel : pixelPlotQueue)
 		{
-			bool PixelWithinWidth  = (Pixel.x >= 0 && Pixel.x < drawArea->getWidth());
+			bool PixelWithinWidth = (Pixel.x >= 0 && Pixel.x < drawArea->getWidth());
 			bool PixelWithinHeight = (Pixel.y >= 0 && Pixel.y < drawArea->getHeight());
 			bool PixelWithinBounds = (PixelWithinWidth && PixelWithinHeight);
 
@@ -682,23 +721,23 @@ for (int i = 0; i < 4; i++)
 			{
 				drawArea->plotPixel(Pixel.x, Pixel.y, Pixel.colour);
 			}
-			else 
+			else
 			{
 				if (OutOfBoundsCount < MaxOutOfBoundsCount)
 				{
 					logger::Log(priority::Tracing,
-							    output_stream::File,
-							    category::Debug,
-							   "Pixel out of bounds!\n"
-							   "\tWidth  :: [0 <= X <= %4u :: %4d :: %5s]%s\n"
-							   "\tHeight :: [0 <= Y <= %4u :: %4d :: %5s]%s\n"
-							   ,
-							   app->getRenderer()->WindowWidth,
-							   Pixel.x, PixelWithinWidth  ? "OK" : "ERROR",
-							   PixelWithinWidth  ?   ""  : " <<<\n",
-							   app->getRenderer()->WindowHeight,
-							   Pixel.y, PixelWithinHeight ? "OK" : "ERROR",
-							   PixelWithinHeight  ?  ""  : " <<<\n");
+						output_stream::File,
+						category::Debug,
+						"Pixel out of bounds!\n"
+						"\tWidth  :: [0 <= X <= %4u :: %4d :: %5s]%s\n"
+						"\tHeight :: [0 <= Y <= %4u :: %4d :: %5s]%s\n"
+						,
+						app->getRenderer()->WindowWidth,
+						Pixel.x, PixelWithinWidth ? "OK" : "ERROR",
+						PixelWithinWidth ? "" : " <<<\n",
+						app->getRenderer()->WindowHeight,
+						Pixel.y, PixelWithinHeight ? "OK" : "ERROR",
+						PixelWithinHeight ? "" : " <<<\n");
 				}
 				OutOfBoundsCount++;
 			}
@@ -707,11 +746,11 @@ for (int i = 0; i < 4; i++)
 		if (OutOfBoundsCount >= MaxOutOfBoundsCount)
 		{
 			logger::Log(priority::Tracing,
-						output_stream::File,
-						category::Debug,
-					   "... Repeats %u times ...\n"
-					   ,
-					   OutOfBoundsCount - MaxOutOfBoundsCount);
+				output_stream::File,
+				category::Debug,
+				"... Repeats %u times ...\n"
+				,
+				OutOfBoundsCount - MaxOutOfBoundsCount);
 		}
 
 		pixelPlotQueue.clear();
