@@ -150,8 +150,9 @@ namespace T3D
 		//tutorialTwoDrawing();
 		//praticeLabTest();
 		//testCircles();
-		drawPieWedge(xStartPos + 0, yStartPos, 100, Colour(255, 0, 0, 255));
+		//drawPieWedge(xStartPos + 0, yStartPos, 100, Colour(255, 0, 0, 255));
 		//drawPencil(xStartPos, yStartPos, xStartPos +50, yStartPos - 50, 100, 35);
+		drawSpoon();
 		// 
 		//std::vector<Vector3> points;
 		//points.push_back(Vector3(xStartPos + 0, yStartPos + 0, 1));
@@ -414,16 +415,82 @@ namespace T3D
 		}
 	}
 
+	void DrawTask::drawSpoonTop(int ox, int oy, int r, Colour c) {
+		float  x, y;
+		float ySquare;
+		float y3 = r * cos(45 * Math::DEG2RAD);
+		float  rSquare = r * r;
+
+		//the top part - upper half circle
+		//Colour c = Colour(255, 0, 0, 255);
+		int cx = 512, cy = oy-10;
+		r = 30;
+
+		for (y = 0; y <= r / sqrt(2); y++) {
+			x = sqrt(r * r - y * y);
+			//border circle
+			//upper border circle cy -
+			drawArea->plotPixel(cx - x, cy - y, c);
+			drawArea->plotPixel(cx - y, cy - x, c);
+			drawArea->plotPixel(cx + x, cy - y, c);
+			drawArea->plotPixel(cx + y, cy - x, c);
+
+			drawArea->plotPixel(cx - x, cy + y, c);
+			drawArea->plotPixel(cx + x, cy + y, c);
+
+			//////Upper filled circle
+			////0 - 45 degree
+			//drawDDALine(cx, cy, cx - x, cy - y, c);
+			////45 - 90 degree
+			//drawDDALine(cx, cy, cx - y, cy - x, c);
+			////90 - 135 degree
+			//drawDDALine(cx, cy, cx + y, cy - x, c);
+			////135 - 180 degree 
+			//drawDDALine(cx, cy, cx + x, cy - y, c);
+
+			drawDDALine(cx - x, cy - y, cx + x, cy - y, c);
+			drawDDALine(cx - y, cy - x, cx + y, cy - x, c);
+
+			//lower filled circle
+			//drawDDALine(cx, cy, cx - x, cy + y, c);
+			//drawDDALine(cx, cy, cx + x, cy + y, c);
+			//drawDDALine(cx, cy, cx - y, cy + x, c);
+			//drawDDALine(cx, cy, cx + y, cy + x, c);
+
+			drawDDALine(cx - x, cy + y, cx + x, cy + y, c);
+			drawDDALine(cx - y, cy + x, cx + y, cy + x, c);
+		}
+		//float  x1, x2;
+		//int ySquare;
+		//int y2 = r * sin(45 * Math::DEG2RAD);
+		//int  rSquare = r * r;
+
+		//for (int y = 0; y < y2; y++) {
+		//	ySquare = y * y;
+		//	x1 = y / tan(150 * Math::DEG2RAD);
+		//	//diagonal distance across the shape
+		//	x2 = sqrt(rSquare - ySquare);
+
+		//	//drawDDALine(cx, cy+ y2, cx + x2, cy + y, c);
+
+		//	drawDDALine(cx + x2 , cy, cx + x2, cy + y, c);
+		//	drawDDALine(cx + x2, cy, cx + x2, cy - y, c);
+
+		//	drawDDALine(cx - x2, cy, cx - x2, cy - y, c);
+		//	drawDDALine(cx - x2, cy, cx - x2, cy + y, c);
+		//}
+	}
+
 
 	void DrawTask::drawPieWedge(int cx, int cy, int r, Colour c) {
 		float  x1, x2;
 		int ySquare;
-		int y2 = r * sin(180 * Math::DEG2RAD);
+		int y2 = r * sin(45 * Math::DEG2RAD);
 		int  rSquare = r * r;
 
 		for (int y = 0; y < y2; y++) {
 			ySquare = y * y;
-			x1 = y / cos(150 * Math::DEG2RAD);
+			x1 = y / tan(150 * Math::DEG2RAD);
 			//diagonal distance across the shape
 			x2 = sqrt(rSquare - ySquare);
 
@@ -443,8 +510,8 @@ namespace T3D
 		auto t1 = high_resolution_clock::now();
 
 		for (int i = 0; i < 1; i += 1) {
-			//drawCircle(512, 360, 100, Colour(255, 0, 0, 255));
-			drawMirrorCircle(512, 360, 100, Colour(255, 0, 0, 255));
+			drawCircle(512, 360, 100, Colour(255, 0, 0, 255));
+			//drawMirrorCircle(512, 360, 100, Colour(255, 0, 0, 255));
 			//drawMirrorOctantsCircle(i, i, 100, Colour(255, 0, 0, 255));
 			//drawCircleWithPythagoras(512, 360, 100, Colour(255, 0, 0, 255));
 		}
@@ -478,7 +545,7 @@ namespace T3D
 		drawMirrorOctantsCircle(300, 300, 300, Colour(255, 0, 0, 255));
 		*/
 
-		drawCircleWithPythagoras(100, 100, 100, Colour(255, 0, 0, 255));
+		drawCircleWithPythagoras(100, 100, 50, Colour(255, 0, 0, 255));
 
 		//drawDDALine(100, 100, 200, 100, Colour(255, 0, 0, 255));
 		//drawBresLine(100, 100, 100, 0, Colour(255, 0, 0, 255));
@@ -593,8 +660,34 @@ namespace T3D
 				drawDDALine(vectorPoints[j].x, vectorPoints[j].y, vectorPoints[(j + 1) % 4].x, vectorPoints[(j + 1) % 4].y, Colour(60, 179, 113, 255));
 			}
 		}
-
 	}
+	void DrawTask::drawSpoon() {
+		if (animeState == ANIMATION_STATE::STOP) {
+			//do nothing
+		}
+		else {
+			if (spoonPoints.empty()) {
+				spoonPoints.push_back(Vector3(502, 320, 1));
+				spoonPoints.push_back(Vector3(522, 320, 1));
+				spoonPoints.push_back(Vector3(522, 220, 1));
+				spoonPoints.push_back(Vector3(502, 220, 1));
+
+			}
+			for (int i = 0; i < spoonPoints.size(); i++)
+			{
+				drawDDALine(spoonPoints[i].x, spoonPoints[i].y, spoonPoints[(i + 1) % spoonPoints.size()].x, spoonPoints[(i + 1) % spoonPoints.size()].y, Colour(211, 211, 211, 255));
+			}
+
+			//fill body color
+			int bodyStartX = 502, bodyStartY = 220, bodyEndX = 522, bodyEndY = 220, loopEnd = 320 - 220;
+			for (int l = 0; l < loopEnd; l++) {
+				drawDDALine(bodyStartX, bodyStartY + l, bodyEndX, bodyEndY + l, Colour(192, 192, 192, 255));
+			}
+			drawSpoonTop(512, 220, 50, Colour(192, 192, 192, 255));
+
+		}
+	}
+
 	void DrawTask::praticeLabTest() {
 		Vector3 offset = Vector3(100, 100, 1);
 
@@ -626,62 +719,97 @@ namespace T3D
 		int y3 = r * cos(45 * Math::DEG2RAD);
 		int  rSquare = r * r;
 
-		if (points.empty()) {
-			points.push_back(Vector3(x2 - 100, y2, 1));
-			points.push_back(Vector3(x1, y1, 1));
-			points.push_back(Vector3(x2, y2, 1));
+		if (animeState == ANIMATION_STATE::STOP) {
+			//do nothing
 		}
+		else {
 
-		std::vector<Vector3> bodyVector;
-		bodyVector.push_back(Vector3(462, 270, 1));
-		bodyVector.push_back(Vector3(562, 270, 1));
-		bodyVector.push_back(Vector3(562, 100, 1));
-		bodyVector.push_back(Vector3(462, 100, 1));
+			//if (points.empty()) {
+			//	points.push_back(Vector3(x2 - 100, y2, 1));
+			//	points.push_back(Vector3(x1, y1, 1));
+			//	points.push_back(Vector3(x2, y2, 1));
+			//}
 
-		for (int j = 0; j < points.size(); j++)
-		{
-			drawDDALine(points[j].x, points[j].y, points[(j + 1) % points.size()].x, points[(j + 1) % points.size()].y, Colour(0, 0, 0, 255));
-		}
+			
+			if (bodyVector.empty()) {
+				//bodyVector.push_back(Vector3(xStartPos - 50, yStartPos, 1));
+				//bodyVector.push_back(Vector3(xStartPos - 50, yStartPos + 50, 1));
+				//bodyVector.push_back(Vector3(xStartPos + 50, yStartPos + 50, 1));
+				//bodyVector.push_back(Vector3(xStartPos + 50, yStartPos, 1));
+				bodyVector.push_back(Vector3(462, 270, 1));
+				bodyVector.push_back(Vector3(562, 270, 1));
+				bodyVector.push_back(Vector3(562, 100, 1));
+				bodyVector.push_back(Vector3(462, 100, 1));
+			
 
-		for (int k = 0; k < bodyVector.size(); k++)
-		{
-			drawDDALine(bodyVector[k].x, bodyVector[k].y, bodyVector[(k + 1) % bodyVector.size()].x, bodyVector[(k + 1) % bodyVector.size()].y, Colour(0, 0, 0, 255));
-		}
+				for (int k = 0; k < bodyVector.size(); k++)
+				{
+					drawDDALine(bodyVector[k].x, bodyVector[k].y, bodyVector[(k + 1) % bodyVector.size()].x, bodyVector[(k + 1) % bodyVector.size()].y, Colour(0, 0, 0, 255));
+				}
 
-		//the top part - upper half circle
-		Colour c = Colour(255, 0, 0, 255);
-		int cx = 462 + (562 - 462) / 2, cy = 100;
-		r = 50;
+				//the top part - upper half circle
+				Colour c = Colour(255, 0, 0, 255);
+				int cx = 462 + (562 - 462) / 2, cy = 100;
+				r = 50;
 
-		for (y = 0; y <= r / sqrt(2); y++) {
-			x = sqrt(r * r - y * y);
-			//border circle
-			//upper border circle cy -
-			drawArea->plotPixel(cx - y, cy - x, c);
-			drawArea->plotPixel(cx + x, cy - y, c);
-			drawArea->plotPixel(cx + y, cy - x, c);
-			drawArea->plotPixel(cx - x, cy - y, c);
+				for (y = 0; y <= r / sqrt(2); y++) {
+					x = sqrt(r * r - y * y);
+					//border circle
+					//upper border circle cy -
+					//drawArea->plotPixel(cx - y, cy - x, c);
+					//drawArea->plotPixel(cx + x, cy - y, c);
+					//drawArea->plotPixel(cx + y, cy - x, c);
+					//drawArea->plotPixel(cx - x, cy - y, c);
 
-			////Upper filled circle
-			////0 - 45 degree
-			//drawDDALine(cx, cy, cx - x, cy - y, c);
-			////45 - 90 degree
-			//drawDDALine(cx, cy, cx - y, cy - x, c);
-			////90 - 135 degree
-			//drawDDALine(cx, cy, cx + y, cy - x, c);
-			////135 - 180 degree 
-			//drawDDALine(cx, cy, cx + x, cy - y, c);
-		}
-		//fill body color
-		int bodyStartX = 462, bodyStartY = 100, bodyEndX = 562, bodyEndY = 100, loopEnd = 270-100;
-		for (int l = 0; l < loopEnd; l++) {
-			drawDDALine(bodyStartX , bodyStartY+l, bodyEndX , bodyEndY+l, Colour(0, 0, 0, 255));
-		}
+					//bodyVector.push_back(Vector3(cx - y, cy - x, 1));
+					//bodyVector.push_back(Vector3(cx + x, cy - y, 1));
+					//bodyVector.push_back(Vector3(cx + y, cy - x, 1));
+					//bodyVector.push_back(Vector3(cx - x, cy - y, 1));
 
-		//fill the downward triangle with color
-		int abodyStartX = 462, abodyStartY = 270, abodyEndX = 562, abodyEndY = 270, aloopEnd = 512 - 462;
-		for (int m = 0; m < aloopEnd; m++) {
-			drawDDALine(abodyStartX + m, abodyStartY + m, abodyEndX - m, abodyEndY + m, Colour(0, 255, 0, 255));
+					//////Upper filled circle
+					////0 - 45 degree
+					//drawDDALine(cx, cy, cx - x, cy - y, c);
+					////45 - 90 degree
+					//drawDDALine(cx, cy, cx - y, cy - x, c);
+					////90 - 135 degree
+					//drawDDALine(cx, cy, cx + y, cy - x, c);
+					////135 - 180 degree 
+					//drawDDALine(cx, cy, cx + x, cy - y, c);
+
+
+					bodyVector.push_back(Vector3(cx, cy, 1));
+					bodyVector.push_back(Vector3(cx - x, cy - y, 1));
+					bodyVector.push_back(Vector3(cx, cy, 1));
+					bodyVector.push_back(Vector3(cx - y, cy - x, 1));
+					bodyVector.push_back(Vector3(cx, cy, 1));
+					bodyVector.push_back(Vector3(cx + y, cy - x, 1));
+					bodyVector.push_back(Vector3(cx, cy, 1));
+					bodyVector.push_back(Vector3(cx + x, cy - y, 1));
+				}
+				//fill body color
+				int bodyStartX = 462, bodyStartY = 100, bodyEndX = 562, bodyEndY = 100, loopEnd = 270 - 100;
+				for (int l = 0; l < loopEnd; l++) {
+					drawDDALine(bodyStartX, bodyStartY + l, bodyEndX, bodyEndY + l, Colour(0, 0, 0, 255));
+				}
+
+				//fill the downward triangle with color
+				int abodyStartX = 462, abodyStartY = 270, abodyEndX = 562, abodyEndY = 270, aloopEnd = 512 - 462;
+				for (int m = 0; m < aloopEnd; m++) {
+					drawDDALine(abodyStartX + m, abodyStartY + m, abodyEndX - m, abodyEndY + m, Colour(0, 255, 0, 255));
+				}
+
+			}
+			//configure animate params to the drawing components
+			for (int i = 0; i < bodyVector.size(); i++)
+			{
+				bodyVector[i] = P1 * bodyVector[i];
+			}
+			
+			//animate
+			for (int n= 0; n < bodyVector.size(); n++)
+			{
+				drawDDALine(bodyVector[n].x, bodyVector[n].y, bodyVector[(n + 1) % bodyVector.size()].x, bodyVector[(n + 1) % bodyVector.size()].y, Colour(60, 179, 113, 255));
+			}
 		}
 
 	}
