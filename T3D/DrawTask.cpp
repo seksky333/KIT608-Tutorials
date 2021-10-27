@@ -108,11 +108,11 @@ namespace T3D
 
 
 		T1 = Matrix3x3(1, 0, -50,
-			0, 1, -50,
+			0, 1, 0,
 			0, 0, 1);
 
 		T2 = Matrix3x3(1, 0, 50,
-			0, 1, 50,
+			0, 1, 0,
 			0, 0, 1);
 
 
@@ -125,7 +125,7 @@ namespace T3D
 			0, 0, 1);
 
 		P = T2 * R * T1;
-		P1 = T4 * R * T3;
+		P1 = T4 *  R  * T3;
 	}
 
 	/*
@@ -134,13 +134,13 @@ namespace T3D
  * \note Make sure to clear the `drawArea` before you write to it.
  */
 	void DrawTask::update(float dt) {
-		//if (counter > 1000) {
-		//	animeState = ANIMATION_STATE::STOP;
-		//}
-		//else {
-		//	counter++;
-		//	printf("Counter: %d\n", counter);
-		//}
+		if (counter > 350) {
+			animeState = ANIMATION_STATE::STOP;
+		}
+		else {
+			counter++;
+			//printf("Counter: %d\n", counter);
+		}
 
 		//const int xStartPosition = 250;
 		//const int yStartPosition = 250;
@@ -152,6 +152,7 @@ namespace T3D
 		//testCircles();
 		//drawPieWedge(xStartPos + 0, yStartPos, 100, Colour(255, 0, 0, 255));
 		//drawPencil(xStartPos, yStartPos, xStartPos +50, yStartPos - 50, 100, 35);
+		drawSpoonTop();
 		drawSpoon();
 		// 
 		//std::vector<Vector3> points;
@@ -415,51 +416,84 @@ namespace T3D
 		}
 	}
 
-	void DrawTask::drawSpoonTop(int ox, int oy, int r, Colour c) {
-		float  x, y;
-		float ySquare;
-		float y3 = r * cos(45 * Math::DEG2RAD);
-		float  rSquare = r * r;
+	void DrawTask::drawSpoonTop() {
+		Colour c = Colour(192, 192, 192, 255);
+		if (animeState == ANIMATION_STATE::STOP) {
+			float  x, y;
+			int r = 30;
+			float  rSquare = r * r;
+			int cx = 512, cy = 220 - 10;;
+			for (y = 0; y <= r / sqrt(2); y++) {
+				x = sqrt(r * r - y * y);
 
-		//the top part - upper half circle
-		//Colour c = Colour(255, 0, 0, 255);
-		int cx = 512, cy = oy-10;
-		r = 30;
+				//border circle
+				//upper border circle cy -
+				drawArea->plotPixel(cx - x, cy - y, c);
+				drawArea->plotPixel(cx - y, cy - x, c);
+				drawArea->plotPixel(cx + x, cy - y, c);
+				drawArea->plotPixel(cx + y, cy - x, c);
 
-		for (y = 0; y <= r / sqrt(2); y++) {
-			x = sqrt(r * r - y * y);
-			//border circle
-			//upper border circle cy -
-			drawArea->plotPixel(cx - x, cy - y, c);
-			drawArea->plotPixel(cx - y, cy - x, c);
-			drawArea->plotPixel(cx + x, cy - y, c);
-			drawArea->plotPixel(cx + y, cy - x, c);
+				drawArea->plotPixel(cx - x, cy + y, c);
+				drawArea->plotPixel(cx + x, cy + y, c);
 
-			drawArea->plotPixel(cx - x, cy + y, c);
-			drawArea->plotPixel(cx + x, cy + y, c);
+				//Upper filled circle
+				drawDDALine(cx - x, cy - y, cx + x, cy - y, c);
+				drawDDALine(cx - y, cy - x, cx + y, cy - x, c);
 
-			//////Upper filled circle
-			////0 - 45 degree
-			//drawDDALine(cx, cy, cx - x, cy - y, c);
-			////45 - 90 degree
-			//drawDDALine(cx, cy, cx - y, cy - x, c);
-			////90 - 135 degree
-			//drawDDALine(cx, cy, cx + y, cy - x, c);
-			////135 - 180 degree 
-			//drawDDALine(cx, cy, cx + x, cy - y, c);
+				//lower filled circle
+				drawDDALine(cx - x, cy + y, cx + x, cy + y, c);
+				drawDDALine(cx - y, cy + x, cx + y, cy + x, c);
 
-			drawDDALine(cx - x, cy - y, cx + x, cy - y, c);
-			drawDDALine(cx - y, cy - x, cx + y, cy - x, c);
+			}
 
-			//lower filled circle
-			//drawDDALine(cx, cy, cx - x, cy + y, c);
-			//drawDDALine(cx, cy, cx + x, cy + y, c);
-			//drawDDALine(cx, cy, cx - y, cy + x, c);
-			//drawDDALine(cx, cy, cx + y, cy + x, c);
-
-			drawDDALine(cx - x, cy + y, cx + x, cy + y, c);
-			drawDDALine(cx - y, cy + x, cx + y, cy + x, c);
 		}
+		else {
+			float  x, y;
+			int r = 30;
+			float  rSquare = r * r;
+			int cx = 512, cy = 220 - 10;;
+			if (spoonPoints.empty()) {
+				for (y = 0; y <= r / sqrt(2); y++) {
+					x = sqrt(r * r - y * y);
+					//border circle
+					//upper border circle cy -
+					//drawArea->plotPixel(cx - x, cy - y, c);
+					//drawArea->plotPixel(cx - y, cy - x, c);
+					//drawArea->plotPixel(cx + x, cy - y, c);
+					//drawArea->plotPixel(cx + y, cy - x, c);
+
+					//drawArea->plotPixel(cx - x, cy + y, c);
+					//drawArea->plotPixel(cx + x, cy + y, c);
+
+					//Upper filled circle
+					//drawDDALine(cx - x, cy - y, cx + x, cy - y, c);
+					//drawDDALine(cx - y, cy - x, cx + y, cy - x, c);
+					spoonTopPoints.push_back(Vector3(cx - x, cy - y, 1));
+					spoonTopPoints.push_back(Vector3(cx + x, cy - y, 1));
+					spoonTopPoints.push_back(Vector3(cx - y, cy - x, 1));
+					spoonTopPoints.push_back(Vector3(cx + y, cy - x, 1));
+					//lower filled circle
+					//drawDDALine(cx - x, cy + y, cx + x, cy + y, c);
+					//drawDDALine(cx - y, cy + x, cx + y, cy + x, c);
+
+					spoonTopPoints.push_back(Vector3(cx - x, cy + y, 1));
+					spoonTopPoints.push_back(Vector3(cx + x, cy + y, 1));
+					spoonTopPoints.push_back(Vector3(cx - y, cy + x, 1));
+					spoonTopPoints.push_back(Vector3(cx + y, cy + x, 1));
+				}
+			}
+			//configure animate params to the drawing components
+			for (int i = 0; i < spoonTopPoints.size(); i++)
+			{
+				spoonTopPoints[i] = P1 * spoonTopPoints[i];
+			}
+			for (int n = 0; n < spoonTopPoints.size(); n++)
+			{
+				drawDDALine(spoonTopPoints[n].x, spoonTopPoints[n].y, spoonTopPoints[(n + 1) % spoonTopPoints.size()].x, spoonTopPoints[(n + 1) % spoonTopPoints.size()].y, c);
+			}
+		}
+
+
 		//float  x1, x2;
 		//int ySquare;
 		//int y2 = r * sin(45 * Math::DEG2RAD);
@@ -662,8 +696,13 @@ namespace T3D
 		}
 	}
 	void DrawTask::drawSpoon() {
+		Colour c = Colour(192, 192, 192, 255);
 		if (animeState == ANIMATION_STATE::STOP) {
-			//do nothing
+			//fill body color
+			int bodyStartX = 502, bodyStartY = 220, bodyEndX = 522, bodyEndY = 220, loopEnd = 320 - 220;
+			for (int l = 0; l < loopEnd; l++) {
+				drawDDALine(bodyStartX, bodyStartY + l, bodyEndX, bodyEndY + l, c);
+			}
 		}
 		else {
 			if (spoonPoints.empty()) {
@@ -672,19 +711,25 @@ namespace T3D
 				spoonPoints.push_back(Vector3(522, 220, 1));
 				spoonPoints.push_back(Vector3(502, 220, 1));
 
+
+				//fill body color
+				int bodyStartX = 502, bodyStartY = 220, bodyEndX = 522, bodyEndY = 220, loopEnd = 320 - 220;
+				for (int l = 0; l < loopEnd; l++) {
+					//drawDDALine(bodyStartX, bodyStartY + l, bodyEndX, bodyEndY + l, c);
+					spoonPoints.push_back(Vector3(bodyStartX, bodyStartY + l, 1));
+					spoonPoints.push_back(Vector3(bodyEndX, bodyEndY + l, 1));
+				}
 			}
+			//configure animate params to the drawing components
 			for (int i = 0; i < spoonPoints.size(); i++)
 			{
-				drawDDALine(spoonPoints[i].x, spoonPoints[i].y, spoonPoints[(i + 1) % spoonPoints.size()].x, spoonPoints[(i + 1) % spoonPoints.size()].y, Colour(211, 211, 211, 255));
+				spoonPoints[i] = P1 * spoonPoints[i];
 			}
 
-			//fill body color
-			int bodyStartX = 502, bodyStartY = 220, bodyEndX = 522, bodyEndY = 220, loopEnd = 320 - 220;
-			for (int l = 0; l < loopEnd; l++) {
-				drawDDALine(bodyStartX, bodyStartY + l, bodyEndX, bodyEndY + l, Colour(192, 192, 192, 255));
+			for (int n = 0; n < spoonPoints.size(); n++)
+			{
+				drawDDALine(spoonPoints[n].x, spoonPoints[n].y, spoonPoints[(n + 1) % spoonPoints.size()].x, spoonPoints[(n + 1) % spoonPoints.size()].y, c);
 			}
-			drawSpoonTop(512, 220, 50, Colour(192, 192, 192, 255));
-
 		}
 	}
 

@@ -61,7 +61,7 @@ namespace T3D
 		void praticeLabTest();
 		void drawLabTest();
 		void drawSpoon();
-		void drawSpoonTop(int cx, int cy, int r, Colour c);
+		void drawSpoonTop();
 		void testCircles();
 		void testFilledShape();
 		void drawTriangles(std::vector<Vector3> points);
@@ -95,6 +95,7 @@ namespace T3D
 		std::vector<Vector3> points;
 		std::vector<Vector3> bodyVector;
 		std::vector<Vector3> spoonPoints;
+		std::vector<Vector3> spoonTopPoints;
 		Matrix3x3 M, R, T1, T2, P, P1, T3, T4, T5, T6, S;
 		
 	};

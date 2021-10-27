@@ -22,6 +22,7 @@
 #include "WineGlass.h"
 #include "TableWithGlass.h"
 #include "Robot.h"
+#include "Plate.h"
 #include "House.h"
 #include "BrokenRobot.h"
 #include "RobotHand.h"
@@ -85,12 +86,19 @@ namespace T3D
         //Material* houseMat = renderer->createMaterial(Renderer::PR_OPAQUE);
         //houseMat->setTexture(houseTex);
 
-        GameObject* house = new GameObject(this);
-        house->setMesh(new House(1));
-        house->setMaterial(green);
-        house->getTransform()->setLocalPosition(Vector3(-10, 0, 0));
-        house->getTransform()->setParent(root);
-        house->getTransform()->name = "House";
+        //GameObject* house = new GameObject(this);
+        //house->setMesh(new House(1));
+        //house->setMaterial(green);
+        //house->getTransform()->setLocalPosition(Vector3(-10, 0, 0));
+        //house->getTransform()->setParent(root);
+        //house->getTransform()->name = "House";
+
+        GameObject* plate = new GameObject(this);
+        plate->setMesh(new Plate(1, .05, 24));
+        plate->setMaterial(green);
+        plate->getTransform()->setLocalPosition(Vector3(0, 0, 0));
+        plate->getTransform()->setParent(root);
+        plate->getTransform()->name = "plate";
 
 
 
