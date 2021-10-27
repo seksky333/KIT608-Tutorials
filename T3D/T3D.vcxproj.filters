@@ -315,6 +315,15 @@
     <ClCompile Include="Plate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SpoonBody.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Spoon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CompositePlate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mesh.h">
@@ -573,6 +582,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Plate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpoonBody.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Spoon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CompositePlate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

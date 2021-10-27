@@ -22,7 +22,8 @@
 #include "WineGlass.h"
 #include "TableWithGlass.h"
 #include "Robot.h"
-#include "Plate.h"
+#include "CompositePlate.h"
+#include "Spoon.h"
 #include "House.h"
 #include "BrokenRobot.h"
 #include "RobotHand.h"
@@ -81,27 +82,36 @@ namespace T3D
         camObj->addComponent(new KeyboardController());
         camObj->getTransform()->setLocalRotation(Quaternion(Vector3(Math::PI / 100, Math::PI / 2, 0)));
 
-        //Texture* houseTex = new Texture("Resources/house_texture_v2.png", true, true);
-        //renderer->loadTexture(houseTex);
-        //Material* houseMat = renderer->createMaterial(Renderer::PR_OPAQUE);
-        //houseMat->setTexture(houseTex);
+        Texture* plateTex = new Texture("Resources/plate_texture.png", true, true);
+        renderer->loadTexture(plateTex);
+        Material* plateMat = renderer->createMaterial(Renderer::PR_OPAQUE);
+        plateMat->setTexture(plateTex);
 
-        //GameObject* house = new GameObject(this);
-        //house->setMesh(new House(1));
-        //house->setMaterial(green);
-        //house->getTransform()->setLocalPosition(Vector3(-10, 0, 0));
-        //house->getTransform()->setParent(root);
-        //house->getTransform()->name = "House";
+        GameObject* house = new GameObject(this);
+        house->setMesh(new House(1));
+        house->setMaterial(green);
+        house->getTransform()->setLocalPosition(Vector3(-10, 0, 0));
+        house->getTransform()->setParent(root);
+        house->getTransform()->name = "House";
 
-        GameObject* plate = new GameObject(this);
-        plate->setMesh(new Plate(1, .05, 24));
-        plate->setMaterial(green);
-        plate->getTransform()->setLocalPosition(Vector3(0, 0, 0));
-        plate->getTransform()->setParent(root);
-        plate->getTransform()->name = "plate";
+        CompositePlate* compositePlate = new CompositePlate(this);
+        compositePlate->setMaterial(grey);
+        compositePlate->getTransform()->setLocalPosition(Vector3(0, 0, 1));
+        compositePlate->getTransform()->setParent(root);
+        compositePlate->getTransform()->name = "Composite Plate";
+        compositePlate->plate->setMaterial(plateMat);
+        
 
+        Spoon* spoon = new Spoon(this);
+        spoon->setMaterial(grey);
+        spoon->getTransform()->setLocalPosition(Vector3(0, 0, -1));
+        spoon->getTransform()->setParent(root);
+        spoon->spoonBody->setMaterial(grey);
+        spoon->spoonHead->setMaterial(grey);
+        spoon->rightLeg->setMaterial(green);
+        spoon->leftLeg->setMaterial(green);
 
-
+        //spoon->headJoint->getTransform()->setLocalRotation(Quaternion(Vector3(Math::PI /2, Math::PI / 3, 0)));
 
         return true;
     }
