@@ -5,9 +5,12 @@ namespace T3D
 {
 	Plate::Plate(float ra, float ha, int da)
 	{
-		int d = 24;
-		float h = 0.005;
-		float r = .5;
+		//int d = 24;
+		//float h = 0.005;
+		//float r = .5;
+		int d = da;
+		float h = ha;
+		float r = ra;
 		//inner radius
 		float r1 = r * 0.8;
 		// Init vertex and index arrays
@@ -78,7 +81,8 @@ namespace T3D
 			//36 = 71
 			//24 = 47
 			//12 = 23
-			if (d + i == 47) {
+			int lastRound = d*2 -1;
+			if (d + i == lastRound) {
 				setQuadFace(d + i,   // 12
 					sideTopStart + i, // 35
 					innerTopStart + i, // 61

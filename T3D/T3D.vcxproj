@@ -19,6 +19,7 @@
     <ClCompile Include="BrokenRobot.cpp" />
     <ClCompile Include="CameraTask.cpp" />
     <ClCompile Include="CompositePlate.cpp" />
+    <ClCompile Include="CompositePlateTask.cpp" />
     <ClCompile Include="Exam2d.cpp" />
     <ClCompile Include="Exam3d.cpp" />
     <ClCompile Include="Plate.cpp" />
@@ -26,6 +27,7 @@
     <ClCompile Include="Robot1Task.cpp" />
     <ClCompile Include="Robot2Task.cpp" />
     <ClCompile Include="Spoon.cpp" />
+    <ClCompile Include="SpoonTask.cpp" />
     <ClCompile Include="Task1and5.cpp" />
     <ClCompile Include="Billboard.cpp" />
     <ClCompile Include="Bone.cpp" />
@@ -108,6 +110,7 @@
     <ClInclude Include="BrokenRobot.h" />
     <ClInclude Include="CameraTask.h" />
     <ClInclude Include="CompositePlate.h" />
+    <ClInclude Include="CompositePlateTask.h" />
     <ClInclude Include="Exam2d.h" />
     <ClInclude Include="Exam3d.h" />
     <ClInclude Include="Plate.h" />
@@ -115,6 +118,7 @@
     <ClInclude Include="Robot1Task.h" />
     <ClInclude Include="Robot2Task.h" />
     <ClInclude Include="Spoon.h" />
+    <ClInclude Include="SpoonTask.h" />
     <ClInclude Include="Task1and5.h" />
     <ClInclude Include="Billboard.h" />
     <ClInclude Include="Bone.h" />

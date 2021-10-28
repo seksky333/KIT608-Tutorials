@@ -15,7 +15,7 @@ namespace T3D{
 
 	SoundTestTask::SoundTestTask(T3DApplication *app) : Task(app)
 	{
-		music = app->soundManager->createMusic("Resources/rainy_lenny.mp3");
+		music = app->soundManager->createMusic("Resources/hey_diddle.mp3");
 		sound = app->soundManager->createSound("Resources/beep.wav");
 	}
 
